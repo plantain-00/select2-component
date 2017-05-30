@@ -1,0 +1,9 @@
+.vscode
+.github
+tslint.json
+.travis.yml
+tsconfig.json
+webpack.config.js
+src
+rev-static.config.js
+spec
