@@ -3,7 +3,7 @@
         style="width: 100%;">
         <span class="selection">
             <span class="select2-selection select2-selection--single" role="combobox">
-                <span class="select2-selection__rendered" title="Alaska">Alaska</span>
+                <span class="select2-selection__rendered" :title="optionLabel">{{optionLabel}}</span>
                 <span class="select2-selection__arrow" role="presentation">
                     <b role="presentation"></b>
                 </span>
@@ -27,7 +27,8 @@
                                 role="treeitem"
                                 :aria-selected="option.value === value ? 'true' : 'false'"
                                 @mouseenter="mouseenter(option.value)"
-                                @mouseleave="mouseleave()">
+                                @mouseleave="mouseleave()"
+                                @click="click(option)">
                                 {{option.label}}
                             </li>
                         </ul>

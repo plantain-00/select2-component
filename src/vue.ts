@@ -12,6 +12,18 @@ class Select2 extends Vue {
     value: string;
 
     hoveringValue: string | null = null;
+    optionLabel = "";
+
+    beforeMount() {
+        for (const group of this.data) {
+            for (const option of group.options) {
+                if (option.value === this.value) {
+                    this.optionLabel = option.label;
+                    return;
+                }
+            }
+        }
+    }
 
     getOptionStyle(value: string) {
         return value === this.hoveringValue
@@ -23,6 +35,11 @@ class Select2 extends Vue {
     }
     mouseleave() {
         this.hoveringValue = null;
+    }
+    click(option: common.Select2Option) {
+        this.value = option.value;
+        this.optionLabel = option.label;
+        this.$emit("select", option.value);
     }
 }
 

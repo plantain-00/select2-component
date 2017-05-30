@@ -1,4 +1,9 @@
 export type Select2Data = {
     groupLabel: string;
-    options: { value: string; label: string }[];
+    options: Select2Option[];
+};
+
+export type Select2Option = {
+    value: string;
+    label: string;
 };
