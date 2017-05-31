@@ -9,3 +9,5 @@ export type Select2Option = {
 };
 
 export type Select2Data = (Select2Group | Select2Option)[];
+
+export const timeout = 200;

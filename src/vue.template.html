@@ -1,7 +1,8 @@
 <p>
     <span class="select2 select2-container select2-container--default select2-container--below select2-container--focus"
         style="width: 100%;">
-        <span class="selection" @click="toggleOpenAndClose()">
+        <span class="selection"
+            @click="toggleOpenAndClose()">
             <span class="select2-selection select2-selection--single" role="combobox">
                 <span class="select2-selection__rendered" :title="optionLabel">{{optionLabel}}</span>
                 <span class="select2-selection__arrow" role="presentation">
@@ -9,12 +10,13 @@
                 </span>
             </span>
         </span>
-        <span class="dropdown-wrapper"></span>
         <span :class="dropdownStyle"
+            @focusout="focusout()"
             style="position: absolute;">
-            <span class="select2-dropdown select2-dropdown--below" style="width: 816px;">
+            <span class="select2-dropdown select2-dropdown--below"
+                style="width: 816px;">
                 <span class="select2-search select2-search--dropdown">
-                    <input class="select2-search__field" type="search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox">
+                    <input ref="searchInput" class="select2-search__field" type="search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox">
                 </span>
                 <span class="select2-results">
                     <ul class="select2-results__options" role="tree">

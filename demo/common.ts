@@ -130,3 +130,9 @@ export const data2: common.Select2Data = [
     { value: "VA", label: "Virginia" },
     { value: "WV", label: "West Virginia" },
 ];
+
+export const data3: common.Select2Data = [
+    { value: "foo", label: "foo" },
+    { value: "bar", label: "bar" },
+    { value: "baz", label: "baz" },
+];

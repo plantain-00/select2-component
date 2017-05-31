@@ -14,6 +14,7 @@ class Select2 extends Vue {
     hoveringValue: string | null = null;
     optionLabel = "";
     isOpen = false;
+    focusoutTimer?: NodeJS.Timer;
 
     get dropdownStyle() {
         return this.isOpen
@@ -55,9 +56,29 @@ class Select2 extends Vue {
         this.optionLabel = option.label;
         this.$emit("select", option.value);
         this.isOpen = false;
+        if (this.focusoutTimer) {
+            clearTimeout(this.focusoutTimer);
+        }
     }
     toggleOpenAndClose() {
         this.isOpen = !this.isOpen;
+        if (this.isOpen) {
+            Vue.nextTick(() => {
+                const searchInput = this.$refs.searchInput as HTMLElement;
+                if (searchInput) {
+                    searchInput.focus();
+                }
+            });
+        }
+        if (this.focusoutTimer) {
+            clearTimeout(this.focusoutTimer);
+        }
+    }
+    focusout() {
+        this.focusoutTimer = setTimeout(() => {
+            this.isOpen = false;
+            this.focusoutTimer = undefined;
+        }, common.timeout);
     }
 }
 
