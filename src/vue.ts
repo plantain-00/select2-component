@@ -13,6 +13,13 @@ class Select2 extends Vue {
 
     hoveringValue: string | null = null;
     optionLabel = "";
+    isOpen = false;
+
+    get dropdownStyle() {
+        return this.isOpen
+            ? "select2-container select2-container--default select2-container--open"
+            : "select2-container select2-container--default";
+    }
 
     beforeMount() {
         for (const group of this.data) {
@@ -40,6 +47,10 @@ class Select2 extends Vue {
         this.value = option.value;
         this.optionLabel = option.label;
         this.$emit("select", option.value);
+        this.isOpen = false;
+    }
+    toggleOpenAndClose() {
+        this.isOpen = !this.isOpen;
     }
 }
 
