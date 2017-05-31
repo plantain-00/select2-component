@@ -75,7 +75,7 @@ the source code of the demo: https://github.com/plantain-00/select2-component/tr
 
 name | type | description
 --- | --- | ---
-data | [Select2Data](#select2-data-structure)[] | the data of the select2
+data | [Select2Data](#select2-data-structure) | the data of the select2
 
 #### select2 data structure
 

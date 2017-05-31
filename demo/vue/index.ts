@@ -1,17 +1,23 @@
 import * as Vue from "vue";
 import Component from "vue-class-component";
 import "../../dist/vue";
-import { data } from "../common";
+import { data1, data2 } from "../common";
 
 @Component({
     template: `
-    <select2 :data="data"
-        value="AK">
-    </select2>
+    <div>
+        <select2 :data="data1"
+            value="AK">
+        </select2>
+        <select2 :data="data2"
+            value="AK">
+        </select2>
+    </div>
     `,
 })
 class App extends Vue {
-    data = data;
+    data1 = data1;
+    data2 = data2;
 }
 
 /* tslint:disable:no-unused-expression */

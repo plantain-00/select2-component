@@ -9,7 +9,7 @@
                 </span>
             </span>
         </span>
-        <span class="dropdown-wrapper" aria-hidden="true"></span>
+        <span class="dropdown-wrapper"></span>
         <span :class="dropdownStyle"
             style="position: absolute;">
             <span class="select2-dropdown select2-dropdown--below" style="width: 816px;">
@@ -17,21 +17,34 @@
                     <input class="select2-search__field" type="search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox">
                 </span>
                 <span class="select2-results">
-                    <ul class="select2-results__options" role="tree" aria-expanded="true" aria-hidden="false">
-                        <li v-for="group in data" class="select2-results__option" role="group" aria-label="Alaskan/Hawaiian Time Zone">
-                            <strong class="select2-results__group">{{group.groupLabel}}</strong>
-                            <ul class="select2-results__options select2-results__options--nested">
-                                <li v-for="option in group.options"
-                                    :class="getOptionStyle(option.value)"
-                                    role="treeitem"
-                                    :aria-selected="option.value === value ? 'true' : 'false'"
-                                    @mouseenter="mouseenter(option.value)"
-                                    @mouseleave="mouseleave()"
-                                    @click="click(option)">
-                                    {{option.label}}
-                                </li>
-                            </ul>
-                        </li>
+                    <ul class="select2-results__options" role="tree">
+                        <template v-for="groupOrOption in data">
+                            <li v-if="groupOrOption.options"
+                                class="select2-results__option"
+                                role="group">
+                                <strong class="select2-results__group">{{groupOrOption.label}}</strong>
+                                <ul class="select2-results__options select2-results__options--nested">
+                                    <li v-for="option in groupOrOption.options"
+                                        :class="getOptionStyle(option.value)"
+                                        role="treeitem"
+                                        :aria-selected="option.value === value ? 'true' : 'false'"
+                                        @mouseenter="mouseenter(option.value)"
+                                        @mouseleave="mouseleave()"
+                                        @click="click(option)">
+                                        {{option.label}}
+                                    </li>
+                                </ul>
+                            </li>
+                            <li v-else
+                                :class="getOptionStyle(groupOrOption.value)"
+                                role="treeitem"
+                                :aria-selected="groupOrOption.value === value ? 'true' : 'false'"
+                                @mouseenter="mouseenter(groupOrOption.value)"
+                                @mouseleave="mouseleave()"
+                                @click="click(groupOrOption)">
+                                {{groupOrOption.label}}
+                            </li>
+                        </template>
                     </ul>
                 </span>
             </span>

@@ -8,7 +8,7 @@ import { srcVueTemplateHtml } from "./vue-variables";
     props: ["data", "value"],
 })
 class Select2 extends Vue {
-    data: common.Select2Data[];
+    data: common.Select2Data;
     value: string;
 
     hoveringValue: string | null = null;
@@ -22,10 +22,17 @@ class Select2 extends Vue {
     }
 
     beforeMount() {
-        for (const group of this.data) {
-            for (const option of group.options) {
-                if (option.value === this.value) {
-                    this.optionLabel = option.label;
+        for (const groupOrOption of this.data) {
+            if ((groupOrOption as common.Select2Group).options) {
+                for (const option of (groupOrOption as common.Select2Group).options) {
+                    if (option.value === this.value) {
+                        this.optionLabel = option.label;
+                        return;
+                    }
+                }
+            } else {
+                if ((groupOrOption as common.Select2Option).value === this.value) {
+                    this.optionLabel = groupOrOption.label;
                     return;
                 }
             }

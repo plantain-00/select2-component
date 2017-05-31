@@ -1,15 +1,15 @@
 import * as common from "../dist/common";
 
-export const data: common.Select2Data[] = [
+export const data1: common.Select2Data = [
     {
-        groupLabel: "Alaskan/Hawaiian Time Zone",
+        label: "Alaskan/Hawaiian Time Zone",
         options: [
             { value: "AK", label: "Alaska" },
             { value: "HI", label: "Hawaii" },
         ],
     },
     {
-        groupLabel: "Pacific Time Zone",
+        label: "Pacific Time Zone",
         options: [
             { value: "CA", label: "California" },
             { value: "NV", label: "Nevada" },
@@ -18,7 +18,7 @@ export const data: common.Select2Data[] = [
         ],
     },
     {
-        groupLabel: "Mountain Time Zone",
+        label: "Mountain Time Zone",
         options: [
             { value: "AZ", label: "Arizona" },
             { value: "CO", label: "Colorado" },
@@ -32,7 +32,7 @@ export const data: common.Select2Data[] = [
         ],
     },
     {
-        groupLabel: "Central Time Zone",
+        label: "Central Time Zone",
         options: [
             { value: "AL", label: "Alabama" },
             { value: "AR", label: "Arkansas" },
@@ -52,7 +52,7 @@ export const data: common.Select2Data[] = [
         ],
     },
     {
-        groupLabel: "Eastern Time Zone",
+        label: "Eastern Time Zone",
         options: [
             { value: "CT", label: "Connecticut" },
             { value: "DE", label: "Delaware" },
@@ -76,4 +76,57 @@ export const data: common.Select2Data[] = [
             { value: "WV", label: "West Virginia" },
         ],
     },
+];
+
+export const data2: common.Select2Data = [
+    { value: "AK", label: "Alaska" },
+    { value: "HI", label: "Hawaii" },
+    { value: "CA", label: "California" },
+    { value: "NV", label: "Nevada" },
+    { value: "OR", label: "Oregon" },
+    { value: "WA", label: "Washington" },
+    { value: "AZ", label: "Arizona" },
+    { value: "CO", label: "Colorado" },
+    { value: "ID", label: "Idaho" },
+    { value: "MT", label: "Montana" },
+    { value: "NE", label: "Nebraska" },
+    { value: "NM", label: "New Mexico" },
+    { value: "ND", label: "North Dakota" },
+    { value: "UT", label: "Utah" },
+    { value: "WY", label: "Wyoming" },
+    { value: "AL", label: "Alabama" },
+    { value: "AR", label: "Arkansas" },
+    { value: "IL", label: "Illinois" },
+    { value: "IA", label: "Iowa" },
+    { value: "KS", label: "Kansas" },
+    { value: "KY", label: "Kentucky" },
+    { value: "LA", label: "Louisiana" },
+    { value: "MN", label: "Minnesota" },
+    { value: "MS", label: "Mississippi" },
+    { value: "MO", label: "Missouri" },
+    { value: "OK", label: "Oklahoma" },
+    { value: "SD", label: "South Dakota" },
+    { value: "TX", label: "Texas" },
+    { value: "TN", label: "Tennessee" },
+    { value: "WI", label: "Wisconsin" },
+    { value: "CT", label: "Connecticut" },
+    { value: "DE", label: "Delaware" },
+    { value: "FL", label: "Florida" },
+    { value: "GA", label: "Georgia" },
+    { value: "IN", label: "Indiana" },
+    { value: "ME", label: "Maine" },
+    { value: "MD", label: "Maryland" },
+    { value: "MA", label: "Massachusetts" },
+    { value: "MI", label: "Michigan" },
+    { value: "NH", label: "New Hampshire" },
+    { value: "NJ", label: "New Jersey" },
+    { value: "NY", label: "New York" },
+    { value: "NC", label: "North Carolina" },
+    { value: "OH", label: "Ohio" },
+    { value: "PA", label: "Pennsylvania" },
+    { value: "RI", label: "Rhode Island" },
+    { value: "SC", label: "South Carolina" },
+    { value: "VT", label: "Vermont" },
+    { value: "VA", label: "Virginia" },
+    { value: "WV", label: "West Virginia" },
 ];
