@@ -13,11 +13,11 @@
         style="position: absolute;">
         <span class="select2-dropdown select2-dropdown--below">
             <span class="select2-search select2-search--dropdown">
-                <input ref="searchInput" class="select2-search__field" type="search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox">
+                <input ref="searchInput" v-model="searchText" class="select2-search__field" type="search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox">
             </span>
             <span class="select2-results">
                 <ul class="select2-results__options" role="tree">
-                    <template v-for="groupOrOption in data">
+                    <template v-for="groupOrOption in filteredData">
                         <li v-if="groupOrOption.options"
                             class="select2-results__option"
                             role="group">
