@@ -95,12 +95,18 @@ class Select2 extends Vue {
                 if (searchInput) {
                     searchInput.focus();
                 }
+
+                const results = this.$refs.results as HTMLElement;
+                if (results) {
+                    results.scrollTop = common.getScrollUp(this.data, this.value);
+                }
             });
         }
         if (this.focusoutTimer) {
             clearTimeout(this.focusoutTimer);
         }
     }
+
     focusout() {
         this.focusoutTimer = setTimeout(() => {
             this.isOpen = false;

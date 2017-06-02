@@ -31,8 +31,8 @@ class App extends Vue {
     data2 = data2;
     data3 = data3;
 
-    value1 = "AK";
-    value2 = "AK";
+    value1 = "CA";
+    value2 = "CA";
     value3 = "foo";
 
     select1(value: string) {

@@ -1,22 +1,22 @@
 <div class="select2 select2-container select2-container--default select2-container--below select2-container--focus">
     <div class="selection"
         @click="toggleOpenAndClose()">
-        <span class="select2-selection select2-selection--single" role="combobox">
+        <div class="select2-selection select2-selection--single" role="combobox">
             <span class="select2-selection__rendered" :title="optionLabel">{{optionLabel}}</span>
             <span class="select2-selection__arrow" role="presentation">
                 <b role="presentation"></b>
             </span>
-        </span>
+        </div>
     </div>
     <div :class="dropdownStyle"
         @focusout="focusout()"
         style="position: absolute;">
-        <span class="select2-dropdown select2-dropdown--below">
-            <span class="select2-search select2-search--dropdown">
+        <div class="select2-dropdown select2-dropdown--below">
+            <div class="select2-search select2-search--dropdown">
                 <input ref="searchInput" v-model="searchText" class="select2-search__field" type="search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox">
-            </span>
-            <span class="select2-results">
-                <ul class="select2-results__options" role="tree">
+            </div>
+            <div class="select2-results">
+                <ul ref="results" class="select2-results__options" role="tree">
                     <template v-for="groupOrOption in filteredData">
                         <li v-if="groupOrOption.options"
                             class="select2-results__option"
@@ -45,7 +45,7 @@
                         </li>
                     </template>
                 </ul>
-            </span>
-        </span>
+            </div>
+        </div>
     </div>
 </div>

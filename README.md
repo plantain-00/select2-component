@@ -92,4 +92,7 @@ type Select2Data = {
 + reactjs component
 + angular component
 + commonjs module
-+ custom component
++ select one
++ options or groups
++ scroll
++ local search
