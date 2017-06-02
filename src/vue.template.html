@@ -13,7 +13,18 @@
         style="position: absolute;">
         <div class="select2-dropdown select2-dropdown--below">
             <div class="select2-search select2-search--dropdown">
-                <input ref="searchInput" v-model="searchText" class="select2-search__field" type="search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox">
+                <input ref="searchInput"
+                    v-model="searchText"
+                    @keyup.down="moveDown()"
+                    @keyup.up="moveUp()"
+                    @keyup.enter="selectByEnter()"
+                    class="select2-search__field"
+                    type="search"
+                    autocomplete="off"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    spellcheck="false"
+                    role="textbox">
             </div>
             <div class="select2-results">
                 <ul ref="results" class="select2-results__options" role="tree">
@@ -28,7 +39,6 @@
                                     role="treeitem"
                                     :aria-selected="option.value === value ? 'true' : 'false'"
                                     @mouseenter="mouseenter(option.value)"
-                                    @mouseleave="mouseleave()"
                                     @click="click(option)">
                                     {{option.label}}
                                 </li>
@@ -39,7 +49,6 @@
                             role="treeitem"
                             :aria-selected="groupOrOption.value === value ? 'true' : 'false'"
                             @mouseenter="mouseenter(groupOrOption.value)"
-                            @mouseleave="mouseleave()"
                             @click="click(groupOrOption)">
                             {{groupOrOption.label}}
                         </li>

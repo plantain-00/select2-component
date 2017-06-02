@@ -26,7 +26,9 @@ import "select2-component/dist/vue";
 ```
 
 ```html
-<select2 :data="data">
+<select2 :data="data"
+    :value="value"
+    @select="select(arguments[0])">
 </select2>
 ```
 
@@ -76,6 +78,8 @@ the source code of the demo: https://github.com/plantain-00/select2-component/tr
 name | type | description
 --- | --- | ---
 data | [Select2Data](#select2-data-structure) | the data of the select2
+value | string | initial value
+select | (value: string) => void | triggered when user select an option
 
 #### select2 data structure
 
@@ -96,3 +100,4 @@ type Select2Data = {
 + options or groups
 + scroll
 + local search
++ select by keyboard

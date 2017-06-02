@@ -16,6 +16,7 @@ class Select2 extends Vue {
     isOpen = false;
     focusoutTimer?: NodeJS.Timer;
     searchText = "";
+    lastScrollTopIndex = 0;
 
     get dropdownStyle() {
         return this.isOpen
@@ -24,63 +25,40 @@ class Select2 extends Vue {
     }
 
     get filteredData() {
-        if (this.searchText) {
-            const result: common.Select2Data = [];
-            for (const groupOrOption of this.data) {
-                if ((groupOrOption as common.Select2Group).options) {
-                    if ((groupOrOption as common.Select2Group).options.some(group => this.containSearchText(group.label))) {
-                        const options = (groupOrOption as common.Select2Group).options.filter(group => this.containSearchText(group.label));
-                        result.push({
-                            label: groupOrOption.label,
-                            options,
-                        });
-                    }
-                } else if (this.containSearchText(groupOrOption.label)) {
-                    result.push(groupOrOption);
+        const result = common.getFilteredData(this.data, this.searchText);
+
+        if (common.valueIsNotInFilteredData(result, this.hoveringValue)) {
+            this.hoveringValue = common.getFirstOption(result);
+
+            const results = this.$refs.results as HTMLElement;
+            if (results) {
+                const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, results, result, this.lastScrollTopIndex);
+                if (lastScrollTopIndex !== null) {
+                    this.lastScrollTopIndex = lastScrollTopIndex;
                 }
             }
-            return result;
-        } else {
-            return this.data;
         }
+        return result;
     }
 
     beforeMount() {
-        for (const groupOrOption of this.data) {
-            if ((groupOrOption as common.Select2Group).options) {
-                for (const option of (groupOrOption as common.Select2Group).options) {
-                    if (option.value === this.value) {
-                        this.optionLabel = option.label;
-                        return;
-                    }
-                }
-            } else {
-                if ((groupOrOption as common.Select2Option).value === this.value) {
-                    this.optionLabel = groupOrOption.label;
-                    return;
-                }
-            }
+        const label = common.getLabelByValue(this.data, this.value);
+        if (label !== null) {
+            this.optionLabel = label;
         }
+        this.hoveringValue = this.value;
     }
 
-    containSearchText(label: string) {
-        return this.searchText ? label.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1 : true;
-    }
     getOptionStyle(value: string) {
-        return value === this.hoveringValue
-            ? "select2-results__option select2-results__option--highlighted"
-            : "select2-results__option";
+        return common.getOptionStyle(value, this.hoveringValue);
     }
     mouseenter(value: string) {
         this.hoveringValue = value;
     }
-    mouseleave() {
-        this.hoveringValue = null;
-    }
     click(option: common.Select2Option) {
         this.value = option.value;
         this.optionLabel = option.label;
-        this.$emit("select", option.value);
+        this.$emit("select", this.value);
         this.isOpen = false;
         if (this.focusoutTimer) {
             clearTimeout(this.focusoutTimer);
@@ -98,7 +76,10 @@ class Select2 extends Vue {
 
                 const results = this.$refs.results as HTMLElement;
                 if (results) {
-                    results.scrollTop = common.getScrollUp(this.data, this.value);
+                    const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, results, this.data, this.lastScrollTopIndex);
+                    if (lastScrollTopIndex !== null) {
+                        this.lastScrollTopIndex = lastScrollTopIndex;
+                    }
                 }
             });
         }
@@ -106,12 +87,46 @@ class Select2 extends Vue {
             clearTimeout(this.focusoutTimer);
         }
     }
-
     focusout() {
         this.focusoutTimer = setTimeout(() => {
             this.isOpen = false;
             this.focusoutTimer = undefined;
         }, common.timeout);
+    }
+    moveUp() {
+        this.hoveringValue = common.getPreviousOption(this.filteredData, this.hoveringValue);
+
+        const results = this.$refs.results as HTMLElement;
+        if (results) {
+            const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, results, this.filteredData, this.lastScrollTopIndex);
+            if (lastScrollTopIndex !== null) {
+                this.lastScrollTopIndex = lastScrollTopIndex;
+            }
+        }
+    }
+    moveDown() {
+        this.hoveringValue = common.getNextOption(this.filteredData, this.hoveringValue);
+
+        const results = this.$refs.results as HTMLElement;
+        if (results) {
+            const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, results, this.filteredData, this.lastScrollTopIndex);
+            if (lastScrollTopIndex !== null) {
+                this.lastScrollTopIndex = lastScrollTopIndex;
+            }
+        }
+    }
+    selectByEnter() {
+        if (this.hoveringValue) {
+            this.value = this.hoveringValue;
+            this.$emit("select", this.value);
+
+            const label = common.getLabelByValue(this.data, this.value);
+            if (label !== null) {
+                this.optionLabel = label;
+            }
+
+            this.isOpen = false;
+        }
     }
 }
 

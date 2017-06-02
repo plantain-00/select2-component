@@ -5,7 +5,7 @@ import { data1, data2, data3 } from "../common";
 
 @Component({
     template: `
-    <div>
+    <div style="width: 500px;">
         <select2 :data="data1"
             :value="value1"
             @select="select1(arguments[0])">
