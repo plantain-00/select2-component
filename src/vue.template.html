@@ -1,55 +1,51 @@
-<p>
-    <span class="select2 select2-container select2-container--default select2-container--below select2-container--focus"
-        style="width: 100%;">
-        <span class="selection"
-            @click="toggleOpenAndClose()">
-            <span class="select2-selection select2-selection--single" role="combobox">
-                <span class="select2-selection__rendered" :title="optionLabel">{{optionLabel}}</span>
-                <span class="select2-selection__arrow" role="presentation">
-                    <b role="presentation"></b>
-                </span>
+<div class="select2 select2-container select2-container--default select2-container--below select2-container--focus">
+    <div class="selection"
+        @click="toggleOpenAndClose()">
+        <span class="select2-selection select2-selection--single" role="combobox">
+            <span class="select2-selection__rendered" :title="optionLabel">{{optionLabel}}</span>
+            <span class="select2-selection__arrow" role="presentation">
+                <b role="presentation"></b>
             </span>
         </span>
-        <span :class="dropdownStyle"
-            @focusout="focusout()"
-            style="position: absolute;">
-            <span class="select2-dropdown select2-dropdown--below"
-                style="width: 816px;">
-                <span class="select2-search select2-search--dropdown">
-                    <input ref="searchInput" class="select2-search__field" type="search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox">
-                </span>
-                <span class="select2-results">
-                    <ul class="select2-results__options" role="tree">
-                        <template v-for="groupOrOption in data">
-                            <li v-if="groupOrOption.options"
-                                class="select2-results__option"
-                                role="group">
-                                <strong class="select2-results__group">{{groupOrOption.label}}</strong>
-                                <ul class="select2-results__options select2-results__options--nested">
-                                    <li v-for="option in groupOrOption.options"
-                                        :class="getOptionStyle(option.value)"
-                                        role="treeitem"
-                                        :aria-selected="option.value === value ? 'true' : 'false'"
-                                        @mouseenter="mouseenter(option.value)"
-                                        @mouseleave="mouseleave()"
-                                        @click="click(option)">
-                                        {{option.label}}
-                                    </li>
-                                </ul>
-                            </li>
-                            <li v-else
-                                :class="getOptionStyle(groupOrOption.value)"
-                                role="treeitem"
-                                :aria-selected="groupOrOption.value === value ? 'true' : 'false'"
-                                @mouseenter="mouseenter(groupOrOption.value)"
-                                @mouseleave="mouseleave()"
-                                @click="click(groupOrOption)">
-                                {{groupOrOption.label}}
-                            </li>
-                        </template>
-                    </ul>
-                </span>
+    </div>
+    <div :class="dropdownStyle"
+        @focusout="focusout()"
+        style="position: absolute;">
+        <span class="select2-dropdown select2-dropdown--below">
+            <span class="select2-search select2-search--dropdown">
+                <input ref="searchInput" class="select2-search__field" type="search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" role="textbox">
+            </span>
+            <span class="select2-results">
+                <ul class="select2-results__options" role="tree">
+                    <template v-for="groupOrOption in data">
+                        <li v-if="groupOrOption.options"
+                            class="select2-results__option"
+                            role="group">
+                            <strong class="select2-results__group">{{groupOrOption.label}}</strong>
+                            <ul class="select2-results__options select2-results__options--nested">
+                                <li v-for="option in groupOrOption.options"
+                                    :class="getOptionStyle(option.value)"
+                                    role="treeitem"
+                                    :aria-selected="option.value === value ? 'true' : 'false'"
+                                    @mouseenter="mouseenter(option.value)"
+                                    @mouseleave="mouseleave()"
+                                    @click="click(option)">
+                                    {{option.label}}
+                                </li>
+                            </ul>
+                        </li>
+                        <li v-else
+                            :class="getOptionStyle(groupOrOption.value)"
+                            role="treeitem"
+                            :aria-selected="groupOrOption.value === value ? 'true' : 'false'"
+                            @mouseenter="mouseenter(groupOrOption.value)"
+                            @mouseleave="mouseleave()"
+                            @click="click(groupOrOption)">
+                            {{groupOrOption.label}}
+                        </li>
+                    </template>
+                </ul>
             </span>
         </span>
-    </span>
-</p>
+    </div>
+</div>
