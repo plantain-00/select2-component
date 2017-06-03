@@ -4,6 +4,7 @@ const path = require("path");
 module.exports = {
     entry: {
         vue: "./demo/vue/index",
+        react: "./demo/react/index",
     },
     output: {
         path: __dirname,

@@ -9,21 +9,14 @@
         </div>
     </div>
     <div :class="dropdownStyle"
-        @focusout="focusout()"
-        style="position: absolute;">
+        @blur="focusout()">
         <div class="select2-dropdown select2-dropdown--below">
             <div class="select2-search select2-search--dropdown">
                 <input ref="searchInput"
                     v-model="searchText"
-                    @keyup.down="moveDown()"
-                    @keyup.up="moveUp()"
-                    @keyup.enter="selectByEnter()"
+                    @keyup="keyUp($event)"
                     class="select2-search__field"
                     type="search"
-                    autocomplete="off"
-                    autocorrect="off"
-                    autocapitalize="off"
-                    spellcheck="false"
                     role="textbox">
             </div>
             <div class="select2-results">

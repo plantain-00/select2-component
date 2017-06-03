@@ -188,3 +188,9 @@ export function getOptionStyle(value: string, hoveringValue: string | null) {
         ? "select2-results__option select2-results__option--highlighted"
         : "select2-results__option";
 }
+
+export function getDropdownStyle(isOpen: boolean) {
+    return isOpen
+        ? "select2-container select2-container--default select2-container-dropdown select2-container--open"
+        : "select2-container select2-container--default select2-container-dropdown";
+}

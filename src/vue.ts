@@ -18,10 +18,11 @@ class Select2 extends Vue {
     searchText = "";
     lastScrollTopIndex = 0;
 
+    searchInput: HTMLElement;
+    results: HTMLElement;
+
     get dropdownStyle() {
-        return this.isOpen
-            ? "select2-container select2-container--default select2-container--open"
-            : "select2-container select2-container--default";
+        return common.getDropdownStyle(this.isOpen);
     }
 
     get filteredData() {
@@ -30,9 +31,8 @@ class Select2 extends Vue {
         if (common.valueIsNotInFilteredData(result, this.hoveringValue)) {
             this.hoveringValue = common.getFirstOption(result);
 
-            const results = this.$refs.results as HTMLElement;
-            if (results) {
-                const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, results, result, this.lastScrollTopIndex);
+            if (this.results) {
+                const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.results, result, this.lastScrollTopIndex);
                 if (lastScrollTopIndex !== null) {
                     this.lastScrollTopIndex = lastScrollTopIndex;
                 }
@@ -49,6 +49,11 @@ class Select2 extends Vue {
         this.hoveringValue = this.value;
     }
 
+    mounted() {
+        this.searchInput = this.$refs.searchInput as HTMLElement;
+        this.results = this.$refs.results as HTMLElement;
+    }
+
     getOptionStyle(value: string) {
         return common.getOptionStyle(value, this.hoveringValue);
     }
@@ -58,7 +63,7 @@ class Select2 extends Vue {
     click(option: common.Select2Option) {
         this.value = option.value;
         this.optionLabel = option.label;
-        this.$emit("select", this.value);
+        this.$emit("select", option.value);
         this.isOpen = false;
         if (this.focusoutTimer) {
             clearTimeout(this.focusoutTimer);
@@ -69,14 +74,12 @@ class Select2 extends Vue {
         if (this.isOpen) {
             this.searchText = "";
             Vue.nextTick(() => {
-                const searchInput = this.$refs.searchInput as HTMLElement;
-                if (searchInput) {
-                    searchInput.focus();
+                if (this.searchInput) {
+                    this.searchInput.focus();
                 }
 
-                const results = this.$refs.results as HTMLElement;
-                if (results) {
-                    const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, results, this.data, this.lastScrollTopIndex);
+                if (this.results) {
+                    const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.results, this.data, this.lastScrollTopIndex);
                     if (lastScrollTopIndex !== null) {
                         this.lastScrollTopIndex = lastScrollTopIndex;
                     }
@@ -96,9 +99,8 @@ class Select2 extends Vue {
     moveUp() {
         this.hoveringValue = common.getPreviousOption(this.filteredData, this.hoveringValue);
 
-        const results = this.$refs.results as HTMLElement;
-        if (results) {
-            const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, results, this.filteredData, this.lastScrollTopIndex);
+        if (this.results) {
+            const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.results, this.filteredData, this.lastScrollTopIndex);
             if (lastScrollTopIndex !== null) {
                 this.lastScrollTopIndex = lastScrollTopIndex;
             }
@@ -107,9 +109,8 @@ class Select2 extends Vue {
     moveDown() {
         this.hoveringValue = common.getNextOption(this.filteredData, this.hoveringValue);
 
-        const results = this.$refs.results as HTMLElement;
-        if (results) {
-            const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, results, this.filteredData, this.lastScrollTopIndex);
+        if (this.results) {
+            const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.results, this.filteredData, this.lastScrollTopIndex);
             if (lastScrollTopIndex !== null) {
                 this.lastScrollTopIndex = lastScrollTopIndex;
             }
@@ -118,7 +119,7 @@ class Select2 extends Vue {
     selectByEnter() {
         if (this.hoveringValue) {
             this.value = this.hoveringValue;
-            this.$emit("select", this.value);
+            this.$emit("select", this.hoveringValue);
 
             const label = common.getLabelByValue(this.data, this.value);
             if (label !== null) {
@@ -126,6 +127,16 @@ class Select2 extends Vue {
             }
 
             this.isOpen = false;
+        }
+    }
+
+    keyUp(e: KeyboardEvent) {
+        if (e.keyCode === 40) {
+            this.moveDown();
+        } else if (e.keyCode === 38) {
+            this.moveUp();
+        } else if (e.keyCode === 13) {
+            this.selectByEnter();
         }
     }
 }
