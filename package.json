@@ -12,7 +12,7 @@
     "stylelint": "stylelint \"src/**/*.less\"",
     "cleancss": "cleancss -o dist/select2.min.css dist/select2.css",
     "clean": "rimraf dist && rimraf demo/*.bundle-*.js",
-    "file2variable": "file2variable-cli src/vue.template.html -o src/vue-variables.ts --html-minify",
+    "file2variable": "file2variable-cli src/vue.template.html -o src/vue-variables.ts --html-minify && file2variable-cli src/angular.template.html -o src/angular-variables.ts --html-minify",
     "build": "npm run clean && npm run file2variable && npm run tsc && npm run lessc && npm run cleancss && npm run webpack && npm run rev-static",
     "lint": "npm run tslint && npm run stylelint"
   },

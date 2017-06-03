@@ -1,37 +1,70 @@
-// import "core-js/es6";
-// import "core-js/es7/reflect";
-// import "zone.js/dist/zone";
+import "core-js/es6";
+import "core-js/es7/reflect";
+import "zone.js/dist/zone";
 
-// import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
-// import { enableProdMode } from "@angular/core";
+import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
+import { enableProdMode } from "@angular/core";
 
-// enableProdMode();
+enableProdMode();
 
-// import { Component } from "@angular/core";
+import { Component } from "@angular/core";
 
-// import * as common from "../../dist/common";
+import { data1, data2, data3 } from "../common";
 
-// @Component({
-//     selector: "app",
-//     template: `
-//     <select2 [data]="data">
-//     </select2>
-//     `,
-// })
-// export class MainComponent {
-//     data: common.Select2Data;
-// }
+@Component({
+    selector: "app",
+    template: `
+    <div style="width: 500px;">
+        <select2 [data]="data1"
+            [value]="value1"
+            (select)="select1($event)">
+        </select2>
+        selected value: {{value1}}
+        <hr/>
+        <select2 [data]="data2"
+            [value]="value2"
+            (select)="select2($event)">
+        </select2>
+        selected value: {{value2}}
+        <hr/>
+        <select2 [data]="data3"
+            [value]="value3"
+            (select)="select3($event)">
+        </select2>
+        selected value: {{value3}}
+    </div>
+    `,
+})
+export class MainComponent {
+    data1 = data1;
+    data2 = data2;
+    data3 = data3;
 
-// import { NgModule } from "@angular/core";
-// import { BrowserModule } from "@angular/platform-browser";
-// import { FormsModule } from "@angular/forms";
-// import { Select2Component } from "../../dist/angular";
+    value1 = "CA";
+    value2 = "CA";
+    value3 = "foo";
 
-// @NgModule({
-//     imports: [BrowserModule, FormsModule],
-//     declarations: [MainComponent, Select2Component],
-//     bootstrap: [MainComponent],
-// })
-// class MainModule { }
+    select1(value: string) {
+        this.value1 = value;
+    }
+    select2(value: string) {
+        this.value2 = value;
+    }
+    select3(value: string) {
+        this.value3 = value;
+    }
+}
 
-// platformBrowserDynamic().bootstrapModule(MainModule);
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+import { FormsModule } from "@angular/forms";
+import { Select2Component } from "../../dist/angular";
+
+@NgModule({
+    imports: [BrowserModule, FormsModule],
+    declarations: [MainComponent, Select2Component],
+    bootstrap: [MainComponent],
+})
+class MainModule { }
+
+platformBrowserDynamic().bootstrapModule(MainModule);

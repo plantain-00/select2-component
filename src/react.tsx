@@ -16,8 +16,8 @@ export class Select2 extends React.PureComponent<{
     searchText = "";
     lastScrollTopIndex = 0;
 
-    searchInput: HTMLElement;
-    results: HTMLElement;
+    searchInputElement: HTMLElement;
+    resultsElement: HTMLElement;
 
     get dropdownStyle() {
         return common.getDropdownStyle(this.isOpen);
@@ -30,8 +30,8 @@ export class Select2 extends React.PureComponent<{
             this.hoveringValue = common.getFirstOption(result);
             this.setState({ hoveringValue: this.hoveringValue });
 
-            if (this.results) {
-                const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.results, result, this.lastScrollTopIndex);
+            if (this.resultsElement) {
+                const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.resultsElement, result, this.lastScrollTopIndex);
                 if (lastScrollTopIndex !== null) {
                     this.lastScrollTopIndex = lastScrollTopIndex;
                     this.setState({ lastScrollTopIndex: this.lastScrollTopIndex });
@@ -53,8 +53,8 @@ export class Select2 extends React.PureComponent<{
     }
 
     componentDidMount() {
-        this.searchInput = ReactDOM.findDOMNode(this).childNodes[1].childNodes[0].childNodes[0].childNodes[0] as HTMLElement;
-        this.results = ReactDOM.findDOMNode(this).childNodes[1].childNodes[0].childNodes[1].childNodes[0] as HTMLElement;
+        this.searchInputElement = ReactDOM.findDOMNode(this).childNodes[1].childNodes[0].childNodes[0].childNodes[0] as HTMLElement;
+        this.resultsElement = ReactDOM.findDOMNode(this).childNodes[1].childNodes[0].childNodes[1].childNodes[0] as HTMLElement;
     }
 
     getOptionStyle(value: string) {
@@ -84,12 +84,12 @@ export class Select2 extends React.PureComponent<{
         if (this.isOpen) {
             this.searchText = "";
             this.setState({ searchText: this.searchText }, () => {
-                if (this.searchInput) {
-                    this.searchInput.focus();
+                if (this.searchInputElement) {
+                    this.searchInputElement.focus();
                 }
 
-                if (this.results) {
-                    const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.results, this.props.data, this.lastScrollTopIndex);
+                if (this.resultsElement) {
+                    const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.resultsElement, this.props.data, this.lastScrollTopIndex);
                     if (lastScrollTopIndex !== null) {
                         this.lastScrollTopIndex = lastScrollTopIndex;
                     }
@@ -111,8 +111,8 @@ export class Select2 extends React.PureComponent<{
         this.hoveringValue = common.getPreviousOption(this.filteredData, this.hoveringValue);
         this.setState({ hoveringValue: this.hoveringValue });
 
-        if (this.results) {
-            const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.results, this.filteredData, this.lastScrollTopIndex);
+        if (this.resultsElement) {
+            const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.resultsElement, this.filteredData, this.lastScrollTopIndex);
             if (lastScrollTopIndex !== null) {
                 this.lastScrollTopIndex = lastScrollTopIndex;
                 this.setState({ lastScrollTopIndex: this.lastScrollTopIndex });
@@ -123,8 +123,8 @@ export class Select2 extends React.PureComponent<{
         this.hoveringValue = common.getNextOption(this.filteredData, this.hoveringValue);
         this.setState({ hoveringValue: this.hoveringValue });
 
-        if (this.results) {
-            const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.results, this.filteredData, this.lastScrollTopIndex);
+        if (this.resultsElement) {
+            const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.resultsElement, this.filteredData, this.lastScrollTopIndex);
             if (lastScrollTopIndex !== null) {
                 this.lastScrollTopIndex = lastScrollTopIndex;
                 this.setState({ lastScrollTopIndex: this.lastScrollTopIndex });

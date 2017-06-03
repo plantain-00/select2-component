@@ -43,7 +43,9 @@ import { Select2 } from "select2-component/dist/react";
 ```
 
 ```jsx
-<Select2 data={this.data}>
+<Select2 data={this.data}
+    value={this.value}
+    select={value => this.select(value)}>
 </Select2>
 ```
 
@@ -65,7 +67,9 @@ class MainModule { }
 ```
 
 ```html
-<select2 [data]="data">
+<select2 [data]="data"
+    [value]="value"
+    (select)="select($event)">
 </select2>
 ```
 
@@ -84,9 +88,16 @@ select | (value: string) => void | triggered when user select an option
 #### select2 data structure
 
 ```ts
-type Select2Data = {
-    component: string | Function; // the item component, for vuejs, it is the component name, for reactjs, it is the class object
-    data: any; // the data will be passed to the component as `data` props
+type Select2Data = (Select2Group | Select2Option)[];
+
+type Select2Group = {
+    label: string;
+    options: Select2Option[];
+};
+
+type Select2Option = {
+    value: string;
+    label: string;
 };
 ```
 
