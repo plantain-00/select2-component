@@ -28,7 +28,7 @@ import "select2-component/dist/vue";
 ```html
 <select2 :data="data"
     :value="value"
-    @select="select(arguments[0])">
+    @update="update(arguments[0])">
 </select2>
 ```
 
@@ -45,7 +45,7 @@ import { Select2 } from "select2-component/dist/react";
 ```jsx
 <Select2 data={this.data}
     value={this.value}
-    select={value => this.select(value)}>
+    update={value => this.update(value)}>
 </Select2>
 ```
 
@@ -69,7 +69,7 @@ class MainModule { }
 ```html
 <select2 [data]="data"
     [value]="value"
-    (select)="select($event)">
+    (update)="update($event)">
 </select2>
 ```
 
@@ -83,7 +83,7 @@ name | type | description
 --- | --- | ---
 data | [Select2Data](#select2-data-structure) | the data of the select2
 value | string | initial value
-select | (value: string) => void | triggered when user select an option
+update | (value: string) => void | triggered when user select an option
 
 #### select2 data structure
 
@@ -98,6 +98,7 @@ type Select2Group = {
 type Select2Option = {
     value: string;
     label: string;
+    disabled?: boolean;
 };
 ```
 
@@ -112,3 +113,20 @@ type Select2Option = {
 + scroll
 + local search
 + select by keyboard
++ disabled option
+
+#### change log
+
+```js
+// v2
+<select2 [data]="data"
+    [value]="value"
+    (update)="update($event)">
+</select2>
+
+// v1
+<select2 [data]="data"
+    [value]="value"
+    (select)="select($event)">
+</select2>
+```

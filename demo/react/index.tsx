@@ -12,15 +12,15 @@ class Main extends React.Component<{}, {}> {
     value2 = "CA";
     value3 = "foo";
 
-    select1(value: string) {
+    update1(value: string) {
         this.value1 = value;
         this.setState({ value1: this.value1 });
     }
-    select2(value: string) {
+    update2(value: string) {
         this.value2 = value;
         this.setState({ value2: this.value2 });
     }
-    select3(value: string) {
+    update3(value: string) {
         this.value3 = value;
         this.setState({ value3: this.value3 });
     }
@@ -30,19 +30,19 @@ class Main extends React.Component<{}, {}> {
             <div style={{ width: "500px" }}>
                 <Select2 data={this.data1}
                     value={this.value1}
-                    select={value => this.select1(value)}>
+                    update={value => this.update1(value)}>
                 </Select2>
                 selected value: {this.value1}
                 <hr />
                 <Select2 data={this.data2}
                     value={this.value2}
-                    select={value => this.select2(value)}>
+                    update={value => this.update2(value)}>
                 </Select2>
                 selected value: {this.value2}
                 <hr />
                 <Select2 data={this.data3}
                     value={this.value3}
-                    select={value => this.select3(value)}>
+                    update={value => this.update3(value)}>
                 </Select2>
                 selected value: {this.value3}
             </div>

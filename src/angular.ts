@@ -12,7 +12,7 @@ export class Select2Component {
     @Input()
     value: string;
     @Output()
-    select = new EventEmitter();
+    update = new EventEmitter();
 
     hoveringValue: string | null = null;
     optionLabel = "";
@@ -65,14 +65,18 @@ export class Select2Component {
     getOptionStyle(value: string) {
         return common.getOptionStyle(value, this.hoveringValue);
     }
-    mouseenter(value: string) {
-        this.hoveringValue = value;
+    mouseenter(option: common.Select2Option) {
+        if (!option.disabled) {
+            this.hoveringValue = option.value;
+        }
     }
     click(option: common.Select2Option) {
-        this.value = option.value;
-        this.optionLabel = option.label;
-        this.select.emit(option.value);
-        this.isOpen = false;
+        if (!option.disabled) {
+            this.value = option.value;
+            this.optionLabel = option.label;
+            this.update.emit(option.value);
+            this.isOpen = false;
+        }
         if (this.focusoutTimer) {
             clearTimeout(this.focusoutTimer);
         }
@@ -125,7 +129,7 @@ export class Select2Component {
     selectByEnter() {
         if (this.hoveringValue) {
             this.value = this.hoveringValue;
-            this.select.emit(this.hoveringValue);
+            this.update.emit(this.hoveringValue);
 
             const label = common.getLabelByValue(this.data, this.value);
             if (label !== null) {

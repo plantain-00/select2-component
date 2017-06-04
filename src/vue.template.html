@@ -9,7 +9,7 @@
         </div>
     </div>
     <div :class="dropdownStyle"
-        @blur="focusout()">
+        @focusout="focusout()">
         <div class="select2-dropdown select2-dropdown--below">
             <div class="select2-search select2-search--dropdown">
                 <input ref="searchInput"
@@ -31,7 +31,8 @@
                                     :class="getOptionStyle(option.value)"
                                     role="treeitem"
                                     :aria-selected="option.value === value ? 'true' : 'false'"
-                                    @mouseenter="mouseenter(option.value)"
+                                    :aria-disabled="option.disabled ? 'true' : 'false'"
+                                    @mouseenter="mouseenter(option)"
                                     @click="click(option)">
                                     {{option.label}}
                                 </li>
@@ -41,7 +42,8 @@
                             :class="getOptionStyle(groupOrOption.value)"
                             role="treeitem"
                             :aria-selected="groupOrOption.value === value ? 'true' : 'false'"
-                            @mouseenter="mouseenter(groupOrOption.value)"
+                            :aria-disabled="groupOrOption.disabled ? 'true' : 'false'"
+                            @mouseenter="mouseenter(groupOrOption)"
                             @click="click(groupOrOption)">
                             {{groupOrOption.label}}
                         </li>

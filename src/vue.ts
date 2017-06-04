@@ -57,14 +57,18 @@ class Select2 extends Vue {
     getOptionStyle(value: string) {
         return common.getOptionStyle(value, this.hoveringValue);
     }
-    mouseenter(value: string) {
-        this.hoveringValue = value;
+    mouseenter(option: common.Select2Option) {
+        if (!option.disabled) {
+            this.hoveringValue = option.value;
+        }
     }
     click(option: common.Select2Option) {
-        this.value = option.value;
-        this.optionLabel = option.label;
-        this.$emit("select", option.value);
-        this.isOpen = false;
+        if (!option.disabled) {
+            this.value = option.value;
+            this.optionLabel = option.label;
+            this.$emit("update", option.value);
+            this.isOpen = false;
+        }
         if (this.focusoutTimer) {
             clearTimeout(this.focusoutTimer);
         }
@@ -119,7 +123,7 @@ class Select2 extends Vue {
     selectByEnter() {
         if (this.hoveringValue) {
             this.value = this.hoveringValue;
-            this.$emit("select", this.hoveringValue);
+            this.$emit("update", this.hoveringValue);
 
             const label = common.getLabelByValue(this.data, this.value);
             if (label !== null) {

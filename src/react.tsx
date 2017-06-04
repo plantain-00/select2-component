@@ -5,7 +5,7 @@ import * as common from "./common";
 export class Select2 extends React.PureComponent<{
     data: common.Select2Data;
     value: string;
-    select: (value: string) => void;
+    update: (value: string) => void;
 }, {}> {
     value: string;
 
@@ -60,20 +60,24 @@ export class Select2 extends React.PureComponent<{
     getOptionStyle(value: string) {
         return common.getOptionStyle(value, this.hoveringValue);
     }
-    mouseenter(value: string) {
-        this.hoveringValue = value;
-        this.setState({ hoveringValue: this.hoveringValue });
+    mouseenter(option: common.Select2Option) {
+        if (!option.disabled) {
+            this.hoveringValue = option.value;
+            this.setState({ hoveringValue: this.hoveringValue });
+        }
     }
     click(option: common.Select2Option) {
-        this.value = option.value;
-        this.optionLabel = option.label;
-        this.props.select(option.value);
-        this.isOpen = false;
-        this.setState({
-            value: this.value,
-            optionLabel: this.optionLabel,
-            isOpen: this.isOpen,
-        });
+        if (!option.disabled) {
+            this.value = option.value;
+            this.optionLabel = option.label;
+            this.props.update(option.value);
+            this.isOpen = false;
+            this.setState({
+                value: this.value,
+                optionLabel: this.optionLabel,
+                isOpen: this.isOpen,
+            });
+        }
         if (this.focusoutTimer) {
             clearTimeout(this.focusoutTimer);
         }
@@ -135,7 +139,7 @@ export class Select2 extends React.PureComponent<{
         if (this.hoveringValue) {
             this.value = this.hoveringValue;
             this.setState({ value: this.value });
-            this.props.select(this.hoveringValue);
+            this.props.update(this.hoveringValue);
 
             const label = common.getLabelByValue(this.props.data, this.value);
             if (label !== null) {
@@ -172,7 +176,8 @@ export class Select2 extends React.PureComponent<{
                         <li className={this.getOptionStyle(option.value)}
                             role="treeitem"
                             aria-selected={option.value === this.value ? "true" : "false"}
-                            onMouseEnter={() => this.mouseenter(option.value)}
+                            aria-disabled={option.disabled ? "true" : "false"}
+                            onMouseEnter={() => this.mouseenter(option)}
                             onClick={() => this.click(option)}>
                             {option.label}
                         </li>
@@ -192,7 +197,8 @@ export class Select2 extends React.PureComponent<{
                     <li className={this.getOptionStyle(option.value)}
                         role="treeitem"
                         aria-selected={option.value === this.value ? "true" : "false"}
-                        onMouseEnter={() => this.mouseenter(option.value)}
+                        aria-disabled={option.disabled ? "true" : "false"}
+                        onMouseEnter={() => this.mouseenter(option)}
                         onClick={() => this.click(option)}>
                         {groupOrOption.label}
                     </li>

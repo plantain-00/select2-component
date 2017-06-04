@@ -5,7 +5,7 @@ export const data1: common.Select2Data = [
         label: "Alaskan/Hawaiian Time Zone",
         options: [
             { value: "AK", label: "Alaska" },
-            { value: "HI", label: "Hawaii" },
+            { value: "HI", label: "Hawaii", disabled: true },
         ],
     },
     {
@@ -80,7 +80,7 @@ export const data1: common.Select2Data = [
 
 export const data2: common.Select2Data = [
     { value: "AK", label: "Alaska" },
-    { value: "HI", label: "Hawaii" },
+    { value: "HI", label: "Hawaii", disabled: true },
     { value: "CA", label: "California" },
     { value: "NV", label: "Nevada" },
     { value: "OR", label: "Oregon" },

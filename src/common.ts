@@ -6,6 +6,7 @@ export type Select2Group = {
 export type Select2Option = {
     value: string;
     label: string;
+    disabled?: boolean;
 };
 
 export type Select2Data = (Select2Group | Select2Option)[];
@@ -100,14 +101,18 @@ export function getPreviousOption(filteredData: Select2Data, hoveringValue: stri
             for (let j = options.length - 1; j >= 0; j--) {
                 const option = options[j];
                 if (findIt) {
-                    return option.value;
+                    if (!option.disabled) {
+                        return option.value;
+                    }
                 }
                 findIt = option.value === hoveringValue;
             }
         } else {
             const option = groupOrOption as Select2Option;
             if (findIt) {
-                return option.value;
+                if (!option.disabled) {
+                    return option.value;
+                }
             }
             findIt = option.value === hoveringValue;
         }
@@ -121,16 +126,22 @@ export function getNextOption(filteredData: Select2Data, hoveringValue: string |
         if (options) {
             for (const option of options) {
                 if (findIt) {
-                    return option.value;
+                    if (!option.disabled) {
+                        return option.value;
+                    }
+                } else {
+                    findIt = option.value === hoveringValue;
                 }
-                findIt = option.value === hoveringValue;
             }
         } else {
             const option = groupOrOption as Select2Option;
             if (findIt) {
-                return option.value;
+                if (!option.disabled) {
+                    return option.value;
+                }
+            } else {
+                findIt = option.value === hoveringValue;
             }
-            findIt = option.value === hoveringValue;
         }
     }
     return findIt ? hoveringValue : null;
