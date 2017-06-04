@@ -32,6 +32,12 @@ import { data1, data2, data3 } from "../common";
             (update)="update3($event)">
         </select2>
         selected value: {{value3}}
+        <hr/>
+        <select2 [data]="data4"
+            [value]="value4"
+            [disabled]="true">
+        </select2>
+        selected value: {{value4}}
     </div>
     `,
 })
@@ -39,10 +45,12 @@ export class MainComponent {
     data1 = data1;
     data2 = data2;
     data3 = data3;
+    data4 = JSON.parse(JSON.stringify(data3));
 
     value1 = "CA";
     value2 = "CA";
     value3 = "foo";
+    value4 = "bar";
 
     update1(value: string) {
         this.value1 = value;

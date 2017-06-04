@@ -7,10 +7,12 @@ class Main extends React.Component<{}, {}> {
     data1 = data1;
     data2 = data2;
     data3 = data3;
+    data4 = JSON.parse(JSON.stringify(data3));
 
     value1 = "CA";
     value2 = "CA";
     value3 = "foo";
+    value4 = "bar";
 
     update1(value: string) {
         this.value1 = value;
@@ -45,6 +47,12 @@ class Main extends React.Component<{}, {}> {
                     update={value => this.update3(value)}>
                 </Select2>
                 selected value: {this.value3}
+                <hr />
+                <Select2 data={this.data4}
+                    value={this.value4}
+                    disabled={true}>
+                </Select2>
+                selected value: {this.value4}
             </div>
         );
     }

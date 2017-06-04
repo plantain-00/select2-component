@@ -5,7 +5,8 @@ import * as common from "./common";
 export class Select2 extends React.PureComponent<{
     data: common.Select2Data;
     value: string;
-    update: (value: string) => void;
+    disabled?: boolean;
+    update?: (value: string) => void;
 }, {}> {
     value: string;
 
@@ -15,6 +16,7 @@ export class Select2 extends React.PureComponent<{
     focusoutTimer?: NodeJS.Timer;
     searchText = "";
     lastScrollTopIndex = 0;
+    containerStyle: string;
 
     searchInputElement: HTMLElement;
     resultsElement: HTMLElement;
@@ -50,6 +52,7 @@ export class Select2 extends React.PureComponent<{
         this.hoveringValue = this.props.value;
         this.value = this.props.value;
         this.setState({ hoveringValue: this.hoveringValue, value: this.value });
+        this.containerStyle = common.getContainerStyle(this.props.disabled);
     }
 
     componentDidMount() {
@@ -70,7 +73,9 @@ export class Select2 extends React.PureComponent<{
         if (!option.disabled) {
             this.value = option.value;
             this.optionLabel = option.label;
-            this.props.update(option.value);
+            if (this.props.update) {
+                this.props.update(option.value);
+            }
             this.isOpen = false;
             this.setState({
                 value: this.value,
@@ -83,6 +88,9 @@ export class Select2 extends React.PureComponent<{
         }
     }
     toggleOpenAndClose() {
+        if (this.props.disabled) {
+            return;
+        }
         this.isOpen = !this.isOpen;
         this.setState({ isOpen: this.isOpen });
         if (this.isOpen) {
@@ -139,7 +147,9 @@ export class Select2 extends React.PureComponent<{
         if (this.hoveringValue) {
             this.value = this.hoveringValue;
             this.setState({ value: this.value });
-            this.props.update(this.hoveringValue);
+            if (this.props.update) {
+                this.props.update(this.hoveringValue);
+            }
 
             const label = common.getLabelByValue(this.props.data, this.value);
             if (label !== null) {
@@ -206,7 +216,7 @@ export class Select2 extends React.PureComponent<{
             }
         });
         return (
-            <div className="select2 select2-container select2-container--default select2-container--below select2-container--focus">
+            <div className={this.containerStyle}>
                 <div className="selection"
                     onClick={() => this.toggleOpenAndClose()}>
                     <div className="select2-selection select2-selection--single" role="combobox">

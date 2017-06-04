@@ -205,3 +205,9 @@ export function getDropdownStyle(isOpen: boolean) {
         ? "select2-container select2-container--default select2-container-dropdown select2-container--open"
         : "select2-container select2-container--default select2-container-dropdown";
 }
+
+export function getContainerStyle(disabled?: boolean | undefined) {
+    return disabled
+        ? "select2 select2-container select2-container--default select2-container--disabled select2-container--below select2-container--focus"
+        : "select2 select2-container select2-container--default select2-container--below select2-container--focus";
+}

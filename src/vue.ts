@@ -5,11 +5,12 @@ import { srcVueTemplateHtml } from "./vue-variables";
 
 @Component({
     template: srcVueTemplateHtml,
-    props: ["data", "value"],
+    props: ["data", "value", "disabled"],
 })
 class Select2 extends Vue {
     data: common.Select2Data;
     value: string;
+    disabled?: boolean;
 
     hoveringValue: string | null = null;
     optionLabel = "";
@@ -17,6 +18,7 @@ class Select2 extends Vue {
     focusoutTimer?: NodeJS.Timer;
     searchText = "";
     lastScrollTopIndex = 0;
+    containerStyle: string;
 
     searchInputElement: HTMLElement;
     resultsElement: HTMLElement;
@@ -47,6 +49,7 @@ class Select2 extends Vue {
             this.optionLabel = label;
         }
         this.hoveringValue = this.value;
+        this.containerStyle = common.getContainerStyle(this.disabled);
     }
 
     mounted() {
@@ -74,6 +77,9 @@ class Select2 extends Vue {
         }
     }
     toggleOpenAndClose() {
+        if (this.disabled) {
+            return;
+        }
         this.isOpen = !this.isOpen;
         if (this.isOpen) {
             this.searchText = "";

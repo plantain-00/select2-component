@@ -11,6 +11,8 @@ export class Select2Component {
     data: common.Select2Data;
     @Input()
     value: string;
+    @Input()
+    disabled?: boolean;
     @Output()
     update = new EventEmitter();
 
@@ -20,6 +22,7 @@ export class Select2Component {
     focusoutTimer?: NodeJS.Timer;
     searchText = "";
     lastScrollTopIndex = 0;
+    containerStyle: string;
 
     searchInputElement: HTMLElement;
     resultsElement: HTMLElement;
@@ -55,6 +58,7 @@ export class Select2Component {
             this.optionLabel = label;
         }
         this.hoveringValue = this.value;
+        this.containerStyle = common.getContainerStyle(this.disabled);
     }
 
     ngAfterViewInit() {
@@ -82,6 +86,9 @@ export class Select2Component {
         }
     }
     toggleOpenAndClose() {
+        if (this.disabled) {
+            return;
+        }
         this.isOpen = !this.isOpen;
         if (this.isOpen) {
             this.searchText = "";
