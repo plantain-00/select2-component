@@ -84,6 +84,7 @@ name | type | description
 data | [Select2Data](#select2-data-structure) | the data of the select2
 value | string | initial value
 disabled | boolean? | whether the component is disabled
+minCountForSearch | number? = 6 | hide search box if `options.length < minCountForSearch`
 update | (value: string) => void | triggered when user select an option
 
 #### select2 data structure
@@ -116,6 +117,7 @@ type Select2Option = {
 + select by keyboard
 + disabled option
 + disabled component
++ hide search box
 
 #### change log
 

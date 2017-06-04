@@ -8,19 +8,27 @@
             </span>
         </div>
     </div>
-    <div [class]="dropdownStyle"
-        (focusout)="focusout()">
+    <div [class]="dropdownStyle">
         <div class="select2-dropdown select2-dropdown--below">
-            <div class="select2-search select2-search--dropdown">
+            <div [class]="searchStyle">
                 <input #searchInput
                     [(ngModel)]="searchText"
-                    (keyup)="keyUp($event)"
+                    (keydown)="keyDown($event)"
+                    (focusout)="focusout()"
                     class="select2-search__field"
                     type="search"
-                    role="textbox">
+                    role="textbox"
+                    autocomplete="off"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    spellcheck="false">
             </div>
             <div class="select2-results">
-                <ul #results class="select2-results__options" role="tree">
+                <ul #results class="select2-results__options"
+                    role="tree"
+                    tabindex="-1"
+                    (keydown)="keyDown($event)"
+                    (focusout)="focusout()">
                     <ng-container *ngFor="let groupOrOption of filteredData">
                         <li *ngIf="groupOrOption.options"
                             class="select2-results__option"

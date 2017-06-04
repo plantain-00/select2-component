@@ -57,18 +57,36 @@ export function getLabelByValue(data: Select2Data, value: string) {
     return null;
 }
 
-export function getFirstOption(data: Select2Data) {
+export function getFirstAvailableOption(data: Select2Data) {
     for (const groupOrOption of data) {
         const options = (groupOrOption as Select2Group).options;
         if (options) {
             for (const option of options) {
-                return option.value;
+                if (!option.disabled) {
+                    return option.value;
+                }
             }
         } else {
-            return (groupOrOption as Select2Option).value;
+            const option = groupOrOption as Select2Option;
+            if (!option.disabled) {
+                return option.value;
+            }
         }
     }
     return null;
+}
+
+function getOptionsCount(data: Select2Data) {
+    let count = 0;
+    for (const groupOrOption of data) {
+        const options = (groupOrOption as Select2Group).options;
+        if (options) {
+            count += options.length;
+        } else {
+            count++;
+        }
+    }
+    return count;
 }
 
 export function valueIsNotInFilteredData(filteredData: Select2Data, value: string | null) {
@@ -210,4 +228,20 @@ export function getContainerStyle(disabled?: boolean | undefined) {
     return disabled
         ? "select2 select2-container select2-container--default select2-container--disabled select2-container--below select2-container--focus"
         : "select2 select2-container select2-container--default select2-container--below select2-container--focus";
+}
+
+const defaultMinCountForSearch = 6;
+
+export function isSearchboxHiddex(data: Select2Data, minCountForSearch?: number) {
+    if (typeof minCountForSearch !== "number") {
+        minCountForSearch = defaultMinCountForSearch;
+    }
+    const optionCount = getOptionsCount(data);
+    return optionCount < minCountForSearch;
+}
+
+export function getSearchStyle(isHidden: boolean) {
+    return isHidden
+        ? "select2-search select2-search--dropdown select2-search--hide"
+        : "select2-search select2-search--dropdown";
 }

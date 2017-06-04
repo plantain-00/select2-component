@@ -136,3 +136,12 @@ export const data3: common.Select2Data = [
     { value: "bar", label: "bar" },
     { value: "baz", label: "baz" },
 ];
+
+export const data5: common.Select2Data = [
+    { value: "foo1", label: "foo1" },
+    { value: "foo2", label: "foo2" },
+    { value: "foo3", label: "foo3" },
+    { value: "foo4", label: "foo4" },
+    { value: "foo5", label: "foo5" },
+    { value: "foo6", label: "foo6" },
+];

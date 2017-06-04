@@ -6,6 +6,7 @@ export class Select2 extends React.PureComponent<{
     data: common.Select2Data;
     value: string;
     disabled?: boolean;
+    minCountForSearch?: number;
     update?: (value: string) => void;
 }, {}> {
     value: string;
@@ -17,6 +18,8 @@ export class Select2 extends React.PureComponent<{
     searchText = "";
     lastScrollTopIndex = 0;
     containerStyle: string;
+    isSearchboxHidden: boolean;
+    searchStyle: string;
 
     searchInputElement: HTMLElement;
     resultsElement: HTMLElement;
@@ -29,7 +32,7 @@ export class Select2 extends React.PureComponent<{
         const result = common.getFilteredData(this.props.data, this.searchText);
 
         if (common.valueIsNotInFilteredData(result, this.hoveringValue)) {
-            this.hoveringValue = common.getFirstOption(result);
+            this.hoveringValue = common.getFirstAvailableOption(result);
             this.setState({ hoveringValue: this.hoveringValue });
 
             if (this.resultsElement) {
@@ -53,6 +56,8 @@ export class Select2 extends React.PureComponent<{
         this.value = this.props.value;
         this.setState({ hoveringValue: this.hoveringValue, value: this.value });
         this.containerStyle = common.getContainerStyle(this.props.disabled);
+        this.isSearchboxHidden = common.isSearchboxHiddex(this.props.data, this.props.minCountForSearch);
+        this.searchStyle = common.getSearchStyle(this.isSearchboxHidden);
     }
 
     componentDidMount() {
@@ -96,8 +101,14 @@ export class Select2 extends React.PureComponent<{
         if (this.isOpen) {
             this.searchText = "";
             this.setState({ searchText: this.searchText }, () => {
-                if (this.searchInputElement) {
-                    this.searchInputElement.focus();
+                if (!this.isSearchboxHidden) {
+                    if (this.searchInputElement) {
+                        this.searchInputElement.focus();
+                    }
+                } else {
+                    if (this.resultsElement) {
+                        this.resultsElement.focus();
+                    }
                 }
 
                 if (this.resultsElement) {
@@ -162,13 +173,16 @@ export class Select2 extends React.PureComponent<{
         }
     }
 
-    keyUp(e: React.KeyboardEvent<HTMLInputElement>) {
+    keyDown(e: React.KeyboardEvent<HTMLInputElement> | React.KeyboardEvent<HTMLUListElement>) {
         if (e.keyCode === 40) {
             this.moveDown();
+            e.preventDefault();
         } else if (e.keyCode === 38) {
             this.moveUp();
+            e.preventDefault();
         } else if (e.keyCode === 13) {
             this.selectByEnter();
+            e.preventDefault();
         }
     }
 
@@ -226,19 +240,27 @@ export class Select2 extends React.PureComponent<{
                         </span>
                     </div>
                 </div>
-                <div className={this.dropdownStyle}
-                    onBlur={() => this.focusout()}>
+                <div className={this.dropdownStyle}>
                     <div className="select2-dropdown select2-dropdown--below">
-                        <div className="select2-search select2-search--dropdown">
+                        <div className={this.searchStyle}>
                             <input value={this.searchText}
                                 onChange={this.onChange}
-                                onKeyUp={e => this.keyUp(e)}
+                                onKeyDown={e => this.keyDown(e)}
+                                onBlur={() => this.focusout()}
                                 className="select2-search__field"
                                 type="search"
-                                role="textbox" />
+                                role="textbox"
+                                autoComplete="off"
+                                autoCorrect="off"
+                                autoCapitalize="off"
+                                spellCheck={false} />
                         </div>
                         <div className="select2-results">
-                            <ul className="select2-results__options" role="tree">
+                            <ul className="select2-results__options"
+                                role="tree"
+                                tabIndex={-1}
+                                onKeyDown={e => this.keyDown(e)}
+                                onBlur={() => this.focusout()}>
                                 {results}
                             </ul>
                         </div>

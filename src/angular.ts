@@ -13,6 +13,8 @@ export class Select2Component {
     value: string;
     @Input()
     disabled?: boolean;
+    @Input()
+    minCountForSearch?: number;
     @Output()
     update = new EventEmitter();
 
@@ -23,6 +25,8 @@ export class Select2Component {
     searchText = "";
     lastScrollTopIndex = 0;
     containerStyle: string;
+    isSearchboxHidden: boolean;
+    searchStyle: string;
 
     searchInputElement: HTMLElement;
     resultsElement: HTMLElement;
@@ -40,7 +44,7 @@ export class Select2Component {
         const result = common.getFilteredData(this.data, this.searchText);
 
         if (common.valueIsNotInFilteredData(result, this.hoveringValue)) {
-            this.hoveringValue = common.getFirstOption(result);
+            this.hoveringValue = common.getFirstAvailableOption(result);
 
             if (this.resultsElement) {
                 const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.resultsElement, result, this.lastScrollTopIndex);
@@ -59,6 +63,8 @@ export class Select2Component {
         }
         this.hoveringValue = this.value;
         this.containerStyle = common.getContainerStyle(this.disabled);
+        this.isSearchboxHidden = common.isSearchboxHiddex(this.data, this.minCountForSearch);
+        this.searchStyle = common.getSearchStyle(this.isSearchboxHidden);
     }
 
     ngAfterViewInit() {
@@ -92,8 +98,14 @@ export class Select2Component {
         this.isOpen = !this.isOpen;
         if (this.isOpen) {
             this.searchText = "";
-            if (this.searchInputElement) {
-                this.searchInputElement.focus();
+            if (!this.isSearchboxHidden) {
+                if (this.searchInputElement) {
+                    this.searchInputElement.focus();
+                }
+            } else {
+                if (this.resultsElement) {
+                    this.resultsElement.focus();
+                }
             }
 
             if (this.resultsElement) {
@@ -147,13 +159,16 @@ export class Select2Component {
         }
     }
 
-    keyUp(e: KeyboardEvent) {
+    keyDown(e: KeyboardEvent) {
         if (e.keyCode === 40) {
             this.moveDown();
+            e.preventDefault();
         } else if (e.keyCode === 38) {
             this.moveUp();
+            e.preventDefault();
         } else if (e.keyCode === 13) {
             this.selectByEnter();
+            e.preventDefault();
         }
     }
 }
