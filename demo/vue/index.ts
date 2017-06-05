@@ -6,6 +6,7 @@ import { data1, data2, data3, data5 } from "../common";
 @Component({
     template: `
     <div style="width: 500px;">
+        <a href="https://github.com/plantain-00/select2-component/tree/master/demo/vue/index.ts" target="_blank">the source code of the demo</a>
         <h3>options in group({{value1}})</h3>
         <select2 :data="data1"
             :value="value1"
@@ -32,6 +33,16 @@ import { data1, data2, data3, data5 } from "../common";
             :min-count-for-search="Infinity"
             @update="update5(arguments[0])">
         </select2>
+        <h3>placeholder ({{value6}})</h3>
+        <select2 :data="data6"
+            placeholder="select an item"
+            @update="update6(arguments[0])">
+        </select2>
+        <h3>open event ({{value7}})</h3>
+        <select2 :data="data7"
+            @open="open7()"
+            @update="update7(arguments[0])">
+        </select2>
     </div>
     `,
 })
@@ -41,12 +52,16 @@ class App extends Vue {
     data3 = data3;
     data4 = JSON.parse(JSON.stringify(data3));
     data5 = data5;
+    data6 = JSON.parse(JSON.stringify(data3));
+    data7 = [];
 
     value1 = "CA";
     value2 = "CA";
     value3 = "foo";
     value4 = "bar";
     value5 = "foo3";
+    value6 = "";
+    value7 = "";
 
     update1(value: string) {
         this.value1 = value;
@@ -59,6 +74,17 @@ class App extends Vue {
     }
     update5(value: string) {
         this.value5 = value;
+    }
+    update6(value: string) {
+        this.value6 = value;
+    }
+    open7() {
+        setTimeout(() => {
+            this.data7 = JSON.parse(JSON.stringify(data3));
+        }, 1000);
+    }
+    update7(value: string) {
+        this.value7 = value;
     }
 }
 

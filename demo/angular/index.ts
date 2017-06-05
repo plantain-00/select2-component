@@ -15,6 +15,7 @@ import { data1, data2, data3, data5 } from "../common";
     selector: "app",
     template: `
     <div style="width: 500px;">
+        <a href="https://github.com/plantain-00/select2-component/tree/master/demo/angular/index.ts" target="_blank">the source code of the demo</a>
         <h3>options in group({{value1}})</h3>
         <select2 [data]="data1"
             [value]="value1"
@@ -38,8 +39,18 @@ import { data1, data2, data3, data5 } from "../common";
         <h3>hide search box ({{value5}})</h3>
         <select2 [data]="data5"
             [value]="value5"
-            [minCountForSearch]="Infinity"
+            [minCountForSearch]="minCountForSearch"
             (update)="update5($event)">
+        </select2>
+        <h3>placeholder ({{value6}})</h3>
+        <select2 [data]="data6"
+            placeholder="select an item"
+            (update)="update6($event)">
+        </select2>
+        <h3>open event ({{value7}})</h3>
+        <select2 [data]="data7"
+            (open)="open7()"
+            (update)="update7($event)">
         </select2>
     </div>
     `,
@@ -50,12 +61,18 @@ export class MainComponent {
     data3 = data3;
     data4 = JSON.parse(JSON.stringify(data3));
     data5 = data5;
+    data6 = JSON.parse(JSON.stringify(data3));
+    data7 = [];
+
+    minCountForSearch = Infinity;
 
     value1 = "CA";
     value2 = "CA";
     value3 = "foo";
     value4 = "bar";
     value5 = "foo3";
+    value6 = "";
+    value7 = "";
 
     update1(value: string) {
         this.value1 = value;
@@ -68,6 +85,17 @@ export class MainComponent {
     }
     update5(value: string) {
         this.value5 = value;
+    }
+    update6(value: string) {
+        this.value6 = value;
+    }
+    open7() {
+        setTimeout(() => {
+            this.data7 = JSON.parse(JSON.stringify(data3));
+        }, 1000);
+    }
+    update7(value: string) {
+        this.value7 = value;
     }
 }
 

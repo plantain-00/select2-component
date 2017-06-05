@@ -10,21 +10,25 @@ export class Select2Component {
     @Input()
     data: common.Select2Data;
     @Input()
-    value: string;
+    value?: string;
     @Input()
     disabled?: boolean;
     @Input()
     minCountForSearch?: number;
+    @Input()
+    placeholder?: string;
     @Output()
     update = new EventEmitter();
+    @Output()
+    open = new EventEmitter();
 
-    hoveringValue: string | null = null;
+    innerValue: string | null | undefined = "";
+    hoveringValue: string | null | undefined = null;
     optionLabel = "";
     isOpen = false;
     focusoutTimer?: NodeJS.Timer;
     searchText = "";
     lastScrollTopIndex = 0;
-    containerStyle: string;
     isSearchboxHidden: boolean;
     searchStyle: string;
 
@@ -56,13 +60,17 @@ export class Select2Component {
         return result;
     }
 
+    get containerStyle() {
+        return common.getContainerStyle(this.disabled, this.isOpen);
+    }
+
     ngOnInit() {
         const label = common.getLabelByValue(this.data, this.value);
         if (label !== null) {
             this.optionLabel = label;
         }
+        this.innerValue = this.value;
         this.hoveringValue = this.value;
-        this.containerStyle = common.getContainerStyle(this.disabled);
         this.isSearchboxHidden = common.isSearchboxHiddex(this.data, this.minCountForSearch);
         this.searchStyle = common.getSearchStyle(this.isSearchboxHidden);
     }
@@ -82,7 +90,7 @@ export class Select2Component {
     }
     click(option: common.Select2Option) {
         if (!option.disabled) {
-            this.value = option.value;
+            this.innerValue = option.value;
             this.optionLabel = option.label;
             this.update.emit(option.value);
             this.isOpen = false;
@@ -114,6 +122,8 @@ export class Select2Component {
                     this.lastScrollTopIndex = lastScrollTopIndex;
                 }
             }
+
+            this.open.emit();
         }
         if (this.focusoutTimer) {
             clearTimeout(this.focusoutTimer);
@@ -147,10 +157,10 @@ export class Select2Component {
     }
     selectByEnter() {
         if (this.hoveringValue) {
-            this.value = this.hoveringValue;
+            this.innerValue = this.hoveringValue;
             this.update.emit(this.hoveringValue);
 
-            const label = common.getLabelByValue(this.data, this.value);
+            const label = common.getLabelByValue(this.data, this.innerValue);
             if (label !== null) {
                 this.optionLabel = label;
             }

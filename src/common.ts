@@ -39,7 +39,7 @@ function getScrollUpIndex(data: Select2Data, value: string) {
     return 0;
 }
 
-export function getLabelByValue(data: Select2Data, value: string) {
+export function getLabelByValue(data: Select2Data, value: string | null | undefined) {
     for (const groupOrOption of data) {
         const options = (groupOrOption as Select2Group).options;
         if (options) {
@@ -89,8 +89,8 @@ function getOptionsCount(data: Select2Data) {
     return count;
 }
 
-export function valueIsNotInFilteredData(filteredData: Select2Data, value: string | null) {
-    if (value === null) {
+export function valueIsNotInFilteredData(filteredData: Select2Data, value: string | null | undefined) {
+    if (value === null || value === undefined) {
         return true;
     }
     for (const groupOrOption of filteredData) {
@@ -110,8 +110,8 @@ export function valueIsNotInFilteredData(filteredData: Select2Data, value: strin
     return true;
 }
 
-export function getPreviousOption(filteredData: Select2Data, hoveringValue: string | null) {
-    let findIt = hoveringValue === null;
+export function getPreviousOption(filteredData: Select2Data, hoveringValue: string | null | undefined) {
+    let findIt = hoveringValue === null || hoveringValue === undefined;
     for (let i = filteredData.length - 1; i >= 0; i--) {
         const groupOrOption = filteredData[i];
         const options = (groupOrOption as Select2Group).options;
@@ -137,8 +137,8 @@ export function getPreviousOption(filteredData: Select2Data, hoveringValue: stri
     }
     return findIt ? hoveringValue : null;
 }
-export function getNextOption(filteredData: Select2Data, hoveringValue: string | null) {
-    let findIt = hoveringValue === null;
+export function getNextOption(filteredData: Select2Data, hoveringValue: string | null | undefined) {
+    let findIt = hoveringValue === null || hoveringValue === undefined;
     for (const groupOrOption of filteredData) {
         const options = (groupOrOption as Select2Group).options;
         if (options) {
@@ -165,8 +165,8 @@ export function getNextOption(filteredData: Select2Data, hoveringValue: string |
     return findIt ? hoveringValue : null;
 }
 
-export function getLastScrollTopIndex(hoveringValue: string | null, results: HTMLElement, filteredData: Select2Data, lastScrollTopIndex: number) {
-    if (hoveringValue === null) {
+export function getLastScrollTopIndex(hoveringValue: string | null | undefined, results: HTMLElement, filteredData: Select2Data, lastScrollTopIndex: number) {
+    if (hoveringValue === null || hoveringValue === undefined) {
         results.scrollTop = 0;
         return 0;
     } else {
@@ -212,7 +212,7 @@ export function getFilteredData(data: Select2Data, searchText: string | null) {
     }
 }
 
-export function getOptionStyle(value: string, hoveringValue: string | null) {
+export function getOptionStyle(value: string, hoveringValue: string | null | undefined) {
     return value === hoveringValue
         ? "select2-results__option select2-results__option--highlighted"
         : "select2-results__option";
@@ -224,10 +224,8 @@ export function getDropdownStyle(isOpen: boolean) {
         : "select2-container select2-container--default select2-container-dropdown";
 }
 
-export function getContainerStyle(disabled?: boolean | undefined) {
-    return disabled
-        ? "select2 select2-container select2-container--default select2-container--disabled select2-container--below select2-container--focus"
-        : "select2 select2-container select2-container--default select2-container--below select2-container--focus";
+export function getContainerStyle(disabled: boolean | undefined, isOpen: boolean) {
+    return `select2 select2-container select2-container--default ${disabled ? "select2-container--disabled" : ""} ${isOpen ? "select2-container--open" : ""} select2-container--below select2-container--focus`;
 }
 
 const defaultMinCountForSearch = 6;

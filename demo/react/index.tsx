@@ -9,12 +9,16 @@ class Main extends React.Component<{}, {}> {
     data3 = data3;
     data4 = JSON.parse(JSON.stringify(data3));
     data5 = data5;
+    data6 = JSON.parse(JSON.stringify(data3));
+    data7 = [];
 
     value1 = "CA";
     value2 = "CA";
     value3 = "foo";
     value4 = "bar";
     value5 = "foo3";
+    value6 = "";
+    value7 = "";
 
     update1(value: string) {
         this.value1 = value;
@@ -30,11 +34,27 @@ class Main extends React.Component<{}, {}> {
     }
     update5(value: string) {
         this.value5 = value;
+        this.setState({ value5: this.value5 });
+    }
+    update6(value: string) {
+        this.value6 = value;
+        this.setState({ value6: this.value6 });
+    }
+    open7() {
+        setTimeout(() => {
+            this.data7 = JSON.parse(JSON.stringify(data3));
+            this.setState({ data7: this.data7 });
+        }, 1000);
+    }
+    update7(value: string) {
+        this.value7 = value;
+        this.setState({ value7: this.value7 });
     }
 
     render() {
         return (
             <div style={{ width: "500px" }}>
+                <a href="https://github.com/plantain-00/select2-component/tree/master/demo/react/index.tsx" target="_blank">the source code of the demo</a>
                 <h3>options in group({this.value1})</h3>
                 <Select2 data={this.data1}
                     value={this.value1}
@@ -60,6 +80,16 @@ class Main extends React.Component<{}, {}> {
                     value={this.value5}
                     minCountForSearch={Infinity}
                     update={value => this.update5(value)}>
+                </Select2>
+                <h3>placeholder ({this.value6})</h3>
+                <Select2 data={this.data6}
+                    placeholder="select an item"
+                    update={value => this.update6(value)}>
+                </Select2>
+                <h3>open event ({this.value7})</h3>
+                <Select2 data={this.data7}
+                    open={() => this.open7()}
+                    update={value => this.update7(value)}>
                 </Select2>
             </div>
         );

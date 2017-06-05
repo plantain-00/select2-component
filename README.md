@@ -7,6 +7,22 @@
 # select2-component
 A vuejs, reactjs and angular select component.
 
+#### features
+
++ vuejs component
++ reactjs component
++ angular component
++ commonjs module
++ select one
++ options or groups
++ scroll
++ local search
++ select by keyboard
++ disabled option
++ disabled component
++ hide search box
++ placeholder
+
 #### install
 
 `npm i select2-component`
@@ -34,8 +50,6 @@ import "select2-component/dist/vue";
 
 the online demo: https://plantain-00.github.io/select2-component/demo/vue/index.html
 
-the source code of the demo: https://github.com/plantain-00/select2-component/tree/master/demo/vue
-
 #### reactjs component demo
 
 ```ts
@@ -50,8 +64,6 @@ import { Select2 } from "select2-component/dist/react";
 ```
 
 the online demo: https://plantain-00.github.io/select2-component/demo/react/index.html
-
-the source code of the demo: https://github.com/plantain-00/select2-component/tree/master/demo/react
 
 #### angular component demo
 
@@ -75,17 +87,17 @@ class MainModule { }
 
 the online demo: https://plantain-00.github.io/select2-component/demo/angular/index.html
 
-the source code of the demo: https://github.com/plantain-00/select2-component/tree/master/demo/angular
-
 #### properties and events of the component
 
 name | type | description
 --- | --- | ---
 data | [Select2Data](#select2-data-structure) | the data of the select2
-value | string | initial value
+value | string? | initial value
 disabled | boolean? | whether the component is disabled
 minCountForSearch | number? = 6 | hide search box if `options.length < minCountForSearch`
+placeholder | string? | the placeholder string if nothing selected
 update | (value: string) => void | triggered when user select an option
+open | () => void | triggered when user open the options
 
 #### select2 data structure
 
@@ -103,21 +115,6 @@ type Select2Option = {
     disabled?: boolean;
 };
 ```
-
-#### features
-
-+ vuejs component
-+ reactjs component
-+ angular component
-+ commonjs module
-+ select one
-+ options or groups
-+ scroll
-+ local search
-+ select by keyboard
-+ disabled option
-+ disabled component
-+ hide search box
 
 #### change log
 

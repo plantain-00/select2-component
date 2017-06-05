@@ -5,21 +5,22 @@ import { srcVueTemplateHtml } from "./vue-variables";
 
 @Component({
     template: srcVueTemplateHtml,
-    props: ["data", "value", "disabled", "minCountForSearch"],
+    props: ["data", "value", "disabled", "minCountForSearch", "placeholder"],
 })
 class Select2 extends Vue {
     data: common.Select2Data;
-    value: string;
+    value?: string;
     disabled?: boolean;
     minCountForSearch?: number;
+    placeholder?: string;
 
-    hoveringValue: string | null = null;
+    innerValue: string | null | undefined = "";
+    hoveringValue: string | null | undefined = null;
     optionLabel = "";
     isOpen = false;
     focusoutTimer?: NodeJS.Timer;
     searchText = "";
     lastScrollTopIndex = 0;
-    containerStyle: string;
     isSearchboxHidden: boolean;
     searchStyle: string;
 
@@ -46,13 +47,17 @@ class Select2 extends Vue {
         return result;
     }
 
+    get containerStyle() {
+        return common.getContainerStyle(this.disabled, this.isOpen);
+    }
+
     beforeMount() {
         const label = common.getLabelByValue(this.data, this.value);
         if (label !== null) {
             this.optionLabel = label;
         }
+        this.innerValue = this.value;
         this.hoveringValue = this.value;
-        this.containerStyle = common.getContainerStyle(this.disabled);
         this.isSearchboxHidden = common.isSearchboxHiddex(this.data, this.minCountForSearch);
         this.searchStyle = common.getSearchStyle(this.isSearchboxHidden);
     }
@@ -72,7 +77,7 @@ class Select2 extends Vue {
     }
     click(option: common.Select2Option) {
         if (!option.disabled) {
-            this.value = option.value;
+            this.innerValue = option.value;
             this.optionLabel = option.label;
             this.$emit("update", option.value);
             this.isOpen = false;
@@ -106,6 +111,7 @@ class Select2 extends Vue {
                     }
                 }
             });
+            this.$emit("open");
         }
         if (this.focusoutTimer) {
             clearTimeout(this.focusoutTimer);
@@ -139,10 +145,10 @@ class Select2 extends Vue {
     }
     selectByEnter() {
         if (this.hoveringValue) {
-            this.value = this.hoveringValue;
+            this.innerValue = this.hoveringValue;
             this.$emit("update", this.hoveringValue);
 
-            const label = common.getLabelByValue(this.data, this.value);
+            const label = common.getLabelByValue(this.data, this.innerValue);
             if (label !== null) {
                 this.optionLabel = label;
             }

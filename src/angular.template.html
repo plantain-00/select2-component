@@ -2,7 +2,10 @@
     <div class="selection"
         (click)="toggleOpenAndClose()">
         <div class="select2-selection select2-selection--single" role="combobox">
-            <span class="select2-selection__rendered" [title]="optionLabel">{{optionLabel}}</span>
+            <span class="select2-selection__rendered" [title]="optionLabel">
+                <ng-container *ngIf="optionLabel">{{optionLabel}}</ng-container>
+                <span *ngIf="!innerValue" class="select2-selection__placeholder">{{placeholder}}</span>
+            </span>
             <span class="select2-selection__arrow" role="presentation">
                 <b role="presentation"></b>
             </span>
@@ -38,7 +41,7 @@
                                 <li *ngFor="let option of groupOrOption.options"
                                     [class]="getOptionStyle(option.value)"
                                     role="treeitem"
-                                    [attr.aria-selected]="option.value === value ? 'true' : 'false'"
+                                    [attr.aria-selected]="option.value === innerValue ? 'true' : 'false'"
                                     [attr.aria-disabled]="option.disabled ? 'true' : 'false'"
                                     (mouseenter)="mouseenter(option)"
                                     (click)="click(option)">
@@ -49,7 +52,7 @@
                         <li *ngIf="!groupOrOption.options"
                             [class]="getOptionStyle(groupOrOption.value)"
                             role="treeitem"
-                            [attr.aria-selected]="groupOrOption.value === value ? 'true' : 'false'"
+                            [attr.aria-selected]="groupOrOption.value === innerValue ? 'true' : 'false'"
                             [attr.aria-disabled]="groupOrOption.disabled ? 'true' : 'false'"
                             (mouseenter)="mouseenter(groupOrOption)"
                             (click)="click(groupOrOption)">

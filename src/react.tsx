@@ -4,20 +4,20 @@ import * as common from "./common";
 
 export class Select2 extends React.PureComponent<{
     data: common.Select2Data;
-    value: string;
+    value?: string;
     disabled?: boolean;
     minCountForSearch?: number;
+    placeholder?: string;
     update?: (value: string) => void;
+    open?: () => void;
 }, {}> {
-    value: string;
-
-    hoveringValue: string | null = null;
+    innerValue: string | null | undefined = "";
+    hoveringValue: string | null | undefined = null;
     optionLabel = "";
     isOpen = false;
     focusoutTimer?: NodeJS.Timer;
     searchText = "";
     lastScrollTopIndex = 0;
-    containerStyle: string;
     isSearchboxHidden: boolean;
     searchStyle: string;
 
@@ -46,6 +46,10 @@ export class Select2 extends React.PureComponent<{
         return result;
     }
 
+    get containerStyle() {
+        return common.getContainerStyle(this.props.disabled, this.isOpen);
+    }
+
     componentWillMount() {
         const label = common.getLabelByValue(this.props.data, this.props.value);
         if (label !== null) {
@@ -53,9 +57,8 @@ export class Select2 extends React.PureComponent<{
             this.setState({ optionLabel: this.optionLabel });
         }
         this.hoveringValue = this.props.value;
-        this.value = this.props.value;
-        this.setState({ hoveringValue: this.hoveringValue, value: this.value });
-        this.containerStyle = common.getContainerStyle(this.props.disabled);
+        this.innerValue = this.props.value;
+        this.setState({ hoveringValue: this.hoveringValue, value: this.innerValue });
         this.isSearchboxHidden = common.isSearchboxHiddex(this.props.data, this.props.minCountForSearch);
         this.searchStyle = common.getSearchStyle(this.isSearchboxHidden);
     }
@@ -76,14 +79,14 @@ export class Select2 extends React.PureComponent<{
     }
     click(option: common.Select2Option) {
         if (!option.disabled) {
-            this.value = option.value;
+            this.innerValue = option.value;
             this.optionLabel = option.label;
             if (this.props.update) {
                 this.props.update(option.value);
             }
             this.isOpen = false;
             this.setState({
-                value: this.value,
+                innerValue: this.innerValue,
                 optionLabel: this.optionLabel,
                 isOpen: this.isOpen,
             });
@@ -118,6 +121,9 @@ export class Select2 extends React.PureComponent<{
                     }
                 }
             });
+            if (this.props.open) {
+                this.props.open();
+            }
         }
         if (this.focusoutTimer) {
             clearTimeout(this.focusoutTimer);
@@ -156,13 +162,13 @@ export class Select2 extends React.PureComponent<{
     }
     selectByEnter() {
         if (this.hoveringValue) {
-            this.value = this.hoveringValue;
-            this.setState({ value: this.value });
+            this.innerValue = this.hoveringValue;
+            this.setState({ innerValue: this.innerValue });
             if (this.props.update) {
                 this.props.update(this.hoveringValue);
             }
 
-            const label = common.getLabelByValue(this.props.data, this.value);
+            const label = common.getLabelByValue(this.props.data, this.innerValue);
             if (label !== null) {
                 this.optionLabel = label;
                 this.setState({ optionLabel: this.optionLabel });
@@ -199,7 +205,7 @@ export class Select2 extends React.PureComponent<{
                     return (
                         <li className={this.getOptionStyle(option.value)}
                             role="treeitem"
-                            aria-selected={option.value === this.value ? "true" : "false"}
+                            aria-selected={option.value === this.innerValue ? "true" : "false"}
                             aria-disabled={option.disabled ? "true" : "false"}
                             onMouseEnter={() => this.mouseenter(option)}
                             onClick={() => this.click(option)}>
@@ -220,7 +226,7 @@ export class Select2 extends React.PureComponent<{
                 return (
                     <li className={this.getOptionStyle(option.value)}
                         role="treeitem"
-                        aria-selected={option.value === this.value ? "true" : "false"}
+                        aria-selected={option.value === this.innerValue ? "true" : "false"}
                         aria-disabled={option.disabled ? "true" : "false"}
                         onMouseEnter={() => this.mouseenter(option)}
                         onClick={() => this.click(option)}>
@@ -229,12 +235,13 @@ export class Select2 extends React.PureComponent<{
                 );
             }
         });
+        const label = this.optionLabel ? this.optionLabel : <span className="select2-selection__placeholder">{this.props.placeholder}</span>;
         return (
             <div className={this.containerStyle}>
                 <div className="selection"
                     onClick={() => this.toggleOpenAndClose()}>
                     <div className="select2-selection select2-selection--single" role="combobox">
-                        <span className="select2-selection__rendered" title={this.optionLabel}>{this.optionLabel}</span>
+                        <span className="select2-selection__rendered" title={this.optionLabel}>{label}</span>
                         <span className="select2-selection__arrow" role="presentation">
                             <b role="presentation"></b>
                         </span>
