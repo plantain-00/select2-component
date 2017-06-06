@@ -8,15 +8,17 @@ export class Select2 extends React.PureComponent<{
     disabled?: boolean;
     minCountForSearch?: number;
     placeholder?: string;
+    customSearchEnabled?: boolean;
     update?: (value: string) => void;
     open?: () => void;
+    search?: (text: string) => void;
 }, {}> {
     innerValue: string | null | undefined = "";
     hoveringValue: string | null | undefined = null;
     optionLabel = "";
     isOpen = false;
     focusoutTimer?: NodeJS.Timer;
-    searchText = "";
+    innerSearchText = "";
     lastScrollTopIndex = 0;
     isSearchboxHidden: boolean;
     searchStyle: string;
@@ -24,12 +26,24 @@ export class Select2 extends React.PureComponent<{
     searchInputElement: HTMLElement;
     resultsElement: HTMLElement;
 
+    get searchText() {
+        return this.innerSearchText;
+    }
+    set searchText(text: string) {
+        if (this.props.customSearchEnabled && this.props.search) {
+            this.props.search(text);
+        }
+        this.innerSearchText = text;
+    }
+
     get dropdownStyle() {
         return common.getDropdownStyle(this.isOpen);
     }
 
     get filteredData() {
-        const result = common.getFilteredData(this.props.data, this.searchText);
+        const result = this.props.customSearchEnabled
+            ? this.props.data
+            : common.getFilteredData(this.props.data, this.searchText);
 
         if (common.valueIsNotInFilteredData(result, this.hoveringValue)) {
             this.hoveringValue = common.getFirstAvailableOption(result);
@@ -59,7 +73,9 @@ export class Select2 extends React.PureComponent<{
         this.hoveringValue = this.props.value;
         this.innerValue = this.props.value;
         this.setState({ hoveringValue: this.hoveringValue, value: this.innerValue });
-        this.isSearchboxHidden = common.isSearchboxHiddex(this.props.data, this.props.minCountForSearch);
+        this.isSearchboxHidden = this.props.customSearchEnabled
+            ? false
+            : common.isSearchboxHiddex(this.props.data, this.props.minCountForSearch);
         this.searchStyle = common.getSearchStyle(this.isSearchboxHidden);
     }
 
@@ -102,7 +118,7 @@ export class Select2 extends React.PureComponent<{
         this.isOpen = !this.isOpen;
         this.setState({ isOpen: this.isOpen });
         if (this.isOpen) {
-            this.searchText = "";
+            this.innerSearchText = "";
             this.setState({ searchText: this.searchText }, () => {
                 if (!this.isSearchboxHidden) {
                     if (this.searchInputElement) {

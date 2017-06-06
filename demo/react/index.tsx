@@ -2,6 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { Select2 } from "../../dist/react";
 import { data1, data2, data3, data5 } from "../common";
+import * as common from "../../dist/common";
 
 class Main extends React.Component<{}, {}> {
     data1 = data1;
@@ -10,7 +11,7 @@ class Main extends React.Component<{}, {}> {
     data4 = JSON.parse(JSON.stringify(data3));
     data5 = data5;
     data6 = JSON.parse(JSON.stringify(data3));
-    data7 = [];
+    data7: common.Select2Option[] = [];
 
     value1 = "CA";
     value2 = "CA";
@@ -41,14 +42,18 @@ class Main extends React.Component<{}, {}> {
         this.setState({ value6: this.value6 });
     }
     open7() {
-        setTimeout(() => {
-            this.data7 = JSON.parse(JSON.stringify(data3));
-            this.setState({ data7: this.data7 });
-        }, 1000);
+        this.data7 = JSON.parse(JSON.stringify(data2));
+        this.setState({ data7: this.data7 });
     }
     update7(value: string) {
         this.value7 = value;
         this.setState({ value7: this.value7 });
+    }
+    search7(text: string) {
+        this.data7 = text
+            ? (JSON.parse(JSON.stringify(data2)) as common.Select2Option[]).filter(option => option.label.toLowerCase().indexOf(text.toLowerCase()) > -1)
+            : JSON.parse(JSON.stringify(data2));
+        this.setState({ data7: this.data7 });
     }
 
     render() {
@@ -86,9 +91,11 @@ class Main extends React.Component<{}, {}> {
                     placeholder="select an item"
                     update={value => this.update6(value)}>
                 </Select2>
-                <h3>open event ({this.value7})</h3>
+                <h3>open and search event ({this.value7})</h3>
                 <Select2 data={this.data7}
+                    customSearchEnabled={true}
                     open={() => this.open7()}
+                    search={text => this.search7(text)}
                     update={value => this.update7(value)}>
                 </Select2>
             </div>

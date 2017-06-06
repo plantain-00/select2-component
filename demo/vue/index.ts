@@ -2,6 +2,7 @@ import * as Vue from "vue";
 import Component from "vue-class-component";
 import "../../dist/vue";
 import { data1, data2, data3, data5 } from "../common";
+import * as common from "../../dist/common";
 
 @Component({
     template: `
@@ -38,9 +39,11 @@ import { data1, data2, data3, data5 } from "../common";
             placeholder="select an item"
             @update="update6(arguments[0])">
         </select2>
-        <h3>open event ({{value7}})</h3>
+        <h3>open and search event ({{value7}})</h3>
         <select2 :data="data7"
+            custom-search-enabled="true"
             @open="open7()"
+            @search="search7(arguments[0])"
             @update="update7(arguments[0])">
         </select2>
     </div>
@@ -53,7 +56,7 @@ class App extends Vue {
     data4 = JSON.parse(JSON.stringify(data3));
     data5 = data5;
     data6 = JSON.parse(JSON.stringify(data3));
-    data7 = [];
+    data7: common.Select2Option[] = [];
 
     value1 = "CA";
     value2 = "CA";
@@ -79,12 +82,15 @@ class App extends Vue {
         this.value6 = value;
     }
     open7() {
-        setTimeout(() => {
-            this.data7 = JSON.parse(JSON.stringify(data3));
-        }, 1000);
+        this.data7 = JSON.parse(JSON.stringify(data2));
     }
     update7(value: string) {
         this.value7 = value;
+    }
+    search7(text: string) {
+        this.data7 = text
+            ? (JSON.parse(JSON.stringify(data2)) as common.Select2Option[]).filter(option => option.label.toLowerCase().indexOf(text.toLowerCase()) > -1)
+            : JSON.parse(JSON.stringify(data2));
     }
 }
 

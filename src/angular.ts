@@ -17,17 +17,21 @@ export class Select2Component {
     minCountForSearch?: number;
     @Input()
     placeholder?: string;
+    @Input()
+    customSearchEnabled?: boolean;
     @Output()
     update = new EventEmitter();
     @Output()
     open = new EventEmitter();
+    @Output()
+    search = new EventEmitter();
 
     innerValue: string | null | undefined = "";
     hoveringValue: string | null | undefined = null;
     optionLabel = "";
     isOpen = false;
     focusoutTimer?: NodeJS.Timer;
-    searchText = "";
+    innerSearchText = "";
     lastScrollTopIndex = 0;
     isSearchboxHidden: boolean;
     searchStyle: string;
@@ -40,12 +44,24 @@ export class Select2Component {
     @ViewChild("results")
     results: ElementRef;
 
+    get searchText() {
+        return this.innerSearchText;
+    }
+    set searchText(text: string) {
+        if (this.customSearchEnabled) {
+            this.search.emit(text);
+        }
+        this.innerSearchText = text;
+    }
+
     get dropdownStyle() {
         return common.getDropdownStyle(this.isOpen);
     }
 
     get filteredData() {
-        const result = common.getFilteredData(this.data, this.searchText);
+        const result = this.customSearchEnabled
+            ? this.data
+            : common.getFilteredData(this.data, this.searchText);
 
         if (common.valueIsNotInFilteredData(result, this.hoveringValue)) {
             this.hoveringValue = common.getFirstAvailableOption(result);
@@ -71,7 +87,9 @@ export class Select2Component {
         }
         this.innerValue = this.value;
         this.hoveringValue = this.value;
-        this.isSearchboxHidden = common.isSearchboxHiddex(this.data, this.minCountForSearch);
+        this.isSearchboxHidden = this.customSearchEnabled
+            ? false
+            : common.isSearchboxHiddex(this.data, this.minCountForSearch);
         this.searchStyle = common.getSearchStyle(this.isSearchboxHidden);
     }
 
@@ -105,7 +123,7 @@ export class Select2Component {
         }
         this.isOpen = !this.isOpen;
         if (this.isOpen) {
-            this.searchText = "";
+            this.innerSearchText = "";
             if (!this.isSearchboxHidden) {
                 if (this.searchInputElement) {
                     this.searchInputElement.focus();

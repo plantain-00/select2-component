@@ -5,7 +5,7 @@ import { srcVueTemplateHtml } from "./vue-variables";
 
 @Component({
     template: srcVueTemplateHtml,
-    props: ["data", "value", "disabled", "minCountForSearch", "placeholder"],
+    props: ["data", "value", "disabled", "minCountForSearch", "placeholder", "customSearchEnabled"],
 })
 class Select2 extends Vue {
     data: common.Select2Data;
@@ -13,13 +13,14 @@ class Select2 extends Vue {
     disabled?: boolean;
     minCountForSearch?: number;
     placeholder?: string;
+    customSearchEnabled?: boolean;
 
     innerValue: string | null | undefined = "";
     hoveringValue: string | null | undefined = null;
     optionLabel = "";
     isOpen = false;
     focusoutTimer?: NodeJS.Timer;
-    searchText = "";
+    innerSearchText = "";
     lastScrollTopIndex = 0;
     isSearchboxHidden: boolean;
     searchStyle: string;
@@ -27,12 +28,24 @@ class Select2 extends Vue {
     searchInputElement: HTMLElement;
     resultsElement: HTMLElement;
 
+    get searchText() {
+        return this.innerSearchText;
+    }
+    set searchText(text: string) {
+        if (this.customSearchEnabled) {
+            this.$emit("search", text);
+        }
+        this.innerSearchText = text;
+    }
+
     get dropdownStyle() {
         return common.getDropdownStyle(this.isOpen);
     }
 
     get filteredData() {
-        const result = common.getFilteredData(this.data, this.searchText);
+        const result = this.customSearchEnabled
+            ? this.data
+            : common.getFilteredData(this.data, this.searchText);
 
         if (common.valueIsNotInFilteredData(result, this.hoveringValue)) {
             this.hoveringValue = common.getFirstAvailableOption(result);
@@ -58,7 +71,9 @@ class Select2 extends Vue {
         }
         this.innerValue = this.value;
         this.hoveringValue = this.value;
-        this.isSearchboxHidden = common.isSearchboxHiddex(this.data, this.minCountForSearch);
+        this.isSearchboxHidden = this.customSearchEnabled
+            ? false
+            : common.isSearchboxHiddex(this.data, this.minCountForSearch);
         this.searchStyle = common.getSearchStyle(this.isSearchboxHidden);
     }
 
@@ -92,7 +107,7 @@ class Select2 extends Vue {
         }
         this.isOpen = !this.isOpen;
         if (this.isOpen) {
-            this.searchText = "";
+            this.innerSearchText = "";
             Vue.nextTick(() => {
                 if (!this.isSearchboxHidden) {
                     if (this.searchInputElement) {

@@ -96,8 +96,10 @@ value | string? | initial value
 disabled | boolean? | whether the component is disabled
 minCountForSearch | number? = 6 | hide search box if `options.length < minCountForSearch`
 placeholder | string? | the placeholder string if nothing selected
+customSearchEnabled | boolean? | will trigger `search` event, and disable inside filter
 update | (value: string) => void | triggered when user select an option
 open | () => void | triggered when user open the options
+search | (text: string) => void | triggered when search text changed
 
 #### select2 data structure
 
