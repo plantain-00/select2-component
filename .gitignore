@@ -64,3 +64,4 @@ dist
 demo/**/*.js
 demo/**/index.html
 !*.config.js
+demo/**/*.css

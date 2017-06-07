@@ -1,6 +1,7 @@
 module.exports = {
     inputFiles: [
         "demo/*.bundle.js",
+        "demo/*.bundle.css",
         "demo/**/index.ejs.html",
     ],
     excludeFiles: [
