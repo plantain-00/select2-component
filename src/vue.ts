@@ -15,9 +15,8 @@ class Select2 extends Vue {
     placeholder?: string;
     customSearchEnabled?: boolean;
 
-    innerValue: string | null | undefined = "";
     hoveringValue: string | null | undefined = null;
-    optionLabel = "";
+    option: common.Select2Option | null = null;
     isOpen = false;
     focusoutTimer?: NodeJS.Timer;
     innerSearchText = "";
@@ -65,11 +64,10 @@ class Select2 extends Vue {
     }
 
     beforeMount() {
-        const label = common.getLabelByValue(this.data, this.value);
-        if (label !== null) {
-            this.optionLabel = label;
+        const option = common.getOptionByValue(this.data, this.value);
+        if (option !== null) {
+            this.option = option;
         }
-        this.innerValue = this.value;
         this.hoveringValue = this.value;
         this.isSearchboxHidden = this.customSearchEnabled
             ? false
@@ -92,8 +90,7 @@ class Select2 extends Vue {
     }
     click(option: common.Select2Option) {
         if (!option.disabled) {
-            this.innerValue = option.value;
-            this.optionLabel = option.label;
+            this.option = option;
             this.$emit("update", option.value);
             this.isOpen = false;
         }
@@ -160,12 +157,11 @@ class Select2 extends Vue {
     }
     selectByEnter() {
         if (this.hoveringValue) {
-            this.innerValue = this.hoveringValue;
             this.$emit("update", this.hoveringValue);
 
-            const label = common.getLabelByValue(this.data, this.innerValue);
-            if (label !== null) {
-                this.optionLabel = label;
+            const option = common.getOptionByValue(this.data, this.hoveringValue);
+            if (option !== null) {
+                this.option = option;
             }
 
             this.isOpen = false;
@@ -183,6 +179,12 @@ class Select2 extends Vue {
             this.selectByEnter();
             e.preventDefault();
         }
+    }
+    isSelected(option: common.Select2Option) {
+        return this.option && option.value === this.option.value ? "true" : "false";
+    }
+    isDisabled(option: common.Select2Option) {
+        return option.disabled ? "true" : "false";
     }
 }
 

@@ -7,6 +7,8 @@ export type Select2Option = {
     value: string;
     label: string;
     disabled?: boolean;
+    // tslint:disable-next-line:ban-types
+    component?: string | Function;
 };
 
 export type Select2Data = (Select2Group | Select2Option)[];
@@ -39,18 +41,18 @@ function getScrollUpIndex(data: Select2Data, value: string) {
     return 0;
 }
 
-export function getLabelByValue(data: Select2Data, value: string | null | undefined) {
+export function getOptionByValue(data: Select2Data, value: string | null | undefined) {
     for (const groupOrOption of data) {
         const options = (groupOrOption as Select2Group).options;
         if (options) {
             for (const option of options) {
                 if (option.value === value) {
-                    return option.label;
+                    return option;
                 }
             }
         } else {
             if ((groupOrOption as Select2Option).value === value) {
-                return groupOrOption.label;
+                return groupOrOption as Select2Option;
             }
         }
     }

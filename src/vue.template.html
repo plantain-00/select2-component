@@ -2,8 +2,11 @@
     <div class="selection"
         @click="toggleOpenAndClose()">
         <div class="select2-selection select2-selection--single" role="combobox">
-            <span class="select2-selection__rendered" :title="optionLabel">
-                <template v-if="optionLabel">{{optionLabel}}</template>
+            <span class="select2-selection__rendered" :title="option ? option.label : ''">
+                <template v-if="option">
+                    <component v-if="option.component" :is="option.component" :option="option"></component>
+                    <template v-else>{{option.label}}</template>
+                </template>
                 <span v-else class="select2-selection__placeholder">{{placeholder}}</span>
             </span>
             <span class="select2-selection__arrow" role="presentation">
@@ -42,22 +45,24 @@
                                 <li v-for="option in groupOrOption.options"
                                     :class="getOptionStyle(option.value)"
                                     role="treeitem"
-                                    :aria-selected="option.value === innerValue ? 'true' : 'false'"
-                                    :aria-disabled="option.disabled ? 'true' : 'false'"
+                                    :aria-selected="isSelected(option)"
+                                    :aria-disabled="isDisabled(option)"
                                     @mouseenter="mouseenter(option)"
                                     @click="click(option)">
-                                    {{option.label}}
+                                    <component v-if="option.component" :is="option.component" :option="option"></component>
+                                    <template v-else>{{option.label}}</template>
                                 </li>
                             </ul>
                         </li>
                         <li v-else
                             :class="getOptionStyle(groupOrOption.value)"
                             role="treeitem"
-                            :aria-selected="groupOrOption.value === innerValue ? 'true' : 'false'"
-                            :aria-disabled="groupOrOption.disabled ? 'true' : 'false'"
+                            :aria-selected="isSelected(groupOrOption)"
+                            :aria-disabled="isDisabled(groupOrOption)"
                             @mouseenter="mouseenter(groupOrOption)"
                             @click="click(groupOrOption)">
-                            {{groupOrOption.label}}
+                            <component v-if="groupOrOption.component" :is="groupOrOption.component" :option="groupOrOption"></component>
+                            <template v-else>{{groupOrOption.label}}</template>
                         </li>
                     </template>
                 </ul>

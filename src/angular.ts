@@ -26,9 +26,8 @@ export class Select2Component {
     @Output()
     search = new EventEmitter();
 
-    innerValue: string | null | undefined = "";
     hoveringValue: string | null | undefined = null;
-    optionLabel = "";
+    option: common.Select2Option | null = null;
     isOpen = false;
     focusoutTimer?: NodeJS.Timer;
     innerSearchText = "";
@@ -81,11 +80,10 @@ export class Select2Component {
     }
 
     ngOnInit() {
-        const label = common.getLabelByValue(this.data, this.value);
-        if (label !== null) {
-            this.optionLabel = label;
+        const option = common.getOptionByValue(this.data, this.value);
+        if (option !== null) {
+            this.option = option;
         }
-        this.innerValue = this.value;
         this.hoveringValue = this.value;
         this.isSearchboxHidden = this.customSearchEnabled
             ? false
@@ -108,8 +106,7 @@ export class Select2Component {
     }
     click(option: common.Select2Option) {
         if (!option.disabled) {
-            this.innerValue = option.value;
-            this.optionLabel = option.label;
+            this.option = option;
             this.update.emit(option.value);
             this.isOpen = false;
         }
@@ -175,12 +172,11 @@ export class Select2Component {
     }
     selectByEnter() {
         if (this.hoveringValue) {
-            this.innerValue = this.hoveringValue;
             this.update.emit(this.hoveringValue);
 
-            const label = common.getLabelByValue(this.data, this.innerValue);
-            if (label !== null) {
-                this.optionLabel = label;
+            const option = common.getOptionByValue(this.data, this.hoveringValue);
+            if (option !== null) {
+                this.option = option;
             }
 
             this.isOpen = false;
@@ -198,5 +194,11 @@ export class Select2Component {
             this.selectByEnter();
             e.preventDefault();
         }
+    }
+    isSelected(option: common.Select2Option) {
+        return this.option && option.value === this.option.value ? "true" : "false";
+    }
+    isDisabled(option: common.Select2Option) {
+        return option.disabled ? "true" : "false";
     }
 }

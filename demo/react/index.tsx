@@ -4,6 +4,20 @@ import { Select2 } from "../../dist/react";
 import { data1, data2, data3, data5 } from "../common";
 import * as common from "../../dist/common";
 
+const CustomOption: React.StatelessComponent<{ option: common.Select2Option }> = props => <span>{props.option.label}<span style={{ float: "right", color: "red" }}>{props.option.value}</span></span>;
+const data8: common.Select2Data = JSON.parse(JSON.stringify(data1));
+
+for (const groupOrOption of data8) {
+    const options = (groupOrOption as common.Select2Group).options;
+    if (options) {
+        for (const option of options) {
+            option.component = CustomOption;
+        }
+    } else {
+        (options as common.Select2Option).component = CustomOption;
+    }
+}
+
 class Main extends React.Component<{}, {}> {
     data1 = data1;
     data2 = data2;
@@ -12,6 +26,7 @@ class Main extends React.Component<{}, {}> {
     data5 = data5;
     data6 = JSON.parse(JSON.stringify(data3));
     data7: common.Select2Option[] = [];
+    data8 = data8;
 
     value1 = "CA";
     value2 = "CA";
@@ -20,6 +35,7 @@ class Main extends React.Component<{}, {}> {
     value5 = "foo3";
     value6 = "";
     value7 = "";
+    value8 = "CA";
 
     update1(value: string) {
         this.value1 = value;
@@ -55,12 +71,16 @@ class Main extends React.Component<{}, {}> {
             : JSON.parse(JSON.stringify(data2));
         this.setState({ data7: this.data7 });
     }
+    update8(value: string) {
+        this.value8 = value;
+        this.setState({ value8: this.value8 });
+    }
 
     render() {
         return (
             <div style={{ width: "500px" }}>
                 <a href="https://github.com/plantain-00/select2-component/tree/master/demo/react/index.tsx" target="_blank">the source code of the demo</a>
-                <h3>options in group({this.value1})</h3>
+                <h3>options in group ({this.value1})</h3>
                 <Select2 data={this.data1}
                     value={this.value1}
                     update={value => this.update1(value)}>
@@ -97,6 +117,11 @@ class Main extends React.Component<{}, {}> {
                     open={() => this.open7()}
                     search={text => this.search7(text)}
                     update={value => this.update7(value)}>
+                </Select2>
+                <h3>custom component ({this.value8})</h3>
+                <Select2 data={this.data8}
+                    value={this.value8}
+                    update={value => this.update8(value)}>
                 </Select2>
             </div>
         );

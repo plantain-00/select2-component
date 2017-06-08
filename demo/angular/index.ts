@@ -17,7 +17,7 @@ import { data1, data2, data3, data5 } from "../common";
     template: `
     <div style="width: 500px;">
         <a href="https://github.com/plantain-00/select2-component/tree/master/demo/angular/index.ts" target="_blank">the source code of the demo</a>
-        <h3>options in group({{value1}})</h3>
+        <h3>options in group ({{value1}})</h3>
         <select2 [data]="data1"
             [value]="value1"
             (update)="update1($event)">

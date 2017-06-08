@@ -13,9 +13,8 @@ export class Select2 extends React.PureComponent<{
     open?: () => void;
     search?: (text: string) => void;
 }, {}> {
-    innerValue: string | null | undefined = "";
     hoveringValue: string | null | undefined = null;
-    optionLabel = "";
+    option: common.Select2Option | null = null;
     isOpen = false;
     focusoutTimer?: NodeJS.Timer;
     innerSearchText = "";
@@ -65,14 +64,13 @@ export class Select2 extends React.PureComponent<{
     }
 
     componentWillMount() {
-        const label = common.getLabelByValue(this.props.data, this.props.value);
-        if (label !== null) {
-            this.optionLabel = label;
-            this.setState({ optionLabel: this.optionLabel });
+        const option = common.getOptionByValue(this.props.data, this.props.value);
+        if (option !== null) {
+            this.option = option;
+            this.setState({ option: this.option });
         }
         this.hoveringValue = this.props.value;
-        this.innerValue = this.props.value;
-        this.setState({ hoveringValue: this.hoveringValue, value: this.innerValue });
+        this.setState({ hoveringValue: this.hoveringValue });
         this.isSearchboxHidden = this.props.customSearchEnabled
             ? false
             : common.isSearchboxHiddex(this.props.data, this.props.minCountForSearch);
@@ -95,15 +93,13 @@ export class Select2 extends React.PureComponent<{
     }
     click(option: common.Select2Option) {
         if (!option.disabled) {
-            this.innerValue = option.value;
-            this.optionLabel = option.label;
+            this.option = option;
             if (this.props.update) {
                 this.props.update(option.value);
             }
             this.isOpen = false;
             this.setState({
-                innerValue: this.innerValue,
-                optionLabel: this.optionLabel,
+                option: this.option,
                 isOpen: this.isOpen,
             });
         }
@@ -178,16 +174,14 @@ export class Select2 extends React.PureComponent<{
     }
     selectByEnter() {
         if (this.hoveringValue) {
-            this.innerValue = this.hoveringValue;
-            this.setState({ innerValue: this.innerValue });
             if (this.props.update) {
                 this.props.update(this.hoveringValue);
             }
 
-            const label = common.getLabelByValue(this.props.data, this.innerValue);
-            if (label !== null) {
-                this.optionLabel = label;
-                this.setState({ optionLabel: this.optionLabel });
+            const option = common.getOptionByValue(this.props.data, this.hoveringValue);
+            if (option !== null) {
+                this.option = option;
+                this.setState({ option: this.option });
             }
 
             this.isOpen = false;
@@ -213,19 +207,29 @@ export class Select2 extends React.PureComponent<{
         this.setState({ searchText: this.searchText });
     }
 
+    isSelected(option: common.Select2Option) {
+        return this.option && option.value === this.option.value ? "true" : "false";
+    }
+    isDisabled(option: common.Select2Option) {
+        return option.disabled ? "true" : "false";
+    }
+
     render() {
         const results = this.filteredData.map(groupOrOption => {
             const options = (groupOrOption as common.Select2Group).options;
             if (options) {
                 const optionsElements = options.map(option => {
+                    const optionElement = option.component
+                        ? React.createElement(option.component as React.ComponentClass<{ option: common.Select2Option }>, { option })
+                        : option.label;
                     return (
                         <li className={this.getOptionStyle(option.value)}
                             role="treeitem"
-                            aria-selected={option.value === this.innerValue ? "true" : "false"}
-                            aria-disabled={option.disabled ? "true" : "false"}
+                            aria-selected={this.isSelected(option)}
+                            aria-disabled={this.isDisabled(option)}
                             onMouseEnter={() => this.mouseenter(option)}
                             onClick={() => this.click(option)}>
-                            {option.label}
+                            {optionElement}
                         </li>
                     );
                 });
@@ -239,25 +243,30 @@ export class Select2 extends React.PureComponent<{
                 );
             } else {
                 const option = groupOrOption as common.Select2Option;
+                const optionElement = option.component
+                    ? React.createElement(option.component as React.ComponentClass<{ option: common.Select2Option }>, { option })
+                    : option.label;
                 return (
                     <li className={this.getOptionStyle(option.value)}
                         role="treeitem"
-                        aria-selected={option.value === this.innerValue ? "true" : "false"}
-                        aria-disabled={option.disabled ? "true" : "false"}
+                        aria-selected={this.isSelected(option)}
+                        aria-disabled={this.isDisabled(option)}
                         onMouseEnter={() => this.mouseenter(option)}
                         onClick={() => this.click(option)}>
-                        {groupOrOption.label}
+                        {optionElement}
                     </li>
                 );
             }
         });
-        const label = this.optionLabel ? this.optionLabel : <span className="select2-selection__placeholder">{this.props.placeholder}</span>;
+        const label = this.option
+            ? (this.option.component ? React.createElement(this.option.component as React.ComponentClass<{ option: common.Select2Option }>, { option: this.option }) : this.option.label)
+            : <span className="select2-selection__placeholder">{this.props.placeholder}</span>;
         return (
             <div className={this.containerStyle}>
                 <div className="selection"
                     onClick={() => this.toggleOpenAndClose()}>
                     <div className="select2-selection select2-selection--single" role="combobox">
-                        <span className="select2-selection__rendered" title={this.optionLabel}>{label}</span>
+                        <span className="select2-selection__rendered" title={this.option ? this.option.label : ""}>{label}</span>
                         <span className="select2-selection__arrow" role="presentation">
                             <b role="presentation"></b>
                         </span>

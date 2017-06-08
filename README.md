@@ -22,6 +22,7 @@ A vuejs, reactjs and angular select component.
 + disabled component
 + hide search box
 + placeholder
++ custom component(vuejs and reactjs only)
 
 #### install
 
@@ -115,6 +116,7 @@ type Select2Option = {
     value: string;
     label: string;
     disabled?: boolean;
+    component?: string | Function; // the component
 };
 ```
 
