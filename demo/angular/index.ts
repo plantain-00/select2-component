@@ -55,6 +55,12 @@ import { data1, data2, data3, data5 } from "../common";
             (search)="search7($event)"
             (update)="update7($event)">
         </select2>
+        <h3>multiple ({{value9}})</h3>
+        <select2 [data]="data9"
+            [value]="value9"
+            multiple="true"
+            (update)="update9($event)">
+        </select2>
     </div>
     `,
 })
@@ -62,10 +68,11 @@ export class MainComponent {
     data1 = data1;
     data2 = data2;
     data3 = data3;
-    data4 = JSON.parse(JSON.stringify(data3));
+    data4: common.Select2Data = JSON.parse(JSON.stringify(data3));
     data5 = data5;
-    data6 = JSON.parse(JSON.stringify(data3));
+    data6: common.Select2Data = JSON.parse(JSON.stringify(data3));
     data7: common.Select2Option[] = [];
+    data9: common.Select2Data = JSON.parse(JSON.stringify(data1));
 
     minCountForSearch = Infinity;
 
@@ -76,6 +83,7 @@ export class MainComponent {
     value5 = "foo3";
     value6 = "";
     value7 = "";
+    value9: string[] = [];
 
     update1(value: string) {
         this.value1 = value;
@@ -102,6 +110,9 @@ export class MainComponent {
         this.data7 = text
             ? (JSON.parse(JSON.stringify(data2)) as common.Select2Option[]).filter(option => option.label.toLowerCase().indexOf(text.toLowerCase()) > -1)
             : JSON.parse(JSON.stringify(data2));
+    }
+    update9(value: string[]) {
+        this.value9 = value;
     }
 }
 

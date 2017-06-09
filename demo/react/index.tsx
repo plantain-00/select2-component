@@ -22,11 +22,12 @@ class Main extends React.Component<{}, {}> {
     data1 = data1;
     data2 = data2;
     data3 = data3;
-    data4 = JSON.parse(JSON.stringify(data3));
+    data4: common.Select2Data = JSON.parse(JSON.stringify(data3));
     data5 = data5;
-    data6 = JSON.parse(JSON.stringify(data3));
+    data6: common.Select2Data = JSON.parse(JSON.stringify(data3));
     data7: common.Select2Option[] = [];
     data8 = data8;
+    data9: common.Select2Data = JSON.parse(JSON.stringify(data1));
 
     value1 = "CA";
     value2 = "CA";
@@ -36,6 +37,7 @@ class Main extends React.Component<{}, {}> {
     value6 = "";
     value7 = "";
     value8 = "CA";
+    value9: string[] = [];
 
     update1(value: string) {
         this.value1 = value;
@@ -75,6 +77,10 @@ class Main extends React.Component<{}, {}> {
         this.value8 = value;
         this.setState({ value8: this.value8 });
     }
+    update9(value: string[]) {
+        this.value9 = value;
+        this.setState({ value9: this.value9 });
+    }
 
     render() {
         return (
@@ -83,17 +89,17 @@ class Main extends React.Component<{}, {}> {
                 <h3>options in group ({this.value1})</h3>
                 <Select2 data={this.data1}
                     value={this.value1}
-                    update={value => this.update1(value)}>
+                    update={(value: string) => this.update1(value)}>
                 </Select2>
                 <h3>options ({this.value2})</h3>
                 <Select2 data={this.data2}
                     value={this.value2}
-                    update={value => this.update2(value)}>
+                    update={(value: string) => this.update2(value)}>
                 </Select2>
                 <h3>less options ({this.value3})</h3>
                 <Select2 data={this.data3}
                     value={this.value3}
-                    update={value => this.update3(value)}>
+                    update={(value: string) => this.update3(value)}>
                 </Select2>
                 <h3>disabled ({this.value4})</h3>
                 <Select2 data={this.data4}
@@ -104,24 +110,30 @@ class Main extends React.Component<{}, {}> {
                 <Select2 data={this.data5}
                     value={this.value5}
                     minCountForSearch={Infinity}
-                    update={value => this.update5(value)}>
+                    update={(value: string) => this.update5(value)}>
                 </Select2>
                 <h3>placeholder ({this.value6})</h3>
                 <Select2 data={this.data6}
                     placeholder="select an item"
-                    update={value => this.update6(value)}>
+                    update={(value: string) => this.update6(value)}>
                 </Select2>
                 <h3>open and search event ({this.value7})</h3>
                 <Select2 data={this.data7}
                     customSearchEnabled={true}
                     open={() => this.open7()}
                     search={text => this.search7(text)}
-                    update={value => this.update7(value)}>
+                    update={(value: string) => this.update7(value)}>
                 </Select2>
                 <h3>custom component ({this.value8})</h3>
                 <Select2 data={this.data8}
                     value={this.value8}
-                    update={value => this.update8(value)}>
+                    update={(value: string) => this.update8(value)}>
+                </Select2>
+                <h3>multiple ({this.value9})</h3>
+                <Select2 data={this.data9}
+                    value={this.value9}
+                    multiple={true}
+                    update={(value: string[]) => this.update9(value)}>
                 </Select2>
             </div>
         );

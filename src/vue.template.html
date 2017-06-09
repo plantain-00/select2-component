@@ -1,17 +1,23 @@
 <div :class="containerStyle">
     <div class="selection"
         @click="toggleOpenAndClose()">
-        <div class="select2-selection select2-selection--single" role="combobox">
-            <span class="select2-selection__rendered" :title="option ? option.label : ''">
+        <div :class="selectionStyle" role="combobox">
+            <span v-if="!multiple" class="select2-selection__rendered" :title="option ? option.label : ''">
                 <template v-if="option">
                     <component v-if="option.component" :is="option.component" :option="option"></component>
                     <template v-else>{{option.label}}</template>
                 </template>
                 <span v-else class="select2-selection__placeholder">{{placeholder}}</span>
             </span>
-            <span class="select2-selection__arrow" role="presentation">
+            <span v-if="!multiple" class="select2-selection__arrow" role="presentation">
                 <b role="presentation"></b>
             </span>
+            <ul v-if="multiple" class="select2-selection__rendered">
+                <li v-for="op in option" class="select2-selection__choice" :title="op.label">
+                    <span @click="removeSelection($event, op)" class="select2-selection__choice__remove" role="presentation">×</span>
+                    {{op.label}}
+                </li>
+            </ul>
         </div>
     </div>
     <div :class="dropdownStyle">

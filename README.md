@@ -23,6 +23,7 @@ A vuejs, reactjs and angular select component.
 + hide search box
 + placeholder
 + custom component(vuejs and reactjs only)
++ multiple selection
 
 #### install
 
@@ -98,7 +99,8 @@ disabled | boolean? | whether the component is disabled
 minCountForSearch | number? = 6 | hide search box if `options.length < minCountForSearch`
 placeholder | string? | the placeholder string if nothing selected
 customSearchEnabled | boolean? | will trigger `search` event, and disable inside filter
-update | (value: string) => void | triggered when user select an option
+multiple | boolean? | select multiple options
+update | (value: string | string[]) => void | triggered when user select an option
 open | () => void | triggered when user open the options
 search | (text: string) => void | triggered when search text changed
 

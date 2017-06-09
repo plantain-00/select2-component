@@ -59,6 +59,21 @@ export function getOptionByValue(data: Select2Data, value: string | null | undef
     return null;
 }
 
+export function getOptionsByValue(data: Select2Data, value: string | string[] | null | undefined, multiple: boolean | null | undefined) {
+    if (multiple) {
+        const values: string[] = Array.isArray(value) ? value : [];
+        const result: Select2Option[] = [];
+        for (const v of values) {
+            const option = getOptionByValue(data, v);
+            if (option) {
+                result.push(option);
+            }
+        }
+        return result;
+    }
+    return getOptionByValue(data, value as string | null | undefined);
+}
+
 export function getFirstAvailableOption(data: Select2Data) {
     for (const groupOrOption of data) {
         const options = (groupOrOption as Select2Group).options;
@@ -230,6 +245,10 @@ export function getContainerStyle(disabled: boolean | undefined, isOpen: boolean
     return `select2 select2-container select2-container--default ${disabled ? "select2-container--disabled" : ""} ${isOpen ? "select2-container--open" : ""} select2-container--below select2-container--focus`;
 }
 
+export function getSelectionStyle(multiple: boolean | undefined) {
+    return `select2-selection select2-selection--${multiple ? "multiple" : "single"}`;
+}
+
 const defaultMinCountForSearch = 6;
 
 export function isSearchboxHiddex(data: Select2Data, minCountForSearch?: number) {
@@ -244,4 +263,21 @@ export function getSearchStyle(isHidden: boolean) {
     return isHidden
         ? "select2-search select2-search--dropdown select2-search--hide"
         : "select2-search select2-search--dropdown";
+}
+
+export function isSelected(options: Select2Option | Select2Option[] | null, option: Select2Option, multiple: boolean | null | undefined) {
+    if (multiple) {
+        return options && (options as Select2Option[]).some(op => op.value === option.value) ? "true" : "false";
+    } else {
+        return options && option.value === (options as Select2Option).value ? "true" : "false";
+    }
+}
+
+export function removeSelection(options: Select2Option | Select2Option[] | null, option: Select2Option) {
+    for (let i = 0; i < (options as Select2Option[]).length; i++) {
+        if ((options as Select2Option[])[i].value === option.value) {
+            (options as Select2Option[]).splice(i, 1);
+            return;
+        }
+    }
 }

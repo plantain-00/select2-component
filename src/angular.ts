@@ -10,7 +10,7 @@ export class Select2Component {
     @Input()
     data: common.Select2Data;
     @Input()
-    value?: string;
+    value?: string | string[];
     @Input()
     disabled?: boolean;
     @Input()
@@ -19,6 +19,8 @@ export class Select2Component {
     placeholder?: string;
     @Input()
     customSearchEnabled?: boolean;
+    @Input()
+    multiple?: boolean;
     @Output()
     update = new EventEmitter();
     @Output()
@@ -27,7 +29,7 @@ export class Select2Component {
     search = new EventEmitter();
 
     hoveringValue: string | null | undefined = null;
-    option: common.Select2Option | null = null;
+    option: common.Select2Option | common.Select2Option[] | null = null;
     isOpen = false;
     focusoutTimer?: NodeJS.Timer;
     innerSearchText = "";
@@ -79,12 +81,18 @@ export class Select2Component {
         return common.getContainerStyle(this.disabled, this.isOpen);
     }
 
+    get selectionStyle() {
+        return common.getSelectionStyle(this.multiple);
+    }
+
     ngOnInit() {
-        const option = common.getOptionByValue(this.data, this.value);
+        const option = common.getOptionsByValue(this.data, this.value, this.multiple);
         if (option !== null) {
             this.option = option;
         }
-        this.hoveringValue = this.value;
+        if (!Array.isArray(option)) {
+            this.hoveringValue = this.value as string | undefined;
+        }
         this.isSearchboxHidden = this.customSearchEnabled
             ? false
             : common.isSearchboxHiddex(this.data, this.minCountForSearch);
@@ -106,9 +114,7 @@ export class Select2Component {
     }
     click(option: common.Select2Option) {
         if (!option.disabled) {
-            this.option = option;
-            this.update.emit(option.value);
-            this.isOpen = false;
+            this.select(option);
         }
         if (this.focusoutTimer) {
             clearTimeout(this.focusoutTimer);
@@ -172,15 +178,33 @@ export class Select2Component {
     }
     selectByEnter() {
         if (this.hoveringValue) {
-            this.update.emit(this.hoveringValue);
-
             const option = common.getOptionByValue(this.data, this.hoveringValue);
-            if (option !== null) {
-                this.option = option;
-            }
-
-            this.isOpen = false;
+            this.select(option);
         }
+    }
+    select(option: common.Select2Option | null) {
+        if (option !== null) {
+            if (this.multiple) {
+                const options = this.option as common.Select2Option[];
+                let index = -1;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === option.value) {
+                        index = i;
+                        break;
+                    }
+                }
+                if (index === -1) {
+                    options.push(option);
+                } else {
+                    options.splice(index, 1);
+                }
+            } else {
+                this.option = option;
+                this.isOpen = false;
+            }
+        }
+
+        this.update.emit(this.multiple ? (this.option as common.Select2Option[]).map(op => op.value) : (this.option as common.Select2Option).value);
     }
 
     keyDown(e: KeyboardEvent) {
@@ -196,9 +220,33 @@ export class Select2Component {
         }
     }
     isSelected(option: common.Select2Option) {
-        return this.option && option.value === this.option.value ? "true" : "false";
+        return common.isSelected(this.option, option, this.multiple);
     }
     isDisabled(option: common.Select2Option) {
         return option.disabled ? "true" : "false";
+    }
+
+    removeSelection(e: MouseEvent, option: common.Select2Option) {
+        common.removeSelection(this.option, option);
+        this.update.emit((this.option as common.Select2Option[]).map(op => op.value));
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (this.isOpen) {
+            if (!this.isSearchboxHidden) {
+                if (this.searchInputElement) {
+                    this.searchInputElement.focus();
+                }
+            } else {
+                if (this.resultsElement) {
+                    this.resultsElement.focus();
+                }
+            }
+        }
+
+        if (this.focusoutTimer) {
+            clearTimeout(this.focusoutTimer);
+        }
     }
 }

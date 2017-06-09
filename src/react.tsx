@@ -4,17 +4,18 @@ import * as common from "./common";
 
 export class Select2 extends React.PureComponent<{
     data: common.Select2Data;
-    value?: string;
+    value?: string | string[];
     disabled?: boolean;
     minCountForSearch?: number;
     placeholder?: string;
     customSearchEnabled?: boolean;
-    update?: (value: string) => void;
+    multiple?: boolean;
+    update?: (value: string | string[]) => void;
     open?: () => void;
     search?: (text: string) => void;
 }, {}> {
     hoveringValue: string | null | undefined = null;
-    option: common.Select2Option | null = null;
+    option: common.Select2Option | common.Select2Option[] | null = null;
     isOpen = false;
     focusoutTimer?: NodeJS.Timer;
     innerSearchText = "";
@@ -63,13 +64,19 @@ export class Select2 extends React.PureComponent<{
         return common.getContainerStyle(this.props.disabled, this.isOpen);
     }
 
+    get selectionStyle() {
+        return common.getSelectionStyle(this.props.multiple);
+    }
+
     componentWillMount() {
-        const option = common.getOptionByValue(this.props.data, this.props.value);
+        const option = common.getOptionsByValue(this.props.data, this.props.value, this.props.multiple);
         if (option !== null) {
             this.option = option;
             this.setState({ option: this.option });
         }
-        this.hoveringValue = this.props.value;
+        if (!Array.isArray(option)) {
+            this.hoveringValue = this.props.value as string | undefined;
+        }
         this.setState({ hoveringValue: this.hoveringValue });
         this.isSearchboxHidden = this.props.customSearchEnabled
             ? false
@@ -93,15 +100,7 @@ export class Select2 extends React.PureComponent<{
     }
     click(option: common.Select2Option) {
         if (!option.disabled) {
-            this.option = option;
-            if (this.props.update) {
-                this.props.update(option.value);
-            }
-            this.isOpen = false;
-            this.setState({
-                option: this.option,
-                isOpen: this.isOpen,
-            });
+            this.select(option);
         }
         if (this.focusoutTimer) {
             clearTimeout(this.focusoutTimer);
@@ -174,18 +173,41 @@ export class Select2 extends React.PureComponent<{
     }
     selectByEnter() {
         if (this.hoveringValue) {
-            if (this.props.update) {
-                this.props.update(this.hoveringValue);
-            }
-
             const option = common.getOptionByValue(this.props.data, this.hoveringValue);
-            if (option !== null) {
+            this.select(option);
+        }
+    }
+    select(option: common.Select2Option | null) {
+        if (option !== null) {
+            if (this.props.multiple) {
+                const options = this.option as common.Select2Option[];
+                let index = -1;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === option.value) {
+                        index = i;
+                        break;
+                    }
+                }
+                if (index === -1) {
+                    options.push(option);
+                } else {
+                    options.splice(index, 1);
+                }
+                this.setState({
+                    option: this.option,
+                });
+            } else {
                 this.option = option;
-                this.setState({ option: this.option });
+                this.isOpen = false;
+                this.setState({
+                    option: this.option,
+                    isOpen: this.isOpen,
+                });
             }
+        }
 
-            this.isOpen = false;
-            this.setState({ isOpen: this.isOpen });
+        if (this.props.update) {
+            this.props.update(this.props.multiple ? (this.option as common.Select2Option[]).map(op => op.value) : (this.option as common.Select2Option).value);
         }
     }
 
@@ -208,10 +230,38 @@ export class Select2 extends React.PureComponent<{
     }
 
     isSelected(option: common.Select2Option) {
-        return this.option && option.value === this.option.value ? "true" : "false";
+        return common.isSelected(this.option, option, this.props.multiple);
     }
     isDisabled(option: common.Select2Option) {
         return option.disabled ? "true" : "false";
+    }
+
+    removeSelection(e: React.MouseEvent<HTMLSpanElement>, option: common.Select2Option) {
+        common.removeSelection(this.option, option);
+        if (this.props.update) {
+            this.props.update((this.option as common.Select2Option[]).map(op => op.value));
+        }
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (this.isOpen) {
+            this.setState({ option: this.option }, () => {
+                if (!this.isSearchboxHidden) {
+                    if (this.searchInputElement) {
+                        this.searchInputElement.focus();
+                    }
+                } else {
+                    if (this.resultsElement) {
+                        this.resultsElement.focus();
+                    }
+                }
+            });
+        }
+
+        if (this.focusoutTimer) {
+            clearTimeout(this.focusoutTimer);
+        }
     }
 
     render() {
@@ -258,18 +308,37 @@ export class Select2 extends React.PureComponent<{
                 );
             }
         });
-        const label = this.option
-            ? (this.option.component ? React.createElement(this.option.component as React.ComponentClass<{ option: common.Select2Option }>, { option: this.option }) : this.option.label)
-            : <span className="select2-selection__placeholder">{this.props.placeholder}</span>;
+        let selection: JSX.Element | JSX.Element[];
+        if (this.props.multiple) {
+            const items = (this.option as common.Select2Option[]).map(op => (
+                <li className="select2-selection__choice" title={op.label}>
+                    <span onClick={e => this.removeSelection(e, op)} className="select2-selection__choice__remove" role="presentation">×</span>
+                    {op.label}
+                </li >
+            ));
+            selection = (
+                <ul className="select2-selection__rendered">
+                    {items}
+                </ul>
+            );
+        } else {
+            const option = this.option as common.Select2Option;
+            const label = option
+                ? (option.component ? React.createElement(option.component as React.ComponentClass<{ option: common.Select2Option }>, { option }) : option.label)
+                : <span className="select2-selection__placeholder">{this.props.placeholder}</span>;
+            selection = [
+                <span className="select2-selection__rendered" title={option ? option.label : ""}>{label}</span>,
+                <span className="select2-selection__arrow" role="presentation">
+                    <b role="presentation"></b>
+                </span>,
+            ];
+        }
         return (
             <div className={this.containerStyle}>
                 <div className="selection"
                     onClick={() => this.toggleOpenAndClose()}>
-                    <div className="select2-selection select2-selection--single" role="combobox">
-                        <span className="select2-selection__rendered" title={this.option ? this.option.label : ""}>{label}</span>
-                        <span className="select2-selection__arrow" role="presentation">
-                            <b role="presentation"></b>
-                        </span>
+                    <div className={this.selectionStyle} role="combobox">
+                        {selection}
                     </div>
                 </div>
                 <div className={this.dropdownStyle}>

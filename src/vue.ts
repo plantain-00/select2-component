@@ -5,18 +5,19 @@ import { srcVueTemplateHtml } from "./vue-variables";
 
 @Component({
     template: srcVueTemplateHtml,
-    props: ["data", "value", "disabled", "minCountForSearch", "placeholder", "customSearchEnabled"],
+    props: ["data", "value", "disabled", "minCountForSearch", "placeholder", "customSearchEnabled", "multiple"],
 })
 class Select2 extends Vue {
     data: common.Select2Data;
-    value?: string;
+    value?: string | string[];
     disabled?: boolean;
     minCountForSearch?: number;
     placeholder?: string;
     customSearchEnabled?: boolean;
+    multiple?: boolean;
 
     hoveringValue: string | null | undefined = null;
-    option: common.Select2Option | null = null;
+    option: common.Select2Option | common.Select2Option[] | null = null;
     isOpen = false;
     focusoutTimer?: NodeJS.Timer;
     innerSearchText = "";
@@ -63,12 +64,18 @@ class Select2 extends Vue {
         return common.getContainerStyle(this.disabled, this.isOpen);
     }
 
+    get selectionStyle() {
+        return common.getSelectionStyle(this.multiple);
+    }
+
     beforeMount() {
-        const option = common.getOptionByValue(this.data, this.value);
+        const option = common.getOptionsByValue(this.data, this.value, this.multiple);
         if (option !== null) {
             this.option = option;
         }
-        this.hoveringValue = this.value;
+        if (!Array.isArray(option)) {
+            this.hoveringValue = this.value as string | undefined;
+        }
         this.isSearchboxHidden = this.customSearchEnabled
             ? false
             : common.isSearchboxHiddex(this.data, this.minCountForSearch);
@@ -90,9 +97,7 @@ class Select2 extends Vue {
     }
     click(option: common.Select2Option) {
         if (!option.disabled) {
-            this.option = option;
-            this.$emit("update", option.value);
-            this.isOpen = false;
+            this.select(option);
         }
         if (this.focusoutTimer) {
             clearTimeout(this.focusoutTimer);
@@ -157,15 +162,33 @@ class Select2 extends Vue {
     }
     selectByEnter() {
         if (this.hoveringValue) {
-            this.$emit("update", this.hoveringValue);
-
             const option = common.getOptionByValue(this.data, this.hoveringValue);
-            if (option !== null) {
-                this.option = option;
-            }
-
-            this.isOpen = false;
+            this.select(option);
         }
+    }
+    select(option: common.Select2Option | null) {
+        if (option !== null) {
+            if (this.multiple) {
+                const options = this.option as common.Select2Option[];
+                let index = -1;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === option.value) {
+                        index = i;
+                        break;
+                    }
+                }
+                if (index === -1) {
+                    options.push(option);
+                } else {
+                    options.splice(index, 1);
+                }
+            } else {
+                this.option = option;
+                this.isOpen = false;
+            }
+        }
+
+        this.$emit("update", this.multiple ? (this.option as common.Select2Option[]).map(op => op.value) : (this.option as common.Select2Option).value);
     }
 
     keyDown(e: KeyboardEvent) {
@@ -181,10 +204,35 @@ class Select2 extends Vue {
         }
     }
     isSelected(option: common.Select2Option) {
-        return this.option && option.value === this.option.value ? "true" : "false";
+        return common.isSelected(this.option, option, this.multiple);
     }
     isDisabled(option: common.Select2Option) {
         return option.disabled ? "true" : "false";
+    }
+    removeSelection(e: MouseEvent, option: common.Select2Option) {
+        common.removeSelection(this.option, option);
+        this.$emit("update", (this.option as common.Select2Option[]).map(op => op.value));
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (this.isOpen) {
+            Vue.nextTick(() => {
+                if (!this.isSearchboxHidden) {
+                    if (this.searchInputElement) {
+                        this.searchInputElement.focus();
+                    }
+                } else {
+                    if (this.resultsElement) {
+                        this.resultsElement.focus();
+                    }
+                }
+            });
+        }
+
+        if (this.focusoutTimer) {
+            clearTimeout(this.focusoutTimer);
+        }
     }
 }
 
