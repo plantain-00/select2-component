@@ -46,7 +46,7 @@ import "select2-component/dist/vue";
 ```html
 <select2 :data="data"
     :value="value"
-    @update="update(arguments[0])">
+    @update="update($event)">
 </select2>
 ```
 

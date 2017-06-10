@@ -32,17 +32,17 @@ for (const groupOrOption of data8) {
         <h3>options in group ({{value1}})</h3>
         <select2 :data="data1"
             :value="value1"
-            @update="update1(arguments[0])">
+            @update="update1($event)">
         </select2>
         <h3>options ({{value2}})</h3>
         <select2 :data="data2"
             :value="value2"
-            @update="update2(arguments[0])">
+            @update="update2($event)">
         </select2>
         <h3>less options ({{value3}})</h3>
         <select2 :data="data3"
             :value="value3"
-            @update="update3(arguments[0])">
+            @update="update3($event)">
         </select2>
         <h3>disabled ({{value4}})</h3>
         <select2 :data="data4"
@@ -53,30 +53,30 @@ for (const groupOrOption of data8) {
         <select2 :data="data5"
             :value="value5"
             :min-count-for-search="Infinity"
-            @update="update5(arguments[0])">
+            @update="update5($event)">
         </select2>
         <h3>placeholder ({{value6}})</h3>
         <select2 :data="data6"
             placeholder="select an item"
-            @update="update6(arguments[0])">
+            @update="update6($event)">
         </select2>
         <h3>open and search event ({{value7}})</h3>
         <select2 :data="data7"
             custom-search-enabled="true"
             @open="open7()"
-            @search="search7(arguments[0])"
-            @update="update7(arguments[0])">
+            @search="search7($event)"
+            @update="update7($event)">
         </select2>
         <h3>custom component ({{value8}})</h3>
         <select2 :data="data8"
             :value="value8"
-            @update="update8(arguments[0])">
+            @update="update8($event)">
         </select2>
         <h3>multiple ({{value9}})</h3>
         <select2 :data="data9"
             :value="value9"
             multiple="true"
-            @update="update9(arguments[0])">
+            @update="update9($event)">
         </select2>
     </div>
     `,
