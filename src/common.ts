@@ -4,12 +4,16 @@ export type Select2Group = {
 };
 
 export type Select2Option = {
-    value: string;
+    value: Select2Value;
     label: string;
     disabled?: boolean;
     // tslint:disable-next-line:ban-types
     component?: string | Function;
 };
+
+export type Select2Value = string | number;
+
+export type Select2UpdateValue = Select2Value | Select2Value[];
 
 export type Select2Data = (Select2Group | Select2Option)[];
 
@@ -17,7 +21,7 @@ export const timeout = 200;
 
 export const height = 28;
 
-function getScrollUpIndex(data: Select2Data, value: string) {
+function getScrollUpIndex(data: Select2Data, value: Select2Value) {
     let index = 0;
     for (const groupOrOption of data) {
         const options = (groupOrOption as Select2Group).options;
@@ -41,7 +45,7 @@ function getScrollUpIndex(data: Select2Data, value: string) {
     return 0;
 }
 
-export function getOptionByValue(data: Select2Data, value: string | null | undefined) {
+export function getOptionByValue(data: Select2Data, value: Select2Value | null | undefined) {
     for (const groupOrOption of data) {
         const options = (groupOrOption as Select2Group).options;
         if (options) {
@@ -59,9 +63,9 @@ export function getOptionByValue(data: Select2Data, value: string | null | undef
     return null;
 }
 
-export function getOptionsByValue(data: Select2Data, value: string | string[] | null | undefined, multiple: boolean | null | undefined) {
+export function getOptionsByValue(data: Select2Data, value: Select2UpdateValue | null | undefined, multiple: boolean | null | undefined) {
     if (multiple) {
-        const values: string[] = Array.isArray(value) ? value : [];
+        const values: Select2Value[] = Array.isArray(value) ? value : [];
         const result: Select2Option[] = [];
         for (const v of values) {
             const option = getOptionByValue(data, v);
@@ -71,7 +75,7 @@ export function getOptionsByValue(data: Select2Data, value: string | string[] | 
         }
         return result;
     }
-    return getOptionByValue(data, value as string | null | undefined);
+    return getOptionByValue(data, value as Select2Value | null | undefined);
 }
 
 export function getFirstAvailableOption(data: Select2Data) {
@@ -106,7 +110,7 @@ function getOptionsCount(data: Select2Data) {
     return count;
 }
 
-export function valueIsNotInFilteredData(filteredData: Select2Data, value: string | null | undefined) {
+export function valueIsNotInFilteredData(filteredData: Select2Data, value: Select2Value | null | undefined) {
     if (value === null || value === undefined) {
         return true;
     }
@@ -127,7 +131,7 @@ export function valueIsNotInFilteredData(filteredData: Select2Data, value: strin
     return true;
 }
 
-export function getPreviousOption(filteredData: Select2Data, hoveringValue: string | null | undefined) {
+export function getPreviousOption(filteredData: Select2Data, hoveringValue: Select2Value | null | undefined) {
     let findIt = hoveringValue === null || hoveringValue === undefined;
     for (let i = filteredData.length - 1; i >= 0; i--) {
         const groupOrOption = filteredData[i];
@@ -154,7 +158,7 @@ export function getPreviousOption(filteredData: Select2Data, hoveringValue: stri
     }
     return findIt ? hoveringValue : null;
 }
-export function getNextOption(filteredData: Select2Data, hoveringValue: string | null | undefined) {
+export function getNextOption(filteredData: Select2Data, hoveringValue: Select2Value | null | undefined) {
     let findIt = hoveringValue === null || hoveringValue === undefined;
     for (const groupOrOption of filteredData) {
         const options = (groupOrOption as Select2Group).options;
@@ -182,7 +186,7 @@ export function getNextOption(filteredData: Select2Data, hoveringValue: string |
     return findIt ? hoveringValue : null;
 }
 
-export function getLastScrollTopIndex(hoveringValue: string | null | undefined, results: HTMLElement, filteredData: Select2Data, lastScrollTopIndex: number) {
+export function getLastScrollTopIndex(hoveringValue: Select2Value | null | undefined, results: HTMLElement, filteredData: Select2Data, lastScrollTopIndex: number) {
     if (hoveringValue === null || hoveringValue === undefined) {
         results.scrollTop = 0;
         return 0;
@@ -229,7 +233,7 @@ export function getFilteredData(data: Select2Data, searchText: string | null) {
     }
 }
 
-export function getOptionStyle(value: string, hoveringValue: string | null | undefined) {
+export function getOptionStyle(value: Select2Value, hoveringValue: Select2Value | null | undefined) {
     return value === hoveringValue
         ? "select2-results__option select2-results__option--highlighted"
         : "select2-results__option";

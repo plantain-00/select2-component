@@ -4,17 +4,17 @@ import * as common from "./common";
 
 export class Select2 extends React.PureComponent<{
     data: common.Select2Data;
-    value?: string | string[];
+    value?: common.Select2UpdateValue;
     disabled?: boolean;
     minCountForSearch?: number;
     placeholder?: string;
     customSearchEnabled?: boolean;
     multiple?: boolean;
-    update?: (value: string | string[]) => void;
+    update?: (value: common.Select2UpdateValue) => void;
     open?: () => void;
     search?: (text: string) => void;
 }, {}> {
-    hoveringValue: string | null | undefined = null;
+    hoveringValue: common.Select2Value | null | undefined = null;
     option: common.Select2Option | common.Select2Option[] | null = null;
     isOpen = false;
     focusoutTimer?: NodeJS.Timer;
@@ -89,7 +89,7 @@ export class Select2 extends React.PureComponent<{
         this.resultsElement = ReactDOM.findDOMNode(this).childNodes[1].childNodes[0].childNodes[1].childNodes[0] as HTMLElement;
     }
 
-    getOptionStyle(value: string) {
+    getOptionStyle(value: common.Select2Value) {
         return common.getOptionStyle(value, this.hoveringValue);
     }
     mouseenter(option: common.Select2Option) {

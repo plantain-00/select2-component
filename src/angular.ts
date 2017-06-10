@@ -10,7 +10,7 @@ export class Select2Component {
     @Input()
     data: common.Select2Data;
     @Input()
-    value?: string | string[];
+    value?: common.Select2UpdateValue;
     @Input()
     disabled?: boolean;
     @Input()
@@ -28,7 +28,7 @@ export class Select2Component {
     @Output()
     search = new EventEmitter();
 
-    hoveringValue: string | null | undefined = null;
+    hoveringValue: common.Select2Value | null | undefined = null;
     option: common.Select2Option | common.Select2Option[] | null = null;
     isOpen = false;
     focusoutTimer?: NodeJS.Timer;

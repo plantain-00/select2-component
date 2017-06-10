@@ -9,14 +9,14 @@ import { srcVueTemplateHtml } from "./vue-variables";
 })
 class Select2 extends Vue {
     data: common.Select2Data;
-    value?: string | string[];
+    value?: common.Select2UpdateValue;
     disabled?: boolean;
     minCountForSearch?: number;
     placeholder?: string;
     customSearchEnabled?: boolean;
     multiple?: boolean;
 
-    hoveringValue: string | null | undefined = null;
+    hoveringValue: common.Select2Value | null | undefined = null;
     option: common.Select2Option | common.Select2Option[] | null = null;
     isOpen = false;
     focusoutTimer?: NodeJS.Timer;

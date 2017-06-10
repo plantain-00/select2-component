@@ -94,13 +94,13 @@ the online demo: https://plantain-00.github.io/select2-component/demo/angular/in
 name | type | description
 --- | --- | ---
 data | [Select2Data](#select2-data-structure) | the data of the select2
-value | string? | initial value
+value | [Select2Value](#select2-data-structure)? | initial value
 disabled | boolean? | whether the component is disabled
 minCountForSearch | number? = 6 | hide search box if `options.length < minCountForSearch`
 placeholder | string? | the placeholder string if nothing selected
 customSearchEnabled | boolean? | will trigger `search` event, and disable inside filter
 multiple | boolean? | select multiple options
-update | (value: string | string[]) => void | triggered when user select an option
+update | (value: [Select2UpdateValue](#select2-data-structure)) => void | triggered when user select an option
 open | () => void | triggered when user open the options
 search | (text: string) => void | triggered when search text changed
 
@@ -115,11 +115,15 @@ type Select2Group = {
 };
 
 type Select2Option = {
-    value: string;
+    value: Select2Value;
     label: string;
     disabled?: boolean;
     component?: string | Function; // the component
 };
+
+type Select2Value = string | number;
+
+type Select2UpdateValue = Select2Value | Select2Value[];
 ```
 
 #### change log
