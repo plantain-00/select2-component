@@ -4,7 +4,8 @@
         "outDir": "../dist",
         "declaration": true,
 
-        "module": "commonjs",
+        "module": "esnext",
+        "moduleResolution": "node",
         "strict": true,
         "noUnusedLocals": true,
         "noImplicitReturns": true,

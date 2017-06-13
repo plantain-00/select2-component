@@ -12,7 +12,6 @@ A vuejs, reactjs and angular select component.
 + vuejs component
 + reactjs component
 + angular component
-+ commonjs module
 + select one
 + options or groups
 + scroll
