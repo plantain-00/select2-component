@@ -11,7 +11,7 @@
     "lessc": "lessc src/select2.less > dist/select2.css",
     "stylelint": "stylelint \"src/**/*.less\"",
     "cleancss": "cleancss -o dist/select2.min.css dist/select2.css && cleancss -o demo/index.bundle.css dist/select2.min.css ./node_modules/github-fork-ribbon-css/gh-fork-ribbon.css",
-    "clean": "rimraf dist && rimraf demo/*.bundle-*.js && rimraf demo/*.bundle-*.css",
+    "clean": "rimraf dist && rimraf demo/**/index.bundle-*.js && rimraf demo/*.bundle-*.css",
     "file2variable": "file2variable-cli src/vue.template.html -o src/vue-variables.ts --html-minify && file2variable-cli src/angular.template.html -o src/angular-variables.ts --html-minify",
     "build": "npm run clean && npm run file2variable && npm run tsc && npm run lessc && npm run cleancss && npm run webpack && npm run rev-static",
     "lint": "npm run tslint && npm run stylelint"
