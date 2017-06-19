@@ -1,4 +1,4 @@
-import * as Vue from "vue";
+import Vue from "vue";
 import Component from "vue-class-component";
 import "../../dist/vue";
 import { data1, data2, data3, data5 } from "../common";
