@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as common from "./common";
+export * from "./common";
 
 export class Select2 extends React.PureComponent<{
     data: common.Select2Data;

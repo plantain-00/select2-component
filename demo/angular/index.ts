@@ -4,7 +4,6 @@ import "zone.js/dist/zone";
 
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 import { enableProdMode } from "@angular/core";
-import * as common from "../../dist/common";
 
 enableProdMode();
 
@@ -68,11 +67,11 @@ export class MainComponent {
     data1 = data1;
     data2 = data2;
     data3 = data3;
-    data4: common.Select2Data = JSON.parse(JSON.stringify(data3));
+    data4: Select2Data = JSON.parse(JSON.stringify(data3));
     data5 = data5;
-    data6: common.Select2Data = JSON.parse(JSON.stringify(data3));
-    data7: common.Select2Option[] = [];
-    data9: common.Select2Data = JSON.parse(JSON.stringify(data1));
+    data6: Select2Data = JSON.parse(JSON.stringify(data3));
+    data7: Select2Option[] = [];
+    data9: Select2Data = JSON.parse(JSON.stringify(data1));
 
     minCountForSearch = Infinity;
 
@@ -108,7 +107,7 @@ export class MainComponent {
     }
     search7(text: string) {
         this.data7 = text
-            ? (JSON.parse(JSON.stringify(data2)) as common.Select2Option[]).filter(option => option.label.toLowerCase().indexOf(text.toLowerCase()) > -1)
+            ? (JSON.parse(JSON.stringify(data2)) as Select2Option[]).filter(option => option.label.toLowerCase().indexOf(text.toLowerCase()) > -1)
             : JSON.parse(JSON.stringify(data2));
     }
     update9(value: string[]) {
@@ -119,7 +118,7 @@ export class MainComponent {
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule } from "@angular/forms";
-import { Select2Component } from "../../dist/angular";
+import { Select2Component, Select2Option, Select2Data } from "../../dist/angular";
 
 @NgModule({
     imports: [BrowserModule, FormsModule],

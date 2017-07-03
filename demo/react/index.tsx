@@ -1,20 +1,19 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { Select2 } from "../../dist/react";
+import { Select2, Select2Option, Select2Data, Select2Group } from "../../dist/react";
 import { data1, data2, data3, data5 } from "../common";
-import * as common from "../../dist/common";
 
-const CustomOption: React.StatelessComponent<{ option: common.Select2Option }> = props => <span>{props.option.label}<span style={{ float: "right", color: "red" }}>{props.option.value}</span></span>;
-const data8: common.Select2Data = JSON.parse(JSON.stringify(data1));
+const CustomOption: React.StatelessComponent<{ option: Select2Option }> = props => <span>{props.option.label}<span style={{ float: "right", color: "red" }}>{props.option.value}</span></span>;
+const data8: Select2Data = JSON.parse(JSON.stringify(data1));
 
 for (const groupOrOption of data8) {
-    const options = (groupOrOption as common.Select2Group).options;
+    const options = (groupOrOption as Select2Group).options;
     if (options) {
         for (const option of options) {
             option.component = CustomOption;
         }
     } else {
-        (options as common.Select2Option).component = CustomOption;
+        (options as Select2Option).component = CustomOption;
     }
 }
 
@@ -22,12 +21,12 @@ class Main extends React.Component<{}, {}> {
     data1 = data1;
     data2 = data2;
     data3 = data3;
-    data4: common.Select2Data = JSON.parse(JSON.stringify(data3));
+    data4: Select2Data = JSON.parse(JSON.stringify(data3));
     data5 = data5;
-    data6: common.Select2Data = JSON.parse(JSON.stringify(data3));
-    data7: common.Select2Option[] = [];
+    data6: Select2Data = JSON.parse(JSON.stringify(data3));
+    data7: Select2Option[] = [];
     data8 = data8;
-    data9: common.Select2Data = JSON.parse(JSON.stringify(data1));
+    data9: Select2Data = JSON.parse(JSON.stringify(data1));
 
     value1 = "CA";
     value2 = "CA";
@@ -69,7 +68,7 @@ class Main extends React.Component<{}, {}> {
     }
     search7(text: string) {
         this.data7 = text
-            ? (JSON.parse(JSON.stringify(data2)) as common.Select2Option[]).filter(option => option.label.toLowerCase().indexOf(text.toLowerCase()) > -1)
+            ? (JSON.parse(JSON.stringify(data2)) as Select2Option[]).filter(option => option.label.toLowerCase().indexOf(text.toLowerCase()) > -1)
             : JSON.parse(JSON.stringify(data2));
         this.setState({ data7: this.data7 });
     }

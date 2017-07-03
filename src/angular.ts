@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, ElementRef, ViewChild } from "@angular/core";
 import * as common from "./common";
+export * from "./common";
 import { angularTemplateHtml } from "./angular-variables";
 
 @Component({
