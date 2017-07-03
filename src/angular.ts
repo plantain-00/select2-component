@@ -1,10 +1,10 @@
 import { Component, Input, Output, EventEmitter, ElementRef, ViewChild } from "@angular/core";
 import * as common from "./common";
-import { srcAngularTemplateHtml } from "./angular-variables";
+import { angularTemplateHtml } from "./angular-variables";
 
 @Component({
     selector: "select2",
-    template: srcAngularTemplateHtml,
+    template: angularTemplateHtml,
 })
 export class Select2Component {
     @Input()
@@ -31,7 +31,7 @@ export class Select2Component {
     hoveringValue: common.Select2Value | null | undefined = null;
     option: common.Select2Option | common.Select2Option[] | null = null;
     isOpen = false;
-    focusoutTimer?: NodeJS.Timer;
+    focusoutTimer?: number;
     innerSearchText = "";
     lastScrollTopIndex = 0;
     isSearchboxHidden: boolean;

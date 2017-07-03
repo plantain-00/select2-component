@@ -17,7 +17,7 @@ export class Select2 extends React.PureComponent<{
     hoveringValue: common.Select2Value | null | undefined = null;
     option: common.Select2Option | common.Select2Option[] | null = null;
     isOpen = false;
-    focusoutTimer?: NodeJS.Timer;
+    focusoutTimer?: number;
     innerSearchText = "";
     lastScrollTopIndex = 0;
     isSearchboxHidden: boolean;

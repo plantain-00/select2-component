@@ -1,10 +1,10 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import * as common from "./common";
-import { srcVueTemplateHtml } from "./vue-variables";
+import { vueTemplateHtml } from "./vue-variables";
 
 @Component({
-    template: srcVueTemplateHtml,
+    template: vueTemplateHtml,
     props: ["data", "value", "disabled", "minCountForSearch", "placeholder", "customSearchEnabled", "multiple"],
 })
 class Select2 extends Vue {
@@ -19,7 +19,7 @@ class Select2 extends Vue {
     hoveringValue: common.Select2Value | null | undefined = null;
     option: common.Select2Option | common.Select2Option[] | null = null;
     isOpen = false;
-    focusoutTimer?: NodeJS.Timer;
+    focusoutTimer?: number;
     innerSearchText = "";
     lastScrollTopIndex = 0;
     isSearchboxHidden: boolean;
