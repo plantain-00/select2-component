@@ -12,5 +12,6 @@ module.exports = {
   customNewFileName: (filePath, fileString, md5String, baseName, extensionName) => baseName + '-' + md5String + extensionName,
   noOutputFiles: [
   ],
-  base: 'demo'
+  base: 'demo',
+  fileSize: 'demo/file-size.json'
 }
