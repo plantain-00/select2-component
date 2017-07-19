@@ -31,7 +31,7 @@ A vuejs, reactjs and angular select component.
 #### link css
 
 ```html
-<link rel="stylesheet" href="./node_modules/select2-component/dist/select2.min.css" />
+<link rel="stylesheet" href="./node_modules/select2-component/select2.min.css" />
 ```
 
 #### vuejs component demo
@@ -39,7 +39,7 @@ A vuejs, reactjs and angular select component.
 `npm i vue vue-class-component`
 
 ```ts
-import "select2-component/dist/vue";
+import "select2-component/vue";
 ```
 
 ```html
@@ -54,7 +54,7 @@ the online demo: https://plantain-00.github.io/select2-component/demo/vue/index.
 #### reactjs component demo
 
 ```ts
-import { Select2 } from "select2-component/dist/react";
+import { Select2 } from "select2-component/react";
 ```
 
 ```jsx
@@ -69,7 +69,7 @@ the online demo: https://plantain-00.github.io/select2-component/demo/react/inde
 #### angular component demo
 
 ```ts
-import { Select2Component } from "select2-component/dist/angular";
+import { Select2Component } from "select2-component/angular";
 
 @NgModule({
     imports: [BrowserModule, FormsModule],
@@ -126,6 +126,20 @@ type Select2UpdateValue = Select2Value | Select2Value[];
 ```
 
 #### change log
+
+```ts
+// v3
+<link rel="stylesheet" href="./node_modules/select2-component/select2.min.css" />
+import "select2-component/vue";
+import { Select2 } from "select2-component/react";
+import { Select2Component } from "select2-component/angular";
+
+// v2
+<link rel="stylesheet" href="./node_modules/select2-component/dist/select2.min.css" />
+import "select2-component/dist/vue";
+import { Select2 } from "select2-component/dist/react";
+import { Select2Component } from "select2-component/dist/angular";
+```
 
 ```js
 // v2
