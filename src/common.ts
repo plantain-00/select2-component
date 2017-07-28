@@ -21,6 +21,17 @@ export const timeout = 200;
 
 export const height = 28;
 
+export var unicodePatterns = [
+    { s: /e|é|è|ê|ë|ẽ|ē|Ẽ|Ē|€/gi, p: '[eéèêëẽēẼĒ€]' },
+    { s: /a|á|à|â|ä|ã|ā|å|Ã|Ā|Å/gi, p: '[aáàâäãāåĀÅ]' },
+    { s: /i|í|ì|î|ï|ĩ|ī|Ĩ|Ī/gi, p: '[iíìîïĩīĨĪ]' },
+    { s: /u|ú|ù|û|ü|ũ|ū|Ũ|Ū/gi, p: '[uúùûüũūŨŪ]' },
+    { s: /o|ó|ò|ô|ö|õ|ð|ō|Õ|Ð|Ō/gi, p: '[oóòôöõðōÕÐŌ]' },
+    { s: /y|ý|ÿ/gi, p: '[yýÿ]' },
+    { s: /c|ç/gi, p: '[cç]' },
+    { s: /n|ñ/gi, p: '[nñ]' }
+];
+
 function getScrollUpIndex(data: Select2Data, value: Select2Value) {
     let index = 0;
     for (const groupOrOption of data) {
@@ -206,8 +217,20 @@ export function getLastScrollTopIndex(hoveringValue: Select2Value | null | undef
     }
 }
 
-function containSearchText(label: string, searchText: string | null) {
-    return searchText ? label.toLowerCase().indexOf(searchText.toLowerCase()) > -1 : true;
+function containSearchText(label: string, searchText: string | null): boolean {
+    return searchText ? label.match(new RegExp(formatToUnicodePattern(searchText), 'i')) !== null : true;
+}
+
+export function protectPattern(str: string): string {
+    return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+}
+
+export function formatToUnicodePattern(str: string): string {
+    str = protectPattern(str);
+    for (let unicodePattern of unicodePatterns) {
+        str = str.replace(unicodePattern.s, unicodePattern.p);
+    }
+    return str;
 }
 
 export function getFilteredData(data: Select2Data, searchText: string | null) {
