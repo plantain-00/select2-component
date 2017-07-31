@@ -1,5 +1,11 @@
 <div [class]="containerStyle">
-    <div class="selection" (click)="toggleOpenAndClose()">
+    <div class="selection"
+         [attr.tabindex]="!this.isOpen ? '0' : '-1'"
+         (click)="toggleOpenAndClose()"
+         (focus)="focusin()"
+         (blur)="focusout()"
+         (keydown)="openKey($event)"
+         [class.select2-focused]="focused">
         <div [class]="selectionStyle" role="combobox">
             <span *ngIf="!multiple" class="select2-selection__rendered" [title]="option ? option.label : ''">
                 <ng-container *ngIf="option">{{option.label}}</ng-container>
@@ -20,7 +26,7 @@
         <div class="select2-dropdown select2-dropdown--below">
             <div [class]="searchStyle">
                 <input #searchInput
-                    [id]="_id + '-search-field'"
+                    [id]="id + '-search-field'"
                     [(value)]="searchText"
                     (keydown)="keyDown($event)"
                     (keyup)="searchUpdate($event)"
@@ -31,7 +37,8 @@
                     autocomplete="off"
                     autocorrect="off"
                     autocapitalize="off"
-                    spellcheck="false">
+                    spellcheck="false"
+                    [attr.tabindex]="this.isOpen ? '0' : '-1'">
             </div>
             <div class="select2-results">
                 <ul #results class="select2-results__options"
