@@ -211,6 +211,7 @@ export class Select2 implements ControlValueAccessor {
         if (this.disabled) {
             return;
         }
+        this.focused = true;
         this.isOpen = !this.isOpen;
         if (this.isOpen) {
             this.innerSearchText = "";
@@ -235,7 +236,6 @@ export class Select2 implements ControlValueAccessor {
                     this.lastScrollTopIndex = lastScrollTopIndex;
                 }
             }
-
             this.open.emit();
         }
         if (this.focusoutTimer) {
@@ -248,11 +248,13 @@ export class Select2 implements ControlValueAccessor {
     }
 
     focusout() {
-        this.focusoutTimer = setTimeout(() => {
-            this.isOpen = false;
-            this.focusoutTimer = undefined;
-            this.focused = false;
-        }, common.timeout);
+        if (this.focused && !this.isOpen) {
+            this.focusoutTimer = setTimeout(() => {
+                this.isOpen = false;
+                this.focusoutTimer = undefined;
+                this.focused = false;
+            }, common.timeout);
+        }
     }
 
     moveUp() {
@@ -336,6 +338,9 @@ export class Select2 implements ControlValueAccessor {
         } else if (e.keyCode === 13) {
             this.selectByEnter();
             e.preventDefault();
+        } else if (e.keyCode === 9) {
+            this.toggleOpenAndClose();
+            this.focused = false;
         }
     }
 
@@ -345,7 +350,6 @@ export class Select2 implements ControlValueAccessor {
             e.preventDefault();
         }
     }
-
 
     searchUpdate(e: Event) {
         this.searchText = (<HTMLInputElement>e.target).value;
