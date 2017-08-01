@@ -1,5 +1,5 @@
 import {
-    Component, Input, Output, EventEmitter, ElementRef, ViewChild, Optional, Self, ChangeDetectorRef
+    Component, Input, Output, EventEmitter, ElementRef, ViewChild, Optional, Self, ChangeDetectorRef, ViewEncapsulation
 } from "@angular/core";
 import {
     FormGroupDirective, NgControl, NgForm, ControlValueAccessor
@@ -16,10 +16,10 @@ let nextUniqueId = 0;
     selector: 'select2',
     styleUrls: ['./angulat.scss'],
     templateUrl: './select2.html',
+    encapsulation: ViewEncapsulation.None,
     host: {
         '[id]': 'id',
-        '[attr.aria-invalid]': '_isErrorState()',
-        '[class.select2-invalid]': '_isErrorState()',
+        '[attr.aria-invalid]': '_isErrorState()'
     }
 })
 export class Select2 implements ControlValueAccessor {
@@ -133,8 +133,11 @@ export class Select2 implements ControlValueAccessor {
         this._value = value;
     }
 
-    /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
-    onTouched: () => any = () => { };
+    /** View -> model callback called when select has been touched */
+    _onTouched = () => { };
+
+    /** View -> model callback called when value changes */
+    _onChange: (value: any) => void = () => { };
 
     private _disabled = false;
     private _required = false;
@@ -143,8 +146,6 @@ export class Select2 implements ControlValueAccessor {
     private _uid = `select2-${nextUniqueId++}`;
     private _value: common.Select2UpdateValue;
     private _previousNativeValue = this._value;
-
-    private _controlValueAccessorChangeFn: (value: any) => void = () => { };
 
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
@@ -253,6 +254,7 @@ export class Select2 implements ControlValueAccessor {
                 this.isOpen = false;
                 this.focusoutTimer = undefined;
                 this.focused = false;
+                this._onTouched();
            	this._changeDetectorRef.markForCheck();
             }, common.timeout);
         }
@@ -323,10 +325,11 @@ export class Select2 implements ControlValueAccessor {
             ? (this.option as common.Select2Option[]).map(op => op.value)
             : (this.option as common.Select2Option).value
 
-        this.update.emit(value);
         if (this._control) {
             this._control.reset(value);
+            this._onChange(value);
         }
+        this.update.emit(value);
     }
 
     keyDown(e: KeyboardEvent) {
@@ -351,6 +354,7 @@ export class Select2 implements ControlValueAccessor {
             e.preventDefault();
         } else if (e.keyCode === 9) {
             this.focused = false;
+            this._onTouched();
         }
     }
 
@@ -397,29 +401,34 @@ export class Select2 implements ControlValueAccessor {
     writeValue(value: any) {
         this._setSelectionByValue(value);
     }
+
     /**
-     * Registers a callback to eb triggered when the value has changed.
-     * Implemented as part of ControlValueAccessor.
-     * @param fn Callback to be registered.
+     * Saves a callback function to be invoked when the select's value
+     * changes from user input. Part of the ControlValueAccessor interface
+     * required to integrate with Angular's core forms API.
+     *
+     * @param fn Callback to be triggered when the value changes.
      */
-    registerOnChange(fn: (value: any) => void) {
-        this._controlValueAccessorChangeFn = fn;
+    registerOnChange(fn: (value: any) => void): void {
+        this._onChange = fn;
     }
 
     /**
-     * Registers a callback to be triggered when the component is touched.
-     * Implemented as part of ControlValueAccessor.
-     * @param fn Callback to be registered.
+     * Saves a callback function to be invoked when the select is blurred
+     * by the user. Part of the ControlValueAccessor interface required
+     * to integrate with Angular's core forms API.
+     *
+     * @param fn Callback to be triggered when the component has been touched.
      */
-    registerOnTouched(fn: any) {
-        this.onTouched = fn;
+    registerOnTouched(fn: () => {}): void {
+        this._onTouched = fn;
     }
 
     /**
-   * Sets whether the component should be disabled.
-   * Implemented as part of ControlValueAccessor.
-   * @param isDisabled
-   */
+     * Sets whether the component should be disabled.
+     * Implemented as part of ControlValueAccessor.
+     * @param isDisabled
+     */
     setDisabledState(isDisabled: boolean) {
         this.disabled = isDisabled;
     }
