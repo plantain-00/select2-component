@@ -409,30 +409,44 @@
 
 select2.material {
   display: inline-block;
-  vertical-align: top;
 
-
-  .select2-container {
+  & > .select2-container {
     width: 300px;
+    padding-bottom: 1.29688em;
+    vertical-align: inherit;
 
     .selection {
       padding: 0.4375em 0;
       border-top: 0.84375em solid transparent;
+      display: inline-flex;
+      align-items: baseline;
+      width: 100%;
+      height: auto;
     }
   }
 
   .select2-container--default {
     .select2-selection--single {
+      width: 100%;
       border: 0;
-      border-bottom: 1px solid #ddd;
       border-radius: 0;
-      height: 27px;
+      height: 24px;
+      box-sizing: border-box;
 
       &::before {
         content: ' ';
         display: block;
         position: absolute;
-        bottom: 7px;
+        bottom: 1.65em;
+        background-color: #ddd;
+        height: 1px ;
+        width: 100%;
+      }
+      &::after {
+        content: ' ';
+        display: block;
+        position: absolute;
+        bottom: 1.63em;
         background-color: #5A419E;
         height: 2px;
         width: 0%;
@@ -457,7 +471,8 @@ select2.material {
     }
 
     .select2-container--open {
-      margin-top: -7px;
+      left: 0;
+      bottom: 1.60em;
     }
 
     .select2-selection__placeholder__option {
@@ -472,7 +487,7 @@ select2.material {
 
     &.select2-container--open,
     .select2-focused {
-      .select2-selection--single::before {
+      .select2-selection--single::after {
         transition:
           width .3s cubic-bezier(0.12, 1, 0.77, 1),
           left .3s cubic-bezier(0.12, 1, 0.77, 1);
@@ -499,20 +514,38 @@ select2.material {
     }
 
     &.select2-container--disabled .select2-selection--single {
-      background-image: linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);
-      background-size: 4px 1px;
-      background-repeat: repeat-x;
       background-color: transparent;
-      background-position: 0 bottom;
-      border: 0;
+
+      &::before {
+        background-image: linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);
+        background-size: 4px 1px;
+        background-repeat: repeat-x;
+        background-color: transparent;
+        background-position: 0 bottom;
+      }
     }
   }
 
   &.ng-invalid.ng-touched .select2-container--default .select2-selection--single {
-    border-bottom-color: red;
-
-    &::before {
+    &::before,
+    &::after {
       background-color: red;
     }
+  }
+}
+
+// material fix (firefox)
+
+@supports (-moz-appearance: none) {
+  select2.material .select2-container--default .select2-selection--single {
+    height: 26px;
+  }
+}
+
+// material fix (ms edge)
+
+@supports (-ms-scroll-limit: 0) {
+  select2.material .select2-container--default .select2-selection--single {
+    height: 25px;
   }
 }

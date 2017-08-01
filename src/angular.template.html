@@ -8,7 +8,7 @@
          [class.select2-focused]="focused">
          <div [class]="selectionStyle" role="combobox">
             <span *ngIf="!multiple" class="select2-selection__rendered" [title]="option ? option.label : ''">
-                <ng-container *ngIf="option">{{option.label}}</ng-container>
+                <span *ngIf="!option">&nbsp;</span><ng-container *ngIf="option">{{option.label}}</ng-container>
                 <span [class.select2-selection__placeholder__option]="option" class="select2-selection__placeholder">{{placeholder}}</span>
             </span>
             <span *ngIf="!multiple" class="select2-selection__arrow" role="presentation">
