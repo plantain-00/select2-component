@@ -135,7 +135,7 @@ export class Select2 implements ControlValueAccessor {
 
     /** Whether the element is disabled. */
     @Input()
-    get disabled() { return false; /*this._ngControl ? this._ngControl.disabled : this._disabled;*/ }
+    get disabled() { return this._control ? this._control.disabled : this._disabled; }
     set disabled(value: any) { this._disabled = this._coerceBooleanProperty(value); }
 
     /** Whether the element is readonly. */
@@ -222,6 +222,7 @@ export class Select2 implements ControlValueAccessor {
     }
 
     toggleOpenAndClose() {
+        console.log('toggleOpenAndClose', this.disabled);
         if (this.disabled) {
             return;
         }
@@ -258,7 +259,9 @@ export class Select2 implements ControlValueAccessor {
     }
 
     focusin() {
-        this.focused = true;
+        if (!this.disabled) {
+            this.focused = true;
+        }
     }
 
     focusout(field: string) {
