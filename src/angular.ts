@@ -1,5 +1,6 @@
 import {
-    Component, Input, Output, EventEmitter, ElementRef, ViewChild, Optional, Self, ChangeDetectorRef, ViewEncapsulation
+    Component, Input, Output, EventEmitter, ElementRef, ViewChild, Optional, Self, ChangeDetectorRef, ViewEncapsulation,
+    Attribute
 } from "@angular/core";
 import {
     FormGroupDirective, NgControl, NgForm, ControlValueAccessor
@@ -133,11 +134,23 @@ export class Select2 implements ControlValueAccessor {
         this._value = value;
     }
 
+    /** Tab index for the select2 element. */
+    @Input()
+    get tabIndex(): number { return this.disabled ? -1 : this._tabIndex; }
+    set tabIndex(value: number) {
+        if (typeof value !== 'undefined') {
+            this._tabIndex = value;
+        }
+    }
+
     /** View -> model callback called when select has been touched */
     _onTouched = () => { };
 
     /** View -> model callback called when value changes */
     _onChange: (value: any) => void = () => { };
+
+    /** Tab index for the element. */
+    private _tabIndex: number;
 
     private _disabled = false;
     private _required = false;
@@ -151,10 +164,12 @@ export class Select2 implements ControlValueAccessor {
         private _changeDetectorRef: ChangeDetectorRef,
         @Optional() private _parentForm: NgForm,
         @Optional() private _parentFormGroup: FormGroupDirective,
-        @Self() @Optional() public _control: NgControl
+        @Self() @Optional() public _control: NgControl,
+        @Attribute('tabindex') tabIndex: string
     ) {
 
         this.id = this.id;
+        this._tabIndex = parseInt(tabIndex) || 0;
 
         if (this._control) {
             this._control.valueAccessor = this;

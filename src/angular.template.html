@@ -1,12 +1,12 @@
 <div [class]="containerStyle">
     <div class="selection"
-         [attr.tabindex]="!this.isOpen ? '0' : '-1'"
+         [attr.tabindex]="!this.isOpen ? tabIndex : '-1'"
          (click)="toggleOpenAndClose()"
          (focus)="focusin()"
-         (blur)="focusout()"
+         (blur)="focusout('base')"
          (keydown)="openKey($event)"
          [class.select2-focused]="focused">
-        <div [class]="selectionStyle" role="combobox">
+         <div [class]="selectionStyle" role="combobox">
             <span *ngIf="!multiple" class="select2-selection__rendered" [title]="option ? option.label : ''">
                 <ng-container *ngIf="option">{{option.label}}</ng-container>
                 <span [class.select2-selection__placeholder__option]="option" class="select2-selection__placeholder">{{placeholder}}</span>
@@ -30,7 +30,7 @@
                     [(value)]="searchText"
                     (keydown)="keyDown($event)"
                     (keyup)="searchUpdate($event)"
-                    (focusout)="focusout()"
+                    (focusout)="focusout('searchInput')"
                     class="select2-search__field"
                     type="search"
                     role="textbox"
@@ -38,7 +38,7 @@
                     autocorrect="off"
                     autocapitalize="off"
                     spellcheck="false"
-                    [attr.tabindex]="this.isOpen ? '0' : '-1'">
+                    [attr.tabindex]="this.isOpen ? tabIndex : '-1'">
             </div>
             <div class="select2-results">
                 <ul #results class="select2-results__options"
