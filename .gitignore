@@ -67,4 +67,4 @@ dist
 !**/*-*.css
 
 # Netbeans
-/nbproject/private/
+/nbproject/
