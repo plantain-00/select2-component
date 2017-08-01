@@ -407,89 +407,112 @@
 
 // material style
 
-.select2-container.material {
-  padding-top: 10px;
-}
+select2.material {
+  display: inline-block;
+  vertical-align: top;
 
-.select2-container--default.material {
-  .select2-selection--single {
-    border: 0;
-    border-bottom: 1px solid #ddd;
-    border-radius: 0;
 
-    &::before {
-      content: ' ';
-      display: block;
-      position: absolute;
-      bottom: 0;
-      background-color: #5A419E;
-      height: 2px;
-      width: 0%;
-      left: 50%;
-      transition: none;
+  .select2-container {
+    width: 300px;
+
+    .selection {
+      padding: 0.4375em 0;
+      border-top: 0.84375em solid transparent;
+    }
+  }
+
+  .select2-container--default {
+    .select2-selection--single {
+      border: 0;
+      border-bottom: 1px solid #ddd;
+      border-radius: 0;
+      height: 27px;
+
+      &::before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        bottom: 7px;
+        background-color: #5A419E;
+        height: 2px;
+        width: 0%;
+        left: 50%;
+        transition: none;
+      }
+
+      .select2-selection__rendered {
+        padding-left: 1px;
+        line-height: inherit;
+      }
+
+      .select2-selection__placeholder {
+        display: block;
+        color: rgba(0, 0, 0, 0.38);
+        transition: transform .3s;
+        position: absolute;
+        transform-origin: 0 21px;
+        left: 0px;
+        top: 20px;
+      }
     }
 
-    .select2-selection__placeholder {
-      display: block;
-      color: #999;
-      transition: transform .3s;
-      position: absolute;
-      transform-origin: 0 -60px;
-      left: 5px;
-      top: 12px;
+    .select2-container--open {
+      margin-top: -7px;
     }
 
     .select2-selection__placeholder__option {
-      transform: scale(.75);
+      transform: translateY(-1.50em) scale(0.75) perspective(100px) translateZ(0.001px);
+      width: 133.33333%;
     }
 
     .select2-selection__arrow {
-      top: 11px;
+      top: 20px;
+    }
+
+
+    &.select2-container--open,
+    .select2-focused {
+      .select2-selection--single::before {
+        transition:
+          width .3s cubic-bezier(0.12, 1, 0.77, 1),
+          left .3s cubic-bezier(0.12, 1, 0.77, 1);
+        width: 100%;
+        left: 0%;
+
+      }
+    }
+
+    .select2-dropdown {
+      border-radius: 0;
+      border: 0;
+      box-shadow: 0 5px 5px rgba(0,0,0,.5);
+    }
+
+    .select2-results__option[aria-selected=true],
+    .select2-results__option--highlighted[aria-selected]{
+      background-color: rgba(0, 0, 0, 0.04);
+      color: #000;
+    }
+
+    .select2-results__option[aria-selected=true] {
+      color: #ff5722;
+    }
+
+    &.select2-container--disabled .select2-selection--single {
+      background-image: linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);
+      background-size: 4px 1px;
+      background-repeat: repeat-x;
+      background-color: transparent;
+      background-position: 0 bottom;
+      border: 0;
     }
   }
 
-  &.select2-container--open,
-  .select2-focused {
-    .select2-selection--single::before {
-      transition:
-        width .3s cubic-bezier(0.12, 1, 0.77, 1),
-        left .3s cubic-bezier(0.12, 1, 0.77, 1);
-      width: 100%;
-      left: 0%;
+  &.ng-invalid.ng-touched .select2-container--default .select2-selection--single {
+    border-bottom-color: red;
 
+    &::before {
+      background-color: red;
     }
-  }
-
-  .select2-dropdown {
-    border-radius: 0;
-    border: 0;
-    box-shadow: 0 5px 5px rgba(0,0,0,.5);
-  }
-
-  .select2-results__option[aria-selected=true],
-  .select2-results__option--highlighted[aria-selected]{
-    background-color: rgba(0, 0, 0, 0.04);
-    color: #000;
-  }
-
-  .select2-results__option[aria-selected=true] {
-    color: #ff5722;
-  }
-
-  &.select2-container--disabled .select2-selection--single {
-    background-image: linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);
-    background-size: 4px 1px;
-    background-repeat: repeat-x;
-    background-color: transparent;
-    background-position: 0 bottom;
-    border: 0;
-  }
-}
-
-select2.ng-invalid.ng-touched .select2-container--default.material .select2-selection--single {
-  border-bottom-color: red;
-
-  &::before {
-    background-color: red;
   }
 }
