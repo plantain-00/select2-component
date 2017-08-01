@@ -247,8 +247,8 @@ export class Select2 implements ControlValueAccessor {
         this.focused = true;
     }
 
-    focusout() {
-        if (this.focused && !this.isOpen) {
+    focusout(field: string) {
+        if ((this.focused && !this.isOpen) || field == 'searchInput') {
             this.focusoutTimer = setTimeout(() => {
                 this.isOpen = false;
                 this.focusoutTimer = undefined;
@@ -339,7 +339,7 @@ export class Select2 implements ControlValueAccessor {
         } else if (e.keyCode === 13) {
             this.selectByEnter();
             e.preventDefault();
-        } else if (e.keyCode === 9) {
+        } else if (e.keyCode === 9 && this.isOpen) {
             this.toggleOpenAndClose();
             this.focused = false;
         }
@@ -349,6 +349,8 @@ export class Select2 implements ControlValueAccessor {
         if (e.keyCode === 40 || e.keyCode === 38 || e.keyCode === 13) {
             this.toggleOpenAndClose();
             e.preventDefault();
+        } else if (e.keyCode === 9) {
+            this.focused = false;
         }
     }
 
