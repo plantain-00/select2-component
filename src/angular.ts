@@ -36,6 +36,9 @@ export class Select2 implements ControlValueAccessor {
     /** use the material style */
     @Input() material?: string;
 
+    /** use it for change the pattern of the filter search */
+    @Input() editPattern: Function;
+
     @Output() update = new EventEmitter();
     @Output() open = new EventEmitter();
     @Output() search = new EventEmitter();
@@ -94,7 +97,7 @@ export class Select2 implements ControlValueAccessor {
     get filteredData() {
         const result = this.customSearchEnabled
             ? this.data
-            : common.getFilteredData(this.data, this.searchText);
+            : common.getFilteredData(this.data, this.searchText, this.editPattern);
 
         if (common.valueIsNotInFilteredData(result, this.hoveringValue)) {
             this.hoveringValue = common.getFirstAvailableOption(result);
