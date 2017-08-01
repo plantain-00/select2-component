@@ -17,10 +17,10 @@ let nextUniqueId = 0;
     selector: 'select2',
     styleUrls: ['./angulat.scss'],
     templateUrl: './select2.html',
-    encapsulation: ViewEncapsulation.None,
     host: {
         '[id]': 'id',
-        '[attr.aria-invalid]': '_isErrorState()'
+        '[attr.aria-invalid]': '_isErrorState()',
+        '[class.material]': 'material === "" || this.material == true'
     }
 })
 export class Select2 implements ControlValueAccessor {
@@ -118,8 +118,7 @@ export class Select2 implements ControlValueAccessor {
     }
 
     get containerStyle() {
-        return common.getContainerStyle(this.disabled, this.isOpen)
-            + (this.material === '' || this.material === 'true' ? ' material' : '');
+        return common.getContainerStyle(this.disabled, this.isOpen);
     }
 
     get selectionStyle() {
