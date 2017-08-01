@@ -1,6 +1,7 @@
 [![Dependency Status](https://david-dm.org/plantain-00/select2-component.svg)](https://david-dm.org/plantain-00/select2-component)
 [![devDependency Status](https://david-dm.org/plantain-00/select2-component/dev-status.svg)](https://david-dm.org/plantain-00/select2-component#info=devDependencies)
-[![Build Status](https://travis-ci.org/plantain-00/select2-component.svg?branch=master)](https://travis-ci.org/plantain-00/select2-component)
+[![Build Status: Linux](https://travis-ci.org/plantain-00/select2-component.svg?branch=master)](https://travis-ci.org/plantain-00/select2-component)
+[![Build Status: Windows](https://ci.appveyor.com/api/projects/status/github/plantain-00/select2-component?branch=master&svg=true)](https://ci.appveyor.com/project/plantain-00/select2-component/branch/master)
 [![npm version](https://badge.fury.io/js/select2-component.svg)](https://badge.fury.io/js/select2-component)
 [![Downloads](https://img.shields.io/npm/dm/select2-component.svg)](https://www.npmjs.com/package/select2-component)
 
