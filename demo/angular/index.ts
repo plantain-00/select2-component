@@ -118,11 +118,11 @@ export class MainComponent {
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule } from "@angular/forms";
-import { Select2Component, Select2Option, Select2Data } from "../../dist/angular";
+import { Select2Module, Select2Option, Select2Data } from "../../dist/angular";
 
 @NgModule({
-    imports: [BrowserModule, FormsModule],
-    declarations: [MainComponent, Select2Component],
+    imports: [BrowserModule, FormsModule, Select2Module],
+    declarations: [MainComponent, Select2Module],
     bootstrap: [MainComponent],
 })
 class MainModule { }
