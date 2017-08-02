@@ -69,6 +69,7 @@ export class Select2 implements ControlValueAccessor {
     private _disabled = false;
     private _required = false;
     private _readonly = false;
+    private _keeper = false;
     private _id: string;
     private _uid: string = `select2-${nextUniqueId++}`;
     private _value: common.Select2UpdateValue;
@@ -128,7 +129,7 @@ export class Select2 implements ControlValueAccessor {
     /** Unique id of the element. */
     @Input()
     get id() { return this._id; }
-    set id(value: string) { console.log(value); this._id = value || this._uid; }
+    set id(value: string) { this._id = value || this._uid; }
 
     /** Whether the element is required. */
     @Input()
@@ -215,6 +216,7 @@ export class Select2 implements ControlValueAccessor {
     }
 
     click(option: common.Select2Option) {
+        this._keeper = false;
         if (!option.disabled) {
             this.select(option);
         }
@@ -224,7 +226,6 @@ export class Select2 implements ControlValueAccessor {
     }
 
     toggleOpenAndClose() {
-        console.log('toggleOpenAndClose', this.disabled);
         if (this.disabled) {
             return;
         }
@@ -266,16 +267,25 @@ export class Select2 implements ControlValueAccessor {
         }
     }
 
+    focuskeeper() {
+        this._keeper = true
+    }
+
     focusout(field: string) {
-        if ((this.focused && !this.isOpen) || field === 'searchInput') {
-            this.focusoutTimer = setTimeout(() => {
+        this.focusoutTimer = setTimeout(() => {
+            if (
+                (this.focused && !this.isOpen)
+                || field === 'searchInput'
+                || field === 'option' && this._keeper === false
+            ) {
                 this.isOpen = false;
                 this.focusoutTimer = undefined;
                 this.focused = false;
                 this._onTouched();
-           	this._changeDetectorRef.markForCheck();
-            }, common.timeout);
-        }
+                this._changeDetectorRef.markForCheck();
+            }
+            this._keeper = false;
+        }, common.timeout);
     }
 
     moveUp() {
