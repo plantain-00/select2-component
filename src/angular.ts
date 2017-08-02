@@ -20,6 +20,7 @@ export class Select2Hint { }
     selector: 'select2',
     styleUrls: ['./select2.css'],
     templateUrl: './select2.html',
+    encapsulation: ViewEncapsulation.None,
     host: {
         '[id]': 'id',
         '[attr.aria-invalid]': '_isErrorState()',

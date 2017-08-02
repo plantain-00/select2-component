@@ -262,7 +262,7 @@ export function getLastScrollTopIndex(
     }
 }
 
-function containSearchText(label: string, searchText: string | null, editPattern: Function): boolean {
+function containSearchText(label: string, searchText: string | null, editPattern: Function | undefined): boolean {
     return searchText
         ? formatSansUnicode(label).match(new RegExp(formatPattern(searchText, editPattern), 'i')) !== null
         : true;
@@ -279,7 +279,7 @@ export function formatSansUnicode(str: string): string {
     return str;
 }
 
-export function formatPattern(str: string, editPattern: Function): string {
+export function formatPattern(str: string, editPattern: Function | undefined): string {
     str = formatSansUnicode(protectPattern(str));
 
     if (editPattern && typeof editPattern === 'function') {
