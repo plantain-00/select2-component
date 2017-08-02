@@ -272,7 +272,10 @@ export class Select2 implements ControlValueAccessor {
     }
 
     focuskeeper() {
-        this._keeper = true
+        this._keeper = true;
+        setTimeout(() => {
+            this._keeper = false;
+        }, common.timeout);
     }
 
     focusout(field: string) {
@@ -351,8 +354,8 @@ export class Select2 implements ControlValueAccessor {
             } else {
                 this.option = option;
                 this.isOpen = false;
-                this.focuskeeper();
                 this.selectionElement.focus();
+                this.focuskeeper();
             }
         }
 
