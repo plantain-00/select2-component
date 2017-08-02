@@ -15,7 +15,7 @@ let nextUniqueId = 0;
 
 @Component({
     selector: 'select2',
-    styleUrls: ['./angulat.scss'],
+    styleUrls: ['./select2.css'],
     templateUrl: './select2.html',
     host: {
         '[id]': 'id',
