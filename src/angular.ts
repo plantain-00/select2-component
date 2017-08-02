@@ -1,6 +1,6 @@
 import {
-    Component, Input, Output, EventEmitter, ElementRef, ViewChild, Optional, Self, ChangeDetectorRef, ViewEncapsulation,
-    Attribute
+    Component, Directive, Input, Output, EventEmitter, ElementRef, ViewChild, Optional, Self, ChangeDetectorRef,
+    ViewEncapsulation, Attribute
 } from '@angular/core';
 import {
     FormGroupDirective, NgControl, NgForm, ControlValueAccessor
@@ -12,6 +12,9 @@ import * as common from './common';
 export * from './common';
 
 let nextUniqueId = 0;
+
+@Directive({ selector: 'select2-hint' })
+export class Select2Hint { }
 
 @Component({
     selector: 'select2',
