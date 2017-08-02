@@ -297,6 +297,14 @@
     }
   }
 
+  &:not(.select2-container--open) .select2-focused {
+    .select2-selection--single,
+    .select2-selection--multiple {
+      border: solid black 1px;
+      outline: 0;
+    }
+  }
+
   &.select2-container--disabled {
     .select2-selection--multiple {
       background-color: #eee;
@@ -424,7 +432,6 @@ select2.material {
       height: auto;
     }
   }
-
   .select2-container--default {
     .select2-selection--single,
     .select2-selection--multiple {
@@ -485,16 +492,15 @@ select2.material {
       top: 20px;
     }
 
-
     &.select2-container--open,
     .select2-focused {
-      .select2-selection--single::after {
+      .select2-selection--single::after,
+      .select2-selection--multiple::after {
         transition:
           width .3s cubic-bezier(0.12, 1, 0.77, 1),
           left .3s cubic-bezier(0.12, 1, 0.77, 1);
         width: 100%;
         left: 0%;
-
       }
     }
 
@@ -514,7 +520,8 @@ select2.material {
       color: #ff5722;
     }
 
-    &.select2-container--disabled .select2-selection--single {
+    &.select2-container--disabled .select2-selection--single,
+    &.select2-container--disabled .select2-selection--multiple {
       background-color: transparent;
 
       &::before {
@@ -527,10 +534,18 @@ select2.material {
     }
   }
 
-  &.ng-invalid.ng-touched .select2-container--default .select2-selection--single {
+  &.ng-invalid.ng-touched .select2-container--default .select2-selection--single,
+  &.ng-invalid.ng-touched .select2-container--default .select2-selection--multiple {
     &::before,
     &::after {
       background-color: red;
+    }
+  }
+
+  &:not(.select2-container--open) .select2-focused {
+    .select2-selection--single,
+    .select2-selection--multiple {
+      border: 0;
     }
   }
 }
@@ -538,7 +553,8 @@ select2.material {
 // material fix (firefox)
 
 @supports (-moz-appearance: none) {
-  select2.material .select2-container--default .select2-selection--single {
+  select2.material .select2-container--default .select2-selection--single,
+  select2.material .select2-container--default .select2-selection--multiple {
     height: 26px;
   }
 }
@@ -546,7 +562,8 @@ select2.material {
 // material fix (ms edge)
 
 @supports (-ms-scroll-limit: 0) {
-  select2.material .select2-container--default .select2-selection--single {
+  select2.material .select2-container--default .select2-selection--single,
+  select2.material .select2-container--default .select2-selection--multiple {
     height: 25px;
   }
 }

@@ -52,9 +52,11 @@ export class Select2 implements ControlValueAccessor {
     isSearchboxHidden: boolean;
     searchStyle: string;
 
+    selectionElement: HTMLElement;
     searchInputElement: HTMLElement;
     resultsElement: HTMLElement;
 
+    @ViewChild('selection') selection: ElementRef;
     @ViewChild('searchInput') searchInput: ElementRef;
     @ViewChild('results') results: ElementRef;
 
@@ -197,6 +199,7 @@ export class Select2 implements ControlValueAccessor {
     }
 
     ngAfterViewInit() {
+        this.selectionElement = this.selection.nativeElement as HTMLElement;
         this.searchInputElement = this.searchInput.nativeElement as HTMLElement;
         this.resultsElement = this.results.nativeElement as HTMLElement;
     }
@@ -262,6 +265,7 @@ export class Select2 implements ControlValueAccessor {
     }
 
     focusin() {
+        this.focuskeeper();
         if (!this.disabled) {
             this.focused = true;
         }
@@ -274,14 +278,16 @@ export class Select2 implements ControlValueAccessor {
     focusout(field: string) {
         this.focusoutTimer = setTimeout(() => {
             if (
-                (this.focused && !this.isOpen)
-                || field === 'searchInput'
-                || field === 'option' && this._keeper === false
+                (this.focused && !this.isOpen && this._keeper === false)
+                || (field === 'searchInput' && this._keeper === false)
+                || (field === 'option' && this._keeper === false)
             ) {
                 this.isOpen = false;
                 this.focusoutTimer = undefined;
-                this.focused = false;
-                this._onTouched();
+                if (!this.selectionElement.classList.contains('select2-focus')) {
+                    this.focused = false;
+                    this._onTouched();
+                }
             }
             this._keeper = false;
         }, common.timeout);
@@ -345,6 +351,8 @@ export class Select2 implements ControlValueAccessor {
             } else {
                 this.option = option;
                 this.isOpen = false;
+                this.focuskeeper();
+                this.selectionElement.focus();
             }
         }
 
