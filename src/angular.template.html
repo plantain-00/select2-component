@@ -31,6 +31,7 @@
                     (keydown)="keyDown($event)"
                     (keyup)="searchUpdate($event)"
                     (focusout)="focusout('searchInput')"
+                    (focus)="focuskeeper()"
                     class="select2-search__field"
                     type="search"
                     role="textbox"
@@ -45,7 +46,7 @@
                     role="tree"
                     tabindex="-1"
                     (keydown)="keyDown($event)"
-                    (focusout)="focusout()">
+                    (focusout)="focusout('option')">
                     <ng-container *ngFor="let groupOrOption of filteredData">
                         <li *ngIf="groupOrOption.options"
                             class="select2-results__option"
