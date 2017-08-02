@@ -15,6 +15,7 @@
                 <b role="presentation"></b>
             </span>
             <ul *ngIf="multiple" class="select2-selection__rendered">
+                <span [class.select2-selection__placeholder__option]="option?.length > 0" class="select2-selection__placeholder">{{placeholder}}</span>
                 <li *ngFor="let op of option" class="select2-selection__choice" [title]="op.label">
                     <span (click)="removeSelection($event, op)" class="select2-selection__choice__remove" role="presentation">×</span>
                     {{op.label}}
