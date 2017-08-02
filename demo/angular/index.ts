@@ -116,13 +116,14 @@ export class MainComponent {
 }
 
 import { NgModule } from "@angular/core";
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from "@angular/platform-browser";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Select2Module, Select2Option, Select2Data } from "../../dist/angular";
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, Select2Module],
-    declarations: [MainComponent, Select2Module],
+    imports: [BrowserModule, CommonModule, FormsModule, ReactiveFormsModule, Select2Module],
+    declarations: [MainComponent],
     bootstrap: [MainComponent],
 })
 class MainModule { }
