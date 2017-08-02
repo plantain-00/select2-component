@@ -208,8 +208,9 @@ export class Select2 implements ControlValueAccessor {
         this._dirtyCheckNativeValue();
     }
 
-    getOptionStyle(value: string) {
-        return common.getOptionStyle(value, this.hoveringValue);
+    getOptionStyle(option: common.Select2Option) {
+        return common.getOptionStyle(option.value, this.hoveringValue)
+            + (option.classes ? ' ' + option.classes : '');
     }
 
     mouseenter(option: common.Select2Option) {

@@ -1,6 +1,7 @@
 export type Select2Group = {
     label: string;
     options: Select2Option[];
+    classes?: string;
 };
 
 export type Select2Option = {
@@ -9,6 +10,7 @@ export type Select2Option = {
     disabled?: boolean;
     // tslint:disable-next-line:ban-types
     component?: string | Function;
+    classes?: string;
 };
 
 export type Select2Value = string | number;
