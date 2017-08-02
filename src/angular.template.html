@@ -1,5 +1,5 @@
 <div [class]="containerStyle">
-    <div class="selection"
+    <div class="selection" #selection
          [attr.tabindex]="!this.isOpen ? tabIndex : '-1'"
          (click)="toggleOpenAndClose()"
          (focus)="focusin()"
