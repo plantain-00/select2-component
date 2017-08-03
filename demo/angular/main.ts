@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from "@angular/core";
-import { Validators, FormControl, FormBuilder, FormGroup } from '@angular/forms';
+import { Validators, FormControl, FormBuilder, FormGroup } from "@angular/forms";
 
 import { Select2Option, Select2Data } from "../../dist/angular";
 import { data1, data2, data3, data5 } from "../common";
@@ -90,12 +90,6 @@ export class MainComponent {
 
     ctrlForm: FormGroup;
 
-    constructor(private fb: FormBuilder) {
-        this.ctrlForm = this.fb.group({
-            'test10': new FormControl(null, Validators.required)
-        });
-    }
-
     value1 = "CA";
     value2 = "CA";
     value3 = "foo";
@@ -105,6 +99,12 @@ export class MainComponent {
     value7 = "";
     value9: string[] = [];
     value10 = "";
+
+    constructor(private fb: FormBuilder) {
+        this.ctrlForm = this.fb.group({
+            test10: new FormControl(null, Validators.required),
+        });
+    }
 
     update1(value: string) {
         this.value1 = value;

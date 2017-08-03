@@ -23,49 +23,49 @@ export const timeout = 200;
 
 export const height = 28;
 
-export let unicodePatterns: { l: string, s: RegExp }[] = [
-    { l: 'a', s: /[ⓐａẚàáâầấẫẩãāăằắẵẳȧǡäǟảåǻǎȁȃạậặḁąⱥɐ]/gi },
-    { l: 'aa', s: /ꜳ/gi },
-    { l: 'ae', s: /[æǽǣ]/gi },
-    { l: 'ao', s: /ꜵ/gi },
-    { l: 'au', s: /ꜷ/gi },
-    { l: 'av', s: /[ꜹꜻ]/gi },
-    { l: 'ay', s: /ꜽ/gi },
-    { l: 'b', s: /[ⓑｂḃḅḇƀƃɓ]/gi },
-    { l: 'c', s: /[ⓒｃćĉċčçḉƈȼꜿↄ]/gi },
-    { l: 'd', s: /[ⓓｄḋďḍḑḓḏđƌɖɗꝺ]/gi },
-    { l: 'dz', s: /[ǳǆ]/gi },
-    { l: 'e', s: /[ⓔｅèéêềếễểẽēḕḗĕėëẻěȅȇẹệȩḝęḙḛɇɛǝ]/gi },
-    { l: 'f', s: /[ⓕｆḟƒꝼ]/gi },
-    { l: 'g', s: /[ⓖｇǵĝḡğġǧģǥɠꞡᵹꝿ]/gi },
-    { l: 'h', s: /[ⓗｈĥḣḧȟḥḩḫẖħⱨⱶɥ]/gi },
-    { l: 'hv', s: /ƕ/gi },
-    { l: 'i', s: /[ⓘｉìíîĩīĭİïḯỉǐȉȋịįḭɨı]/gi },
-    { l: 'j', s: /[ⓙｊĵǰɉ]/gi },
-    { l: 'k', s: /[ⓚｋḱǩḳķḵƙⱪꝁꝃꝅꞣ]/gi },
-    { l: 'l', s: /[ⓛｌŀĺľḷḹļḽḻſłƚɫⱡꝉꞁꝇꝆ]/gi },
-    { l: 'lj', s: /ǉ/gi },
-    { l: 'm', s: /[ⓜｍḿṁṃɱɯ]/gi },
-    { l: 'n', s: /[ⓝｎǹńñṅňṇņṋṉƞɲŉꞑꞥ]/gi },
-    { l: 'nj', s: /ǌ/gi },
-    { l: 'o', s: /[ⓞｏòóôồốỗổõṍȭṏōṑṓŏȯȱöȫỏőǒȍȏơờớỡởợọộǫǭøǿɔƟꝋꝍɵ]/gi },
-    { l: 'oi', s: /ƣ/gi },
-    { l: 'oe', s: /œ/gi },
-    { l: 'oo', s: /ꝏ/gi },
-    { l: 'ou', s: /ȣ/gi },
-    { l: 'p', s: /[ⓟｐṕṗƥᵽꝑꝓꝕ]/gi },
-    { l: 'q', s: /[ⓠｑɋꝗꝙ]/gi },
-    { l: 'r', s: /[ⓡｒŕṙřȑȓṛṝŗṟɍɽꝛꞧꞃ]/gi },
-    { l: 's', s: /[ⓢｓßẞśṥŝṡšṧṣṩșşȿꞩꞅẛ]/gi },
-    { l: 't', s: /[ⓣｔṫẗťṭțţṱṯŧƭʈⱦꞇ]/gi },
-    { l: 'tz', s: /ꜩ/gi },
-    { l: 'u', s: /[ⓤｕùúûũṹūṻŭüǜǘǖǚủůűǔȕȗưừứữửựụṳųṷṵʉ]/gi },
-    { l: 'v', s: /[ⓥｖṽṿʋꝟʌ]/gi },
-    { l: 'vy', s: /ꝡ/gi },
-    { l: 'w', s: /[ⓦｗẁẃŵẇẅẘẉⱳ]/gi },
-    { l: 'x', s: /[ⓧｘẋẍ]/gi },
-    { l: 'y', s: /[ⓨｙỳýŷỹȳẏÿỷẙỵƴɏỿ]/gi },
-    { l: 'z', s: /[ⓩｚźẑżžẓẕƶȥɀⱬꝣ]/gi }
+export const unicodePatterns: { l: string, s: RegExp }[] = [
+    { l: "a", s: /[ⓐａẚàáâầấẫẩãāăằắẵẳȧǡäǟảåǻǎȁȃạậặḁąⱥɐ]/gi },
+    { l: "aa", s: /ꜳ/gi },
+    { l: "ae", s: /[æǽǣ]/gi },
+    { l: "ao", s: /ꜵ/gi },
+    { l: "au", s: /ꜷ/gi },
+    { l: "av", s: /[ꜹꜻ]/gi },
+    { l: "ay", s: /ꜽ/gi },
+    { l: "b", s: /[ⓑｂḃḅḇƀƃɓ]/gi },
+    { l: "c", s: /[ⓒｃćĉċčçḉƈȼꜿↄ]/gi },
+    { l: "d", s: /[ⓓｄḋďḍḑḓḏđƌɖɗꝺ]/gi },
+    { l: "dz", s: /[ǳǆ]/gi },
+    { l: "e", s: /[ⓔｅèéêềếễểẽēḕḗĕėëẻěȅȇẹệȩḝęḙḛɇɛǝ]/gi },
+    { l: "f", s: /[ⓕｆḟƒꝼ]/gi },
+    { l: "g", s: /[ⓖｇǵĝḡğġǧģǥɠꞡᵹꝿ]/gi },
+    { l: "h", s: /[ⓗｈĥḣḧȟḥḩḫẖħⱨⱶɥ]/gi },
+    { l: "hv", s: /ƕ/gi },
+    { l: "i", s: /[ⓘｉìíîĩīĭİïḯỉǐȉȋịįḭɨı]/gi },
+    { l: "j", s: /[ⓙｊĵǰɉ]/gi },
+    { l: "k", s: /[ⓚｋḱǩḳķḵƙⱪꝁꝃꝅꞣ]/gi },
+    { l: "l", s: /[ⓛｌŀĺľḷḹļḽḻſłƚɫⱡꝉꞁꝇꝆ]/gi },
+    { l: "lj", s: /ǉ/gi },
+    { l: "m", s: /[ⓜｍḿṁṃɱɯ]/gi },
+    { l: "n", s: /[ⓝｎǹńñṅňṇņṋṉƞɲŉꞑꞥ]/gi },
+    { l: "nj", s: /ǌ/gi },
+    { l: "o", s: /[ⓞｏòóôồốỗổõṍȭṏōṑṓŏȯȱöȫỏőǒȍȏơờớỡởợọộǫǭøǿɔƟꝋꝍɵ]/gi },
+    { l: "oi", s: /ƣ/gi },
+    { l: "oe", s: /œ/gi },
+    { l: "oo", s: /ꝏ/gi },
+    { l: "ou", s: /ȣ/gi },
+    { l: "p", s: /[ⓟｐṕṗƥᵽꝑꝓꝕ]/gi },
+    { l: "q", s: /[ⓠｑɋꝗꝙ]/gi },
+    { l: "r", s: /[ⓡｒŕṙřȑȓṛṝŗṟɍɽꝛꞧꞃ]/gi },
+    { l: "s", s: /[ⓢｓßẞśṥŝṡšṧṣṩșşȿꞩꞅẛ]/gi },
+    { l: "t", s: /[ⓣｔṫẗťṭțţṱṯŧƭʈⱦꞇ]/gi },
+    { l: "tz", s: /ꜩ/gi },
+    { l: "u", s: /[ⓤｕùúûũṹūṻŭüǜǘǖǚủůűǔȕȗưừứữửựụṳųṷṵʉ]/gi },
+    { l: "v", s: /[ⓥｖṽṿʋꝟʌ]/gi },
+    { l: "vy", s: /ꝡ/gi },
+    { l: "w", s: /[ⓦｗẁẃŵẇẅẘẉⱳ]/gi },
+    { l: "x", s: /[ⓧｘẋẍ]/gi },
+    { l: "y", s: /[ⓨｙỳýŷỹȳẏÿỷẙỵƴɏỿ]/gi },
+    { l: "z", s: /[ⓩｚźẑżžẓẕƶȥɀⱬꝣ]/gi },
 ];
 
 function getScrollUpIndex(data: Select2Data, value: Select2Value) {
@@ -113,7 +113,7 @@ export function getOptionByValue(data: Select2Data, value: Select2Value | null |
 export function getOptionsByValue(
     data: Select2Data,
     value: Select2UpdateValue | null | undefined,
-    multiple: boolean | null | undefined
+    multiple: boolean | null | undefined,
 ) {
     if (multiple) {
         const values: Select2Value[] = Array.isArray(value) ? value : [];
@@ -241,7 +241,7 @@ export function getLastScrollTopIndex(
     hoveringValue: Select2Value | null | undefined,
     results: HTMLElement,
     filteredData: Select2Data,
-    lastScrollTopIndex: number
+    lastScrollTopIndex: number,
 ) {
     if (hoveringValue === null || hoveringValue === undefined) {
         results.scrollTop = 0;
@@ -264,16 +264,16 @@ export function getLastScrollTopIndex(
 
 function containSearchText(label: string, searchText: string | null, editPattern: Function | undefined): boolean {
     return searchText
-        ? formatSansUnicode(label).match(new RegExp(formatPattern(searchText, editPattern), 'i')) !== null
+        ? formatSansUnicode(label).match(new RegExp(formatPattern(searchText, editPattern), "i")) !== null
         : true;
 }
 
 export function protectPattern(str: string): string {
-    return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+    return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
 }
 
 export function formatSansUnicode(str: string): string {
-    for (let unicodePattern of unicodePatterns) {
+    for (const unicodePattern of unicodePatterns) {
         str = str.replace(unicodePattern.s, unicodePattern.l);
     }
     return str;
@@ -282,7 +282,7 @@ export function formatSansUnicode(str: string): string {
 export function formatPattern(str: string, editPattern: Function | undefined): string {
     str = formatSansUnicode(protectPattern(str));
 
-    if (editPattern && typeof editPattern === 'function') {
+    if (editPattern && typeof editPattern === "function") {
         str = editPattern(str);
     }
     return str;
@@ -296,7 +296,7 @@ export function getFilteredData(data: Select2Data, searchText: string | null, ed
             if (options) {
                 if (options.some(group => containSearchText(group.label, searchText, editPattern))) {
                     const filteredOptions = options.filter(
-                        group => containSearchText(group.label, searchText, editPattern)
+                        group => containSearchText(group.label, searchText, editPattern),
                     );
                     result.push({
                         label: groupOrOption.label,
@@ -315,29 +315,29 @@ export function getFilteredData(data: Select2Data, searchText: string | null, ed
 
 export function getOptionStyle(value: Select2Value, hoveringValue: Select2Value | null | undefined) {
     return value === hoveringValue
-        ? 'select2-results__option select2-results__option--highlighted'
-        : 'select2-results__option';
+        ? "select2-results__option select2-results__option--highlighted"
+        : "select2-results__option";
 }
 
 export function getDropdownStyle(isOpen: boolean) {
     return isOpen
-        ? 'select2-container select2-container--default select2-container-dropdown select2-container--open'
-        : 'select2-container select2-container--default select2-container-dropdown';
+        ? "select2-container select2-container--default select2-container-dropdown select2-container--open"
+        : "select2-container select2-container--default select2-container-dropdown";
 }
 
 export function getContainerStyle(disabled: boolean | undefined, isOpen: boolean) {
-    return `select2 select2-container select2-container--default ${disabled ? 'select2-container--disabled' : ''} `
-        + `${isOpen ? 'select2-container--open' : ''} select2-container--below select2-container--focus`;
+    return `select2 select2-container select2-container--default ${disabled ? "select2-container--disabled" : ""} `
+        + `${isOpen ? "select2-container--open" : ""} select2-container--below select2-container--focus`;
 }
 
 export function getSelectionStyle(multiple: boolean | undefined) {
-    return `select2-selection select2-selection--${multiple ? 'multiple' : 'single'}`;
+    return `select2-selection select2-selection--${multiple ? "multiple" : "single"}`;
 }
 
 const defaultMinCountForSearch = 6;
 
 export function isSearchboxHiddex(data: Select2Data, minCountForSearch?: number) {
-    if (typeof minCountForSearch !== 'number') {
+    if (typeof minCountForSearch !== "number") {
         minCountForSearch = defaultMinCountForSearch;
     }
     const optionCount = getOptionsCount(data);
@@ -346,19 +346,19 @@ export function isSearchboxHiddex(data: Select2Data, minCountForSearch?: number)
 
 export function getSearchStyle(isHidden: boolean) {
     return isHidden
-        ? 'select2-search select2-search--dropdown select2-search--hide'
-        : 'select2-search select2-search--dropdown';
+        ? "select2-search select2-search--dropdown select2-search--hide"
+        : "select2-search select2-search--dropdown";
 }
 
 export function isSelected(
     options: Select2Option | Select2Option[] | null,
     option: Select2Option,
-    multiple: boolean | null | undefined
+    multiple: boolean | null | undefined,
 ) {
     if (multiple) {
-        return options && (options as Select2Option[]).some(op => op.value === option.value) ? 'true' : 'false';
+        return options && (options as Select2Option[]).some(op => op.value === option.value) ? "true" : "false";
     } else {
-        return options && option.value === (options as Select2Option).value ? 'true' : 'false';
+        return options && option.value === (options as Select2Option).value ? "true" : "false";
     }
 }
 

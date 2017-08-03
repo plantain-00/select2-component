@@ -1,31 +1,31 @@
 import {
     Component, Directive, Input, Output, EventEmitter, ElementRef, ViewChild, Optional, Self, ChangeDetectorRef,
-    ViewEncapsulation, Attribute
-} from '@angular/core';
+    ViewEncapsulation, Attribute,
+} from "@angular/core";
 import {
-    FormGroupDirective, NgControl, NgForm, ControlValueAccessor
-} from '@angular/forms';
+    FormGroupDirective, NgControl, NgForm, ControlValueAccessor,
+} from "@angular/forms";
 
-import { Subject } from 'rxjs';
+import { Subject } from "rxjs";
 
-import * as common from './common';
-export * from './common';
+import * as common from "./common";
+export * from "./common";
 import { angularTemplateHtml } from "./angular-variables";
 
 let nextUniqueId = 0;
 
-@Directive({ selector: 'select2-hint' })
+@Directive({ selector: "select2-hint" })
 export class Select2Hint { }
 
 @Component({
-    selector: 'select2',
+    selector: "select2",
     template: angularTemplateHtml,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[id]': 'id',
-        '[attr.aria-invalid]': '_isErrorState()',
-        '[class.material]': 'material === "" || this.material == true'
-    }
+        "[id]": "id",
+        "[attr.aria-invalid]": "_isErrorState()",
+        "[class.material]": "material === '' || this.material == true",
+    },
 })
 export class Select2 implements ControlValueAccessor {
 
@@ -41,7 +41,7 @@ export class Select2 implements ControlValueAccessor {
     @Input() material?: string;
 
     /** use it for change the pattern of the filter search */
-    @Input() editPattern: Function;
+    @Input() editPattern: () => {};
 
     @Output() update = new EventEmitter();
     @Output() open = new EventEmitter();
@@ -51,7 +51,7 @@ export class Select2 implements ControlValueAccessor {
     option: common.Select2Option | common.Select2Option[] | null = null;
     isOpen = false;
     focusoutTimer?: any;
-    innerSearchText = '';
+    innerSearchText = "";
     lastScrollTopIndex = 0;
     isSearchboxHidden: boolean;
     searchStyle: string;
@@ -60,26 +60,14 @@ export class Select2 implements ControlValueAccessor {
     searchInputElement: HTMLElement;
     resultsElement: HTMLElement;
 
-    @ViewChild('selection') selection: ElementRef;
-    @ViewChild('searchInput') searchInput: ElementRef;
-    @ViewChild('results') results: ElementRef;
+    @ViewChild("selection") selection: ElementRef;
+    @ViewChild("searchInput") searchInput: ElementRef;
+    @ViewChild("results") results: ElementRef;
 
     _stateChanges = new Subject<void>();
 
     /** Whether the element is focused or not. */
     focused = false;
-
-    /** Tab index for the element. */
-    private _tabIndex: number;
-
-    private _disabled = false;
-    private _required = false;
-    private _readonly = false;
-    private _keeper = false;
-    private _id: string;
-    private _uid: string = `select2-${nextUniqueId++}`;
-    private _value: common.Select2UpdateValue;
-    private _previousNativeValue: common.Select2UpdateValue = this._value;
 
     /** View -> model callback called when select has been touched */
     _onTouched = () => { };
@@ -114,7 +102,7 @@ export class Select2 implements ControlValueAccessor {
                     this.hoveringValue,
                     this.resultsElement,
                     result,
-                    this.lastScrollTopIndex
+                    this.lastScrollTopIndex,
                 );
                 if (lastScrollTopIndex !== null) {
                     this.lastScrollTopIndex = lastScrollTopIndex;
@@ -164,17 +152,29 @@ export class Select2 implements ControlValueAccessor {
     @Input()
     get tabIndex(): number { return this.disabled ? -1 : this._tabIndex; }
     set tabIndex(value: number) {
-        if (typeof value !== 'undefined') {
+        if (typeof value !== "undefined") {
             this._tabIndex = value;
         }
     }
+
+    /** Tab index for the element. */
+    private _tabIndex: number;
+
+    private _disabled = false;
+    private _required = false;
+    private _readonly = false;
+    private _keeper = false;
+    private _id: string;
+    private _uid: string = `select2-${nextUniqueId++}`;
+    private _value: common.Select2UpdateValue;
+    private _previousNativeValue: common.Select2UpdateValue = this._value;
 
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
         @Optional() private _parentForm: NgForm,
         @Optional() private _parentFormGroup: FormGroupDirective,
         @Self() @Optional() public _control: NgControl,
-        @Attribute('tabindex') tabIndex: string
+        @Attribute("tabindex") tabIndex: string,
     ) {
         this.id = this.id;
         this._tabIndex = parseInt(tabIndex, 10) || 0;
@@ -188,7 +188,7 @@ export class Select2 implements ControlValueAccessor {
         const option = common.getOptionsByValue(
             this.data,
             this._control ? this._control.value : this.value,
-            this.multiple
+            this.multiple,
         );
         if (option !== null) {
             this.option = option;
@@ -214,7 +214,7 @@ export class Select2 implements ControlValueAccessor {
 
     getOptionStyle(option: common.Select2Option) {
         return common.getOptionStyle(option.value, this.hoveringValue)
-            + (option.classes ? ' ' + option.classes : '');
+            + (option.classes ? " " + option.classes : "");
     }
 
     mouseenter(option: common.Select2Option) {
@@ -240,7 +240,7 @@ export class Select2 implements ControlValueAccessor {
         this.focused = true;
         this.isOpen = !this.isOpen;
         if (this.isOpen) {
-            this.innerSearchText = '';
+            this.innerSearchText = "";
             if (!this.isSearchboxHidden) {
                 if (this.searchInputElement) {
                     this.searchInputElement.focus();
@@ -256,7 +256,7 @@ export class Select2 implements ControlValueAccessor {
                     this.hoveringValue,
                     this.resultsElement,
                     this.data,
-                    this.lastScrollTopIndex
+                    this.lastScrollTopIndex,
                 );
                 if (lastScrollTopIndex !== null) {
                     this.lastScrollTopIndex = lastScrollTopIndex;
@@ -287,12 +287,12 @@ export class Select2 implements ControlValueAccessor {
         this.focusoutTimer = setTimeout(() => {
             if (
                 (this.focused && !this.isOpen && this._keeper === false)
-                || (field === 'searchInput' && this._keeper === false)
-                || (field === 'option' && this._keeper === false)
+                || (field === "searchInput" && this._keeper === false)
+                || (field === "option" && this._keeper === false)
             ) {
                 this.isOpen = false;
                 this.focusoutTimer = undefined;
-                if (!this.selectionElement.classList.contains('select2-focus')) {
+                if (!this.selectionElement.classList.contains("select2-focus")) {
                     this.focused = false;
                     this._onTouched();
                     this._changeDetectorRef.markForCheck();
@@ -310,7 +310,7 @@ export class Select2 implements ControlValueAccessor {
                 this.hoveringValue,
                 this.resultsElement,
                 this.filteredData,
-                this.lastScrollTopIndex
+                this.lastScrollTopIndex,
             );
             if (lastScrollTopIndex !== null) {
                 this.lastScrollTopIndex = lastScrollTopIndex;
@@ -326,7 +326,7 @@ export class Select2 implements ControlValueAccessor {
                 this.hoveringValue,
                 this.resultsElement,
                 this.filteredData,
-                this.lastScrollTopIndex
+                this.lastScrollTopIndex,
             );
             if (lastScrollTopIndex !== null) {
                 this.lastScrollTopIndex = lastScrollTopIndex;
@@ -365,7 +365,7 @@ export class Select2 implements ControlValueAccessor {
             }
         }
 
-        let value = this.multiple
+        const value = this.multiple
             ? (this.option as common.Select2Option[]).map(op => op.value)
             : (this.option as common.Select2Option).value;
 
@@ -403,7 +403,7 @@ export class Select2 implements ControlValueAccessor {
     }
 
     searchUpdate(e: Event) {
-        this.searchText = (<HTMLInputElement>e.target).value;
+        this.searchText = (e.target as HTMLInputElement).value;
     }
 
     isSelected(option: common.Select2Option) {
@@ -411,7 +411,7 @@ export class Select2 implements ControlValueAccessor {
     }
 
     isDisabled(option: common.Select2Option) {
-        return option.disabled ? 'true' : 'false';
+        return option.disabled ? "true" : "false";
     }
 
     removeSelection(e: MouseEvent, option: common.Select2Option) {
@@ -494,12 +494,11 @@ export class Select2 implements ControlValueAccessor {
         const isArray = Array.isArray(value);
 
         if (this.multiple && value && !isArray) {
-            throw 'Non array value.';
+            throw "Non array value.";
         }
 
         this._changeDetectorRef.markForCheck();
     }
-
 
     /** Does some manual dirty checking on the native input `value` property. */
     private _dirtyCheckNativeValue() {
@@ -512,6 +511,6 @@ export class Select2 implements ControlValueAccessor {
     }
 
     private _coerceBooleanProperty(value: any): boolean {
-        return value != null && `${value}` !== 'false';
+        return value != null && `${value}` !== "false";
     }
 }
