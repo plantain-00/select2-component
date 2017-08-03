@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { Validators, FormControl, FormBuilder, FormGroup } from '@angular/forms';
 
 import { Select2Option, Select2Data } from "../../dist/angular";
@@ -6,6 +6,7 @@ import { data1, data2, data3, data5 } from "../common";
 
 @Component({
     selector: "app",
+    changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
     <div style="width: 500px;">
         <a href="https://github.com/plantain-00/select2-component/tree/master/demo/angular/index.ts" target="_blank">the source code of the demo</a>
