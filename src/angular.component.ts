@@ -10,6 +10,7 @@ import { Subject } from 'rxjs';
 
 import * as common from './common';
 export * from './common';
+import { angularTemplateHtml } from "./angular-variables";
 
 let nextUniqueId = 0;
 
@@ -18,8 +19,7 @@ export class Select2Hint { }
 
 @Component({
     selector: 'select2',
-    styleUrls: ['./select2.css'],
-    templateUrl: './select2.html',
+    templateUrl: angularTemplateHtml,
     encapsulation: ViewEncapsulation.None,
     host: {
         '[id]': 'id',
