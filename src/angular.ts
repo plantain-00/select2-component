@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ElementRef, ViewChild } from "@angular/core";
+import { Component, Input, Output, EventEmitter, ElementRef, ViewChild, ChangeDetectorRef } from "@angular/core";
 import * as common from "./common";
 export * from "./common";
 import { angularTemplateHtml } from "./angular-variables";
@@ -45,6 +45,8 @@ export class Select2Component {
     searchInput: ElementRef;
     @ViewChild("results")
     results: ElementRef;
+
+    constructor(private cdr: ChangeDetectorRef) { }
 
     get searchText() {
         return this.innerSearchText;
@@ -155,6 +157,7 @@ export class Select2Component {
         this.focusoutTimer = setTimeout(() => {
             this.isOpen = false;
             this.focusoutTimer = undefined;
+            this.cdr.markForCheck();
         }, common.timeout);
     }
     moveUp() {

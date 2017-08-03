@@ -3,7 +3,7 @@ import "core-js/es7/reflect";
 import "zone.js/dist/zone";
 
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
-import { enableProdMode } from "@angular/core";
+import { enableProdMode, ChangeDetectionStrategy } from "@angular/core";
 
 enableProdMode();
 
@@ -13,6 +13,7 @@ import { data1, data2, data3, data5 } from "../common";
 
 @Component({
     selector: "app",
+    changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
     <div style="width: 500px;">
         <a href="https://github.com/plantain-00/select2-component/tree/master/demo/angular/index.ts" target="_blank">the source code of the demo</a>

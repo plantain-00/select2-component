@@ -1,6 +1,6 @@
 {
   "name": "select2-component",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A vuejs, reactjs and angular select component.",
   "main": "index.js",
   "scripts": {
