@@ -262,7 +262,7 @@ export function getLastScrollTopIndex(
     }
 }
 
-function containSearchText(label: string, searchText: string | null, editPattern: Function | undefined): boolean {
+function containSearchText(label: string, searchText: string | null, editPattern: ((str: string) => string) | undefined): boolean {
     return searchText
         ? formatSansUnicode(label).match(new RegExp(formatPattern(searchText, editPattern), "i")) !== null
         : true;
@@ -279,7 +279,7 @@ export function formatSansUnicode(str: string): string {
     return str;
 }
 
-export function formatPattern(str: string, editPattern: Function | undefined): string {
+export function formatPattern(str: string, editPattern: ((str: string) => string) | undefined): string {
     str = formatSansUnicode(protectPattern(str));
 
     if (editPattern && typeof editPattern === "function") {
@@ -288,7 +288,7 @@ export function formatPattern(str: string, editPattern: Function | undefined): s
     return str;
 }
 
-export function getFilteredData(data: Select2Data, searchText: string | null, editPattern?: Function) {
+export function getFilteredData(data: Select2Data, searchText: string | null, editPattern?: (str: string) => string) {
     if (searchText) {
         const result: Select2Data = [];
         for (const groupOrOption of data) {

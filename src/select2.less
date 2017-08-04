@@ -187,7 +187,7 @@
     }
 
     .select2-selection__placeholder__option {
-      display:none;
+      display: none;
     }
 
     .select2-selection__arrow {
@@ -259,7 +259,7 @@
     }
 
     .select2-selection__placeholder__option {
-      display:none;
+      display: none;
     }
 
     .select2-selection__clear {
@@ -418,7 +418,7 @@
 }
 
 // material style
-
+/* stylelint-disable-next-line selector-type-no-unknown */
 select2.material {
   display: inline-block;
 
@@ -436,6 +436,7 @@ select2.material {
       height: auto;
     }
   }
+
   .select2-container--default {
     .select2-selection--single,
     .select2-selection--multiple {
@@ -451,15 +452,16 @@ select2.material {
         position: absolute;
         bottom: 1.65em;
         background-color: #ddd;
-        height: 1px ;
+        height: 1px;
         width: 100%;
       }
+
       &::after {
         content: ' ';
         display: block;
         position: absolute;
         bottom: 1.63em;
-        background-color: #5A419E;
+        background-color: #5a419e;
         height: 2px;
         width: 0%;
         left: 50%;
@@ -474,21 +476,21 @@ select2.material {
       .select2-selection__placeholder {
         display: block;
         color: rgba(0, 0, 0, 0.38);
-        transition: transform .3s;
+        transition: transform 0.3s;
         position: absolute;
         transform-origin: 0 21px;
-        left: 0px;
+        left: 0;
         top: 20px;
       }
     }
 
     .select2-container--open {
       left: 0;
-      bottom: 1.60em;
+      bottom: 1.6em;
     }
 
     .select2-selection__placeholder__option {
-      transform: translateY(-1.50em) scale(0.75) perspective(100px) translateZ(0.001px);
+      transform: translateY(-1.5em) scale(0.75) perspective(100px) translateZ(0.001px);
       width: 133.33333%;
     }
 
@@ -501,8 +503,8 @@ select2.material {
       .select2-selection--single::after,
       .select2-selection--multiple::after {
         transition:
-          width .3s cubic-bezier(0.12, 1, 0.77, 1),
-          left .3s cubic-bezier(0.12, 1, 0.77, 1);
+          width 0.3s cubic-bezier(0.12, 1, 0.77, 1),
+          left 0.3s cubic-bezier(0.12, 1, 0.77, 1);
         width: 100%;
         left: 0%;
       }
@@ -511,11 +513,11 @@ select2.material {
     .select2-dropdown {
       border-radius: 0;
       border: 0;
-      box-shadow: 0 5px 5px rgba(0,0,0,.5);
+      box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
     }
 
     .select2-results__option[aria-selected=true],
-    .select2-results__option--highlighted[aria-selected]{
+      .select2-results__option--highlighted[aria-selected] {
       background-color: rgba(0, 0, 0, 0.04);
       color: #000;
     }
@@ -529,7 +531,7 @@ select2.material {
       background-color: transparent;
 
       &::before {
-        background-image: linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);
+        background-image: linear-gradient(to right, rgba(0, 0, 0, 0.26) 0, rgba(0, 0, 0, 0.26) 33%, transparent 0);
         background-size: 4px 1px;
         background-repeat: repeat-x;
         background-color: transparent;
@@ -561,7 +563,7 @@ select2.material {
 }
 
 // material fix (firefox)
-
+/* stylelint-disable selector-type-no-unknown */
 @supports (-moz-appearance: none) {
   select2.material .select2-container--default .select2-selection--single,
   select2.material .select2-container--default .select2-selection--multiple {

@@ -41,7 +41,7 @@ export class Select2 implements ControlValueAccessor {
     @Input() material?: string;
 
     /** use it for change the pattern of the filter search */
-    @Input() editPattern: () => {};
+    @Input() editPattern: (str: string) => string;
 
     @Output() update = new EventEmitter();
     @Output() open = new EventEmitter();
@@ -64,16 +64,21 @@ export class Select2 implements ControlValueAccessor {
     @ViewChild("searchInput") searchInput: ElementRef;
     @ViewChild("results") results: ElementRef;
 
+    // tslint:disable:variable-name
     _stateChanges = new Subject<void>();
 
     /** Whether the element is focused or not. */
     focused = false;
 
     /** View -> model callback called when select has been touched */
-    _onTouched = () => { };
+    _onTouched = () => {
+        // do nothing
+    }
 
     /** View -> model callback called when value changes */
-    _onChange: (value: any) => void = () => { };
+    _onChange: (value: any) => void = () => {
+        // do nothing
+    }
 
     get searchText() {
         return this.innerSearchText;
@@ -156,6 +161,8 @@ export class Select2 implements ControlValueAccessor {
             this._tabIndex = value;
         }
     }
+
+    // tslint:disable:member-ordering
 
     /** Tab index for the element. */
     private _tabIndex: number;
@@ -494,7 +501,7 @@ export class Select2 implements ControlValueAccessor {
         const isArray = Array.isArray(value);
 
         if (this.multiple && value && !isArray) {
-            throw "Non array value.";
+            throw new Error("Non array value.");
         }
 
         this._changeDetectorRef.markForCheck();
