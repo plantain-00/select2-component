@@ -163,7 +163,8 @@ export class Select2 implements ControlValueAccessor {
     private _disabled = false;
     private _required = false;
     private _readonly = false;
-    private _keeper = false;
+    private _clickDetection = false;
+    private _clickDetectionFc = () => { };
     private _id: string;
     private _uid: string = `select2-${nextUniqueId++}`;
     private _value: common.Select2UpdateValue;
@@ -182,6 +183,8 @@ export class Select2 implements ControlValueAccessor {
         if (this._control) {
             this._control.valueAccessor = this;
         }
+
+        this._clickDetectionFc = this.clickDetection.bind(this);
     }
 
     ngOnInit() {
@@ -212,6 +215,10 @@ export class Select2 implements ControlValueAccessor {
         this._dirtyCheckNativeValue();
     }
 
+    ngOnDestroy() {
+        window.document.body.removeEventListener('click', this._clickDetectionFc);
+    }
+
     getOptionStyle(option: common.Select2Option) {
         return common.getOptionStyle(option.value, this.hoveringValue)
             + (option.classes ? " " + option.classes : "");
@@ -224,7 +231,6 @@ export class Select2 implements ControlValueAccessor {
     }
 
     click(option: common.Select2Option) {
-        this._keeper = false;
         if (!option.disabled) {
             this.select(option);
         }
@@ -264,42 +270,87 @@ export class Select2 implements ControlValueAccessor {
             }
             this.open.emit();
         }
-        if (this.focusoutTimer) {
-            clearTimeout(this.focusoutTimer);
+
+        if (this.isOpen && !this._clickDetection) {
+            setTimeout(() => {
+                window.document.body.addEventListener('click', this._clickDetectionFc, false);
+                this._clickDetection = true;
+            }, common.timeout);
         }
+    }
+
+    clickDetection(e: MouseEvent) {
+        if (!this.ifParentContainsClass(e.target as HTMLElement, 'selection')) {
+            if (this.isOpen && !this.ifParentContainsClass(e.target as HTMLElement, 'select2-dropdown')) {
+                this.toggleOpenAndClose();
+            }
+            if (!this.ifParentContainsId(e.target as HTMLElement, this._id)) {
+                this.focused = false;
+                window.document.body.removeEventListener('click', this._clickDetectionFc);
+                this._clickDetection = false;
+            }
+        }
+    }
+
+    ifParentContainsClass(element: HTMLElement, cssClass: string): boolean {
+        return this.getParentElementByClass(element, cssClass) !== null;
+    }
+
+    ifParentContainsId(element: HTMLElement, id: string): boolean {
+        return this.getParentElementById(element, id) !== null;
+    }
+
+    getParentElementByClass(element: HTMLElement, cssClass: string): HTMLElement {
+        if (this.containClasses(element, cssClass.trim().split(/\s+/))) {
+            return element;
+        }
+        return element.parentElement
+            ? this.getParentElementByClass(element.parentElement, cssClass)
+            : null;
+    }
+
+    getParentElementById(element: HTMLElement, id: string): HTMLElement {
+        if (element.id == id) {
+            return element;
+        }
+        return element.parentElement
+            ? this.getParentElementById(element.parentElement, id)
+            : null;
+    }
+
+    ifContaintThisParentElement(element: HTMLElement, parent: HTMLElement): boolean {
+        if (element === parent) {
+            return true;
+        }
+        return element.parentElement
+            ? this.ifContaintThisParentElement(element.parentElement, parent)
+            : null;
+    }
+
+    containClasses(element: HTMLElement, cssClasses: string[]): boolean {
+        if (!element.classList) {
+            return false;
+        }
+        for (let cssClass of cssClasses) {
+            if (!element.classList.contains(cssClass)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     focusin() {
-        this.focuskeeper();
-        if (!this.disabled) {
-            this.focused = true;
+        if (this.disabled) {
+            return;
         }
+        this.focused = true;
     }
 
-    focuskeeper() {
-        this._keeper = true;
-        setTimeout(() => {
-            this._keeper = false;
-        }, common.timeout);
-    }
-
-    focusout(field: string) {
-        this.focusoutTimer = setTimeout(() => {
-            if (
-                (this.focused && !this.isOpen && this._keeper === false)
-                || (field === "searchInput" && this._keeper === false)
-                || (field === "option" && this._keeper === false)
-            ) {
-                this.isOpen = false;
-                this.focusoutTimer = undefined;
-                if (!this.selectionElement.classList.contains("select2-focus")) {
-                    this.focused = false;
-                    this._onTouched();
-                    this._changeDetectorRef.markForCheck();
-                }
-            }
-            this._keeper = false;
-        }, common.timeout);
+    focusout() {
+        if (!this.selectionElement.classList.contains('select2-focused')) {
+            this.focused = false;
+            this._onTouched();
+        }
     }
 
     moveUp() {
@@ -361,7 +412,6 @@ export class Select2 implements ControlValueAccessor {
                 this.option = option;
                 this.isOpen = false;
                 this.selectionElement.focus();
-                this.focuskeeper();
             }
         }
 
