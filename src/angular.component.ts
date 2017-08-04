@@ -144,8 +144,8 @@ export class Select2 implements ControlValueAccessor {
     @Input()
     get value() { return this._value; }
     set value(value: common.Select2UpdateValue) {
-        this.writeValue(value);
         this._value = value;
+        this.writeValue(value);
     }
 
     /** Tab index for the select2 element. */
@@ -270,6 +270,7 @@ export class Select2 implements ControlValueAccessor {
             }
             this.open.emit();
         }
+		
 
         if (this.isOpen && !this._clickDetection) {
             setTimeout(() => {
@@ -277,12 +278,15 @@ export class Select2 implements ControlValueAccessor {
                 this._clickDetection = true;
             }, common.timeout);
         }
+
+		this._changeDetectorRef.markForCheck();
     }
 
     clickDetection(e: MouseEvent) {
-        if (!this.ifParentContainsClass(e.target as HTMLElement, 'selection')) {
+        
+		if (!this.ifParentContainsClass(e.target as HTMLElement, 'selection')) {
             if (this.isOpen && !this.ifParentContainsClass(e.target as HTMLElement, 'select2-dropdown')) {
-                this.toggleOpenAndClose();
+				this.toggleOpenAndClose();
             }
             if (!this.ifParentContainsId(e.target as HTMLElement, this._id)) {
                 this.focused = false;
@@ -300,7 +304,7 @@ export class Select2 implements ControlValueAccessor {
         return this.getParentElementById(element, id) !== null;
     }
 
-    getParentElementByClass(element: HTMLElement, cssClass: string): HTMLElement {
+    getParentElementByClass(element: HTMLElement, cssClass: string): HTMLElement  | null{
         if (this.containClasses(element, cssClass.trim().split(/\s+/))) {
             return element;
         }
@@ -309,7 +313,7 @@ export class Select2 implements ControlValueAccessor {
             : null;
     }
 
-    getParentElementById(element: HTMLElement, id: string): HTMLElement {
+    getParentElementById(element: HTMLElement, id: string): HTMLElement | null {
         if (element.id == id) {
             return element;
         }
@@ -318,7 +322,7 @@ export class Select2 implements ControlValueAccessor {
             : null;
     }
 
-    ifContaintThisParentElement(element: HTMLElement, parent: HTMLElement): boolean {
+    ifContaintThisParentElement(element: HTMLElement, parent: HTMLElement): boolean | null {
         if (element === parent) {
             return true;
         }
@@ -347,7 +351,7 @@ export class Select2 implements ControlValueAccessor {
     }
 
     focusout() {
-        if (!this.selectionElement.classList.contains('select2-focused')) {
+        if (this.selectionElement && !this.selectionElement.classList.contains('select2-focused')) {
             this.focused = false;
             this._onTouched();
         }
@@ -411,16 +415,20 @@ export class Select2 implements ControlValueAccessor {
             } else {
                 this.option = option;
                 this.isOpen = false;
-                this.selectionElement.focus();
+				if (this.selectionElement) {
+					this.selectionElement.focus();
+				}
             }
-        }
-
-        const value = this.multiple
-            ? (this.option as common.Select2Option[]).map(op => op.value)
-            : (this.option as common.Select2Option).value;
+        } else if (this._control) {
+			this.option = null;
+		}
+		
+		const value = this.option ? (this.multiple 
+				? (this.option as common.Select2Option[]).map(op => op.value)
+				: (this.option as common.Select2Option).value
+			) : undefined;
 
         if (this._control) {
-            this._control.reset(value);
             this._onChange(value);
         }
         this.update.emit(value);
@@ -541,13 +549,17 @@ export class Select2 implements ControlValueAccessor {
      * found with the designated value, the select trigger is cleared.
      */
     private _setSelectionByValue(value: any | any[]): void {
-        const isArray = Array.isArray(value);
+		if ( this.option || value ) {
+			const isArray = Array.isArray(value);
+			if (this.multiple && value && !isArray) {
+				throw "Non array value.";
+			} else {
+				const option = common.getOptionByValue(this.data, value);
+				this.select(option);
+			}
 
-        if (this.multiple && value && !isArray) {
-            throw "Non array value.";
-        }
-
-        this._changeDetectorRef.markForCheck();
+			this._changeDetectorRef.markForCheck();
+		}
     }
 
     /** Does some manual dirty checking on the native input `value` property. */

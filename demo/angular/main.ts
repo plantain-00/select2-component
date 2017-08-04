@@ -71,6 +71,8 @@ import { data1, data2, data3, data5 } from "../common";
                 placeholder="Select a state"
                 material
                 ></select2>
+            <button (click)="reset()">reset</button>
+            <button (click)="change()">Utah</button>
         </form>
     </div>
     `,
@@ -135,4 +137,17 @@ export class MainComponent {
     update9(value: string[]) {
         this.value9 = value;
     }
+
+	reset() {
+		let test10 = this.ctrlForm.get('test10');
+		if (test10) {
+			test10.reset();
+		}
+	}
+	change() {
+		let test10 = this.ctrlForm.get('test10');
+		if (test10) {
+			test10.setValue('UT');
+		}
+	}
 }
