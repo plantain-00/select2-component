@@ -48,7 +48,7 @@
                     role="tree"
                     tabindex="-1"
                     (keydown)="keyDown($event)">
-                    <ng-container *ngFor="let groupOrOption of filteredData">
+                     <ng-template ngFor [ngForOf]="filteredData" let-groupOrOption>
                         <li *ngIf="groupOrOption.options"
                             class="select2-results__option"
                             role="group">
@@ -72,7 +72,7 @@
                             (click)="click(groupOrOption)">
                             {{groupOrOption.label}}
                         </li>
-                    </ng-container>
+                    </ng-template>
                 </ul>
             </div>
         </div>
