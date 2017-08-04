@@ -3,7 +3,7 @@
          [attr.tabindex]="!this.isOpen ? tabIndex : '-1'"
          (click)="toggleOpenAndClose()"
          (focus)="focusin()"
-         (blur)="focusout('base')"
+         (blur)="focusout()"
          (keydown)="openKey($event)"
          [class.select2-focused]="focused">
          <div [class]="selectionStyle" role="combobox">
@@ -34,8 +34,6 @@
                     [(value)]="searchText"
                     (keydown)="keyDown($event)"
                     (keyup)="searchUpdate($event)"
-                    (focusout)="focusout('searchInput')"
-                    (focus)="focuskeeper()"
                     class="select2-search__field"
                     type="search"
                     role="textbox"
@@ -49,10 +47,9 @@
                 <ul #results class="select2-results__options"
                     role="tree"
                     tabindex="-1"
-                    (keydown)="keyDown($event)"
-                    (focusout)="focusout('option')">
-                    <ng-template ngFor [ngForOf]="filteredData" let-groupOrOption>
-                                 <li *ngIf="groupOrOption.options"
+                    (keydown)="keyDown($event)">
+                     <ng-template ngFor [ngForOf]="filteredData" let-groupOrOption>
+                        <li *ngIf="groupOrOption.options"
                             class="select2-results__option"
                             role="group">
                             <strong [attr.class]="'select2-results__group' + (groupOrOption.classes ? ' ' + groupOrOption.classes : '')">{{groupOrOption.label}}</strong>
