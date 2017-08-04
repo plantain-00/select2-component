@@ -65,3 +65,6 @@ dist
 !*.config.js
 !**/*-*.js
 !**/*-*.css
+
+# Netbeans
+/nbproject/

@@ -18,7 +18,11 @@ export class Select2 extends React.PureComponent<{
     hoveringValue: common.Select2Value | null | undefined = null;
     option: common.Select2Option | common.Select2Option[] | null = null;
     isOpen = false;
+<<<<<<< HEAD
+    focusoutTimer?: NodeJS.Timer;
+=======
     focusoutTimer?: any;
+>>>>>>> Try to change the webpack configuration for Angular (with Injection)
     innerSearchText = "";
     lastScrollTopIndex = 0;
     isSearchboxHidden: boolean;
