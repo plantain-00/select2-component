@@ -435,6 +435,7 @@ export class Select2 implements ControlValueAccessor {
             ) : undefined;
 
         if (this._control) {
+
             this._onChange(value);
         }
         this.update.emit(value);
