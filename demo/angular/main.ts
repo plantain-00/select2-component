@@ -138,16 +138,16 @@ export class MainComponent {
         this.value9 = value;
     }
 
-	reset() {
-		let test10 = this.ctrlForm.get('test10');
-		if (test10) {
-			test10.reset();
-		}
-	}
-	change() {
-		let test10 = this.ctrlForm.get('test10');
-		if (test10) {
-			test10.setValue('UT');
-		}
-	}
+    reset() {
+        const test10 = this.ctrlForm.get("test10");
+        if (test10) {
+            test10.reset();
+        }
+    }
+    change() {
+        const test10 = this.ctrlForm.get("test10");
+        if (test10) {
+            test10.setValue("UT");
+        }
+    }
 }

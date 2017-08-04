@@ -171,7 +171,7 @@ export class Select2 implements ControlValueAccessor {
     private _required = false;
     private _readonly = false;
     private _clickDetection = false;
-    private _clickDetectionFc = () => { };
+    private _clickDetectionFc: (e: MouseEvent) => void;
     private _id: string;
     private _uid: string = `select2-${nextUniqueId++}`;
     private _value: common.Select2UpdateValue;
@@ -223,7 +223,7 @@ export class Select2 implements ControlValueAccessor {
     }
 
     ngOnDestroy() {
-        window.document.body.removeEventListener('click', this._clickDetectionFc);
+        window.document.body.removeEventListener("click", this._clickDetectionFc);
     }
 
     getOptionStyle(option: common.Select2Option) {
@@ -280,7 +280,7 @@ export class Select2 implements ControlValueAccessor {
 
         if (this.isOpen && !this._clickDetection) {
             setTimeout(() => {
-                window.document.body.addEventListener('click', this._clickDetectionFc, false);
+                window.document.body.addEventListener("click", this._clickDetectionFc, false);
                 this._clickDetection = true;
             }, common.timeout);
         }
@@ -289,14 +289,13 @@ export class Select2 implements ControlValueAccessor {
     }
 
     clickDetection(e: MouseEvent) {
-        
-        if (!this.ifParentContainsClass(e.target as HTMLElement, 'selection')) {
-            if (this.isOpen && !this.ifParentContainsClass(e.target as HTMLElement, 'select2-dropdown')) {
+        if (!this.ifParentContainsClass(e.target as HTMLElement, "selection")) {
+            if (this.isOpen && !this.ifParentContainsClass(e.target as HTMLElement, "select2-dropdown")) {
                 this.toggleOpenAndClose();
             }
             if (!this.ifParentContainsId(e.target as HTMLElement, this._id)) {
                 this.focused = false;
-                window.document.body.removeEventListener('click', this._clickDetectionFc);
+                window.document.body.removeEventListener("click", this._clickDetectionFc);
                 this._clickDetection = false;
             }
         }
@@ -310,7 +309,7 @@ export class Select2 implements ControlValueAccessor {
         return this.getParentElementById(element, id) !== null;
     }
 
-    getParentElementByClass(element: HTMLElement, cssClass: string): HTMLElement  | null{
+    getParentElementByClass(element: HTMLElement, cssClass: string): HTMLElement | null {
         if (this.containClasses(element, cssClass.trim().split(/\s+/))) {
             return element;
         }
@@ -320,7 +319,7 @@ export class Select2 implements ControlValueAccessor {
     }
 
     getParentElementById(element: HTMLElement, id: string): HTMLElement | null {
-        if (element.id == id) {
+        if (element.id === id) {
             return element;
         }
         return element.parentElement
@@ -341,7 +340,7 @@ export class Select2 implements ControlValueAccessor {
         if (!element.classList) {
             return false;
         }
-        for (let cssClass of cssClasses) {
+        for (const cssClass of cssClasses) {
             if (!element.classList.contains(cssClass)) {
                 return false;
             }
@@ -357,7 +356,7 @@ export class Select2 implements ControlValueAccessor {
     }
 
     focusout() {
-        if (this.selectionElement && !this.selectionElement.classList.contains('select2-focused')) {
+        if (this.selectionElement && !this.selectionElement.classList.contains("select2-focused")) {
             this.focused = false;
             this._onTouched();
         }
@@ -428,8 +427,8 @@ export class Select2 implements ControlValueAccessor {
         } else if (this._control) {
             this.option = null;
         }
-        
-        const value = this.option ? (this.multiple 
+
+        const value = this.option ? (this.multiple
                 ? (this.option as common.Select2Option[]).map(op => op.value)
                 : (this.option as common.Select2Option).value
             ) : undefined;
@@ -559,7 +558,7 @@ export class Select2 implements ControlValueAccessor {
         if ( this.option || value ) {
             const isArray = Array.isArray(value);
             if (this.multiple && value && !isArray) {
-                throw "Non array value.";
+                throw new Error("Non array value.");
             } else {
                 const option = common.getOptionByValue(this.data, value);
                 this.select(option);

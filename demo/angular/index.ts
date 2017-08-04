@@ -6,5 +6,5 @@ import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 import { enableProdMode } from "@angular/core";
 import { MainModule } from "./main.module";
 
-platformBrowserDynamic().bootstrapModule(MainModule);
 enableProdMode();
+platformBrowserDynamic().bootstrapModule(MainModule);
