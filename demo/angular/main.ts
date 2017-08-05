@@ -55,13 +55,6 @@ import { data1, data2, data3, data5 } from "../common";
             multiple="true"
             (update)="update9($event)">
         </select2>
-        <h2>Material</h2>
-        <h3>options in group ({{value1}})</h3>
-        <select2 [data]="data1"
-            [value]="value1"
-            (update)="update1($event)"
-            material>
-        </select2>
         <h3>in form ({{value10}})</h3>
         <form [formGroup]="ctrlForm">
             <select2
@@ -74,6 +67,12 @@ import { data1, data2, data3, data5 } from "../common";
             <button (click)="reset()">reset</button>
             <button (click)="change()">Utah</button>
         </form>
+        <h3>material style ({{value11}})</h3>
+        <select2 [data]="data11"
+            [value]="value11"
+            (update)="update11($event)"
+            material>
+        </select2>
     </div>
     `,
 })
@@ -87,6 +86,7 @@ export class MainComponent {
     data7: Select2Option[] = [];
     data9: Select2Data = JSON.parse(JSON.stringify(data1));
     data10: Select2Data = JSON.parse(JSON.stringify(data1));
+    data11: Select2Data = JSON.parse(JSON.stringify(data1));
 
     minCountForSearch = Infinity;
 
@@ -101,6 +101,7 @@ export class MainComponent {
     value7 = "";
     value9: string[] = [];
     value10 = "";
+    value11 = "CA";
 
     constructor(private fb: FormBuilder) {
         this.ctrlForm = this.fb.group({
@@ -136,6 +137,9 @@ export class MainComponent {
     }
     update9(value: string[]) {
         this.value9 = value;
+    }
+    update11(value: string) {
+        this.value11 = value;
     }
 
     reset() {

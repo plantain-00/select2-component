@@ -38,7 +38,7 @@ export class Select2 implements ControlValueAccessor {
     @Input() multiple?: boolean;
 
     /** use the material style */
-    @Input() material?: string;
+    @Input() material?: "" | true;
 
     /** use it for change the pattern of the filter search */
     @Input() editPattern: (str: string) => string;
