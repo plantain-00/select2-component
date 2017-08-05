@@ -50,7 +50,7 @@ export class Select2 implements ControlValueAccessor {
     hoveringValue: common.Select2Value | null | undefined = null;
     option: common.Select2Option | common.Select2Option[] | null = null;
     isOpen = false;
-    focusoutTimer?: any;
+    focusoutTimer?: NodeJS.Timer;
     innerSearchText = "";
     lastScrollTopIndex = 0;
     isSearchboxHidden: boolean;
