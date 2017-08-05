@@ -50,7 +50,6 @@ export class Select2 implements ControlValueAccessor {
     hoveringValue: common.Select2Value | null | undefined = null;
     option: common.Select2Option | common.Select2Option[] | null = null;
     isOpen = false;
-    focusoutTimer?: NodeJS.Timer;
     innerSearchText = "";
     lastScrollTopIndex = 0;
     isSearchboxHidden: boolean;
@@ -240,9 +239,6 @@ export class Select2 implements ControlValueAccessor {
     click(option: common.Select2Option) {
         if (!option.disabled) {
             this.select(option);
-        }
-        if (this.focusoutTimer) {
-            clearTimeout(this.focusoutTimer);
         }
     }
 
@@ -495,10 +491,6 @@ export class Select2 implements ControlValueAccessor {
                     this.resultsElement.focus();
                 }
             }
-        }
-
-        if (this.focusoutTimer) {
-            clearTimeout(this.focusoutTimer);
         }
     }
 
