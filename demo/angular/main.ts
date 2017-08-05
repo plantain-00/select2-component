@@ -55,7 +55,7 @@ import { data1, data2, data3, data5 } from "../common";
             multiple="true"
             (update)="update9($event)">
         </select2>
-        <h3>in form ({{value10}})</h3>
+        <h3>form binding ({{value10}})</h3>
         <form [formGroup]="ctrlForm">
             <select2
                 [(ngModel)]="value10"
@@ -64,8 +64,8 @@ import { data1, data2, data3, data5 } from "../common";
                 placeholder="Select a state"
                 material
                 ></select2>
-            <button (click)="reset()">reset</button>
-            <button (click)="change()">Utah</button>
+            <button (click)="reset10()">reset</button>
+            <button (click)="change10()">Utah</button>
         </form>
         <h3>material style ({{value11}})</h3>
         <select2 [data]="data11"
@@ -138,20 +138,19 @@ export class MainComponent {
     update9(value: string[]) {
         this.value9 = value;
     }
-    update11(value: string) {
-        this.value11 = value;
-    }
-
-    reset() {
+    reset10() {
         const test10 = this.ctrlForm.get("test10");
         if (test10) {
             test10.reset();
         }
     }
-    change() {
+    change10() {
         const test10 = this.ctrlForm.get("test10");
         if (test10) {
             test10.setValue("UT");
         }
+    }
+    update11(value: string) {
+        this.value11 = value;
     }
 }

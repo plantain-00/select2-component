@@ -25,6 +25,7 @@ A vuejs, reactjs and angular select component.
 + custom component(vuejs and reactjs only)
 + multiple selection
 + material style(angular only)
++ form binding(angular only)
 
 #### install
 
@@ -101,7 +102,9 @@ minCountForSearch | number? = 6 | hide search box if `options.length < minCountF
 placeholder | string? | the placeholder string if nothing selected
 customSearchEnabled | boolean? | will trigger `search` event, and disable inside filter
 multiple | boolean? | select multiple options
-material | `""` or `true` | enable material style
+material | `""` or `true` | enable material style(angular only)
+editPattern | (str: string) => string | use it for change the pattern of the filter search(angular only)
+ngModel/id/required/disabled/readonly/tabIndex | just like a `select` control | (angular only)
 update | (value: [Select2UpdateValue](#select2-data-structure)) => void | triggered when user select an option
 open | () => void | triggered when user open the options
 search | (text: string) => void | triggered when search text changed
