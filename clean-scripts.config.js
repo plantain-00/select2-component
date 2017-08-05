@@ -5,7 +5,7 @@ module.exports = {
     `rimraf demo/*.bundle-*.css`,
     `file2variable-cli src/vue.template.html -o src/vue-variables.ts --html-minify --base src`,
     `file2variable-cli src/angular.template.html -o src/angular-variables.ts --html-minify --base src`,
-    `tsc -p src`,
+    `ngc -p src`,
     `tsc -p demo`,
     `lessc src/select2.less > dist/select2.css`,
     `cleancss -o dist/select2.min.css dist/select2.css`,
