@@ -72,11 +72,11 @@ the online demo: https://plantain-00.github.io/select2-component/demo/react/inde
 #### angular component demo
 
 ```ts
-import { Select2Component } from "select2-component/angular";
+import { Select2Module } from "select2-component/angular";
 
 @NgModule({
-    imports: [BrowserModule, FormsModule],
-    declarations: [MainComponent, Select2Component],
+    imports: [BrowserModule, FormsModule, Select2Module],
+    declarations: [MainComponent],
     bootstrap: [MainComponent],
 })
 class MainModule { }
@@ -134,6 +134,15 @@ type Select2UpdateValue = Select2Value | Select2Value[];
 ```
 
 #### change log
+
+```ts
+// v3.1
+import { Select2Module } from "select2-component/angular";
+import { Select2 } from "select2-component/angular.component";
+
+// v3.0
+import { Select2Component } from "select2-component/angular";
+```
 
 ```ts
 // v3
