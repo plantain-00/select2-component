@@ -117,6 +117,7 @@ type Select2Data = (Select2Group | Select2Option)[];
 type Select2Group = {
     label: string;
     options: Select2Option[];
+    classes?: string;
 };
 
 type Select2Option = {
@@ -124,6 +125,7 @@ type Select2Option = {
     label: string;
     disabled?: boolean;
     component?: string | Function; // the component
+    classes?: string;
 };
 
 type Select2Value = string | number;
