@@ -7,7 +7,7 @@ module.exports = {
     `file2variable-cli src/angular.template.html -o src/angular-variables.ts --html-minify --base src`,
     `ngc -p src`,
     `tsc -p demo`,
-    `lessc src/select2.less > dist/select2.css`,
+    `lessc src/select2.less -sm=on > dist/select2.css`,
     `cleancss -o dist/select2.min.css dist/select2.css`,
     `cleancss -o demo/index.bundle.css dist/select2.min.css ./node_modules/github-fork-ribbon-css/gh-fork-ribbon.css`,
     `webpack --display-modules --config demo/webpack.config.js`,
