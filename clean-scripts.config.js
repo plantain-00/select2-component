@@ -1,6 +1,7 @@
 module.exports = {
   build: [
     `rimraf dist`,
+    `mkdirp dist`,
     {
       js: [
         {
@@ -32,6 +33,9 @@ module.exports = {
     'tsc -p spec',
     'karma start spec/karma.config.js'
   ],
-  fix: `standard --fix "**/*.config.js"`,
+  fix: {
+    js: `standard --fix "**/*.config.js"`,
+    less: `stylelint --fix "src/**/*.less"`
+  },
   release: `clean-release`
 }
