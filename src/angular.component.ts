@@ -424,10 +424,11 @@ export class Select2 implements ControlValueAccessor {
             this.option = null;
         }
 
-        const value = this.option ? (this.multiple
+        const value = this.option
+            ? (this.multiple
                 ? (this.option as common.Select2Option[]).map(op => op.value)
-                : (this.option as common.Select2Option).value
-            ) : undefined;
+                : (this.option as common.Select2Option).value)
+            : undefined;
 
         if (this._control) {
 
@@ -547,12 +548,12 @@ export class Select2 implements ControlValueAccessor {
      * found with the designated value, the select trigger is cleared.
      */
     private _setSelectionByValue(value: any | any[]): void {
-        if ( this.option || value ) {
+        if (this.option || value) {
             const isArray = Array.isArray(value);
             if (this.multiple && value && !isArray) {
                 throw new Error("Non array value.");
             } else {
-                const option = common.getOptionByValue(this.data, value);
+                const option = this.data ? common.getOptionByValue(this.data, value) : null;
                 this.select(option);
             }
 
