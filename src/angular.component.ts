@@ -290,11 +290,18 @@ export class Select2 implements ControlValueAccessor {
                 this.toggleOpenAndClose();
             }
             if (!this.ifParentContainsId(e.target as HTMLElement, this._id)) {
-                this.focused = false;
-                window.document.body.removeEventListener("click", this._clickDetectionFc);
-                this._clickDetection = false;
+                this.clickExit();
             }
+        } else if (this.isOpen && !this.ifParentContainsId(e.target as HTMLElement, this._id)) {
+            this.toggleOpenAndClose();
+            this.clickExit();
         }
+    }
+
+    clickExit() {
+        this.focused = false;
+        window.document.body.removeEventListener("click", this._clickDetectionFc);
+        this._clickDetection = false;
     }
 
     ifParentContainsClass(element: HTMLElement, cssClass: string): boolean {
@@ -461,6 +468,10 @@ export class Select2 implements ControlValueAccessor {
             this.focused = false;
             this._onTouched();
         }
+    }
+
+    trackBy(index: number, item: common.Select2Option): any {
+        return item.value;
     }
 
     searchUpdate(e: Event) {

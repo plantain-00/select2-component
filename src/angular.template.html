@@ -48,13 +48,13 @@
                     role="tree"
                     tabindex="-1"
                     (keydown)="keyDown($event)">
-                     <ng-template ngFor [ngForOf]="filteredData" let-groupOrOption>
+                    <ng-template ngFor [ngForOf]="filteredData" let-groupOrOption [ngForTrackBy]="trackBy">
                         <li *ngIf="groupOrOption.options"
                             class="select2-results__option"
                             role="group">
                             <strong [attr.class]="'select2-results__group' + (groupOrOption.classes ? ' ' + groupOrOption.classes : '')">{{groupOrOption.label}}</strong>
                             <ul class="select2-results__options select2-results__options--nested">
-                                <li *ngFor="let option of groupOrOption.options"
+                                <li *ngFor="let option of groupOrOption.options; trackBy:trackBy"
                                     [class]="getOptionStyle(option)"
                                     role="treeitem"
                                     [attr.aria-selected]="isSelected(option)"
