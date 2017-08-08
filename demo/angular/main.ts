@@ -10,7 +10,6 @@ import { data1, data2, data3, data5 } from "../common";
     template: `
     <div style="width: 500px;">
         <a href="https://github.com/plantain-00/select2-component/tree/master/demo/angular/index.ts" target="_blank">the source code of the demo</a>
-        <h2>Standard</h2>
         <h3>options in group ({{value1}})</h3>
         <select2 [data]="data1"
             [value]="value1"
@@ -100,7 +99,7 @@ export class MainComponent {
     value6 = "";
     value7 = "";
     value9: string[] = [];
-    value10 = "";
+    value10 = "CA";
     value11 = "CA";
 
     constructor(private fb: FormBuilder) {
