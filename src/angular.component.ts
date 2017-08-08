@@ -563,9 +563,10 @@ export class Select2 implements ControlValueAccessor {
             const isArray = Array.isArray(value);
             if (this.multiple && value && !isArray) {
                 throw new Error("Non array value.");
-            } else {
-                const option = this.data ? common.getOptionByValue(this.data, value) : null;
-                this.select(option);
+            } else if (this.data) {
+                this.select(common.getOptionByValue(this.data, value));
+            } else if (this._control) {
+                this._control.viewToModelUpdate(value);
             }
 
             this._changeDetectorRef.markForCheck();
