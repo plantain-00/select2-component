@@ -21,9 +21,9 @@ export type Select2Data = (Select2Group | Select2Option)[];
 
 export const timeout = 200;
 
-export const height = 28;
+const height = 28;
 
-export const unicodePatterns: { l: string, s: RegExp }[] = [
+const unicodePatterns: { l: string, s: RegExp }[] = [
     { l: "a", s: /[ⓐａẚàáâầấẫẩãāăằắẵẳȧǡäǟảåǻǎȁȃạậặḁąⱥɐ]/gi },
     { l: "aa", s: /ꜳ/gi },
     { l: "ae", s: /[æǽǣ]/gi },
@@ -268,18 +268,18 @@ function containSearchText(label: string, searchText: string | null, editPattern
         : true;
 }
 
-export function protectPattern(str: string): string {
+function protectPattern(str: string): string {
     return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
 }
 
-export function formatSansUnicode(str: string): string {
+function formatSansUnicode(str: string): string {
     for (const unicodePattern of unicodePatterns) {
         str = str.replace(unicodePattern.s, unicodePattern.l);
     }
     return str;
 }
 
-export function formatPattern(str: string, editPattern: ((str: string) => string) | undefined): string {
+function formatPattern(str: string, editPattern: ((str: string) => string) | undefined): string {
     str = formatSansUnicode(protectPattern(str));
 
     if (editPattern && typeof editPattern === "function") {

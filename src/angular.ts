@@ -3,6 +3,9 @@ import { CommonModule } from "@angular/common";
 
 import { Select2, Select2Hint } from "./angular.component";
 
+/**
+ * @public
+ */
 @NgModule({
     declarations: [
         Select2Hint,
