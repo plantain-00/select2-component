@@ -18,33 +18,33 @@ export class Select2 extends React.PureComponent<{
     open?: () => void;
     search?: (text: string) => void;
 }, {}> {
-    hoveringValue: common.Select2Value | null | undefined = null;
-    option: common.Select2Option | common.Select2Option[] | null = null;
-    isOpen = false;
-    focusoutTimer?: NodeJS.Timer;
-    innerSearchText = "";
-    lastScrollTopIndex = 0;
-    isSearchboxHidden: boolean;
-    searchStyle: string;
+    private hoveringValue: common.Select2Value | null | undefined = null;
+    private option: common.Select2Option | common.Select2Option[] | null = null;
+    private isOpen = false;
+    private focusoutTimer?: NodeJS.Timer;
+    private innerSearchText = "";
+    private lastScrollTopIndex = 0;
+    private isSearchboxHidden: boolean;
+    private searchStyle: string;
 
-    searchInputElement: HTMLElement;
-    resultsElement: HTMLElement;
+    private searchInputElement: HTMLElement;
+    private resultsElement: HTMLElement;
 
-    get searchText() {
+    private get searchText() {
         return this.innerSearchText;
     }
-    set searchText(text: string) {
+    private set searchText(text: string) {
         if (this.props.customSearchEnabled && this.props.search) {
             this.props.search(text);
         }
         this.innerSearchText = text;
     }
 
-    get dropdownStyle() {
+    private get dropdownStyle() {
         return common.getDropdownStyle(this.isOpen);
     }
 
-    get filteredData() {
+    private get filteredData() {
         const result = this.props.customSearchEnabled
             ? this.props.data
             : common.getFilteredData(this.props.data, this.searchText);
@@ -64,11 +64,11 @@ export class Select2 extends React.PureComponent<{
         return result;
     }
 
-    get containerStyle() {
+    private get containerStyle() {
         return common.getContainerStyle(this.props.disabled, this.isOpen);
     }
 
-    get selectionStyle() {
+    private get selectionStyle() {
         return common.getSelectionStyle(this.props.multiple);
     }
 
@@ -91,181 +91,6 @@ export class Select2 extends React.PureComponent<{
     componentDidMount() {
         this.searchInputElement = ReactDOM.findDOMNode(this).childNodes[1].childNodes[0].childNodes[0].childNodes[0] as HTMLElement;
         this.resultsElement = ReactDOM.findDOMNode(this).childNodes[1].childNodes[0].childNodes[1].childNodes[0] as HTMLElement;
-    }
-
-    getOptionStyle(value: common.Select2Value) {
-        return common.getOptionStyle(value, this.hoveringValue);
-    }
-    mouseenter(option: common.Select2Option) {
-        if (!option.disabled) {
-            this.hoveringValue = option.value;
-            this.setState({ hoveringValue: this.hoveringValue });
-        }
-    }
-    click(option: common.Select2Option) {
-        if (!option.disabled) {
-            this.select(option);
-        }
-        if (this.focusoutTimer) {
-            clearTimeout(this.focusoutTimer);
-        }
-    }
-    toggleOpenAndClose() {
-        if (this.props.disabled) {
-            return;
-        }
-        this.isOpen = !this.isOpen;
-        this.setState({ isOpen: this.isOpen });
-        if (this.isOpen) {
-            this.innerSearchText = "";
-            this.setState({ searchText: this.searchText }, () => {
-                if (!this.isSearchboxHidden) {
-                    if (this.searchInputElement) {
-                        this.searchInputElement.focus();
-                    }
-                } else {
-                    if (this.resultsElement) {
-                        this.resultsElement.focus();
-                    }
-                }
-
-                if (this.resultsElement) {
-                    const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.resultsElement, this.props.data, this.lastScrollTopIndex);
-                    if (lastScrollTopIndex !== null) {
-                        this.lastScrollTopIndex = lastScrollTopIndex;
-                    }
-                }
-            });
-            if (this.props.open) {
-                this.props.open();
-            }
-        }
-        if (this.focusoutTimer) {
-            clearTimeout(this.focusoutTimer);
-        }
-    }
-    focusout() {
-        this.focusoutTimer = setTimeout(() => {
-            this.isOpen = false;
-            this.setState({ isOpen: this.isOpen });
-            this.focusoutTimer = undefined;
-        }, common.timeout);
-    }
-    moveUp() {
-        this.hoveringValue = common.getPreviousOption(this.filteredData, this.hoveringValue);
-        this.setState({ hoveringValue: this.hoveringValue });
-
-        if (this.resultsElement) {
-            const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.resultsElement, this.filteredData, this.lastScrollTopIndex);
-            if (lastScrollTopIndex !== null) {
-                this.lastScrollTopIndex = lastScrollTopIndex;
-                this.setState({ lastScrollTopIndex: this.lastScrollTopIndex });
-            }
-        }
-    }
-    moveDown() {
-        this.hoveringValue = common.getNextOption(this.filteredData, this.hoveringValue);
-        this.setState({ hoveringValue: this.hoveringValue });
-
-        if (this.resultsElement) {
-            const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.resultsElement, this.filteredData, this.lastScrollTopIndex);
-            if (lastScrollTopIndex !== null) {
-                this.lastScrollTopIndex = lastScrollTopIndex;
-                this.setState({ lastScrollTopIndex: this.lastScrollTopIndex });
-            }
-        }
-    }
-    selectByEnter() {
-        if (this.hoveringValue) {
-            const option = common.getOptionByValue(this.props.data, this.hoveringValue);
-            this.select(option);
-        }
-    }
-    select(option: common.Select2Option | null) {
-        if (option !== null) {
-            if (this.props.multiple) {
-                const options = this.option as common.Select2Option[];
-                let index = -1;
-                for (let i = 0; i < options.length; i++) {
-                    if (options[i].value === option.value) {
-                        index = i;
-                        break;
-                    }
-                }
-                if (index === -1) {
-                    options.push(option);
-                } else {
-                    options.splice(index, 1);
-                }
-                this.setState({
-                    option: this.option,
-                });
-            } else {
-                this.option = option;
-                this.isOpen = false;
-                this.setState({
-                    option: this.option,
-                    isOpen: this.isOpen,
-                });
-            }
-        }
-
-        if (this.props.update) {
-            this.props.update(this.props.multiple ? (this.option as common.Select2Option[]).map(op => op.value) : (this.option as common.Select2Option).value);
-        }
-    }
-
-    keyDown(e: React.KeyboardEvent<HTMLInputElement> | React.KeyboardEvent<HTMLUListElement>) {
-        if (e.keyCode === 40) {
-            this.moveDown();
-            e.preventDefault();
-        } else if (e.keyCode === 38) {
-            this.moveUp();
-            e.preventDefault();
-        } else if (e.keyCode === 13) {
-            this.selectByEnter();
-            e.preventDefault();
-        }
-    }
-
-    onChange = (e: React.FormEvent<{ value: string }>) => {
-        this.searchText = e.currentTarget.value;
-        this.setState({ searchText: this.searchText });
-    }
-
-    isSelected(option: common.Select2Option) {
-        return common.isSelected(this.option, option, this.props.multiple);
-    }
-    isDisabled(option: common.Select2Option) {
-        return option.disabled ? "true" : "false";
-    }
-
-    removeSelection(e: React.MouseEvent<HTMLSpanElement>, option: common.Select2Option) {
-        common.removeSelection(this.option, option);
-        if (this.props.update) {
-            this.props.update((this.option as common.Select2Option[]).map(op => op.value));
-        }
-
-        e.preventDefault();
-        e.stopPropagation();
-
-        if (this.isOpen) {
-            this.setState({ option: this.option }, () => {
-                if (!this.isSearchboxHidden) {
-                    if (this.searchInputElement) {
-                        this.searchInputElement.focus();
-                    }
-                } else {
-                    if (this.resultsElement) {
-                        this.resultsElement.focus();
-                    }
-                }
-            });
-        }
-
-        if (this.focusoutTimer) {
-            clearTimeout(this.focusoutTimer);
-        }
     }
 
     render() {
@@ -373,5 +198,180 @@ export class Select2 extends React.PureComponent<{
                 </div>
             </div>
         );
+    }
+
+    private getOptionStyle(value: common.Select2Value) {
+        return common.getOptionStyle(value, this.hoveringValue);
+    }
+    private mouseenter(option: common.Select2Option) {
+        if (!option.disabled) {
+            this.hoveringValue = option.value;
+            this.setState({ hoveringValue: this.hoveringValue });
+        }
+    }
+    private click(option: common.Select2Option) {
+        if (!option.disabled) {
+            this.select(option);
+        }
+        if (this.focusoutTimer) {
+            clearTimeout(this.focusoutTimer);
+        }
+    }
+    private toggleOpenAndClose() {
+        if (this.props.disabled) {
+            return;
+        }
+        this.isOpen = !this.isOpen;
+        this.setState({ isOpen: this.isOpen });
+        if (this.isOpen) {
+            this.innerSearchText = "";
+            this.setState({ searchText: this.searchText }, () => {
+                if (!this.isSearchboxHidden) {
+                    if (this.searchInputElement) {
+                        this.searchInputElement.focus();
+                    }
+                } else {
+                    if (this.resultsElement) {
+                        this.resultsElement.focus();
+                    }
+                }
+
+                if (this.resultsElement) {
+                    const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.resultsElement, this.props.data, this.lastScrollTopIndex);
+                    if (lastScrollTopIndex !== null) {
+                        this.lastScrollTopIndex = lastScrollTopIndex;
+                    }
+                }
+            });
+            if (this.props.open) {
+                this.props.open();
+            }
+        }
+        if (this.focusoutTimer) {
+            clearTimeout(this.focusoutTimer);
+        }
+    }
+    private focusout() {
+        this.focusoutTimer = setTimeout(() => {
+            this.isOpen = false;
+            this.setState({ isOpen: this.isOpen });
+            this.focusoutTimer = undefined;
+        }, common.timeout);
+    }
+    private moveUp() {
+        this.hoveringValue = common.getPreviousOption(this.filteredData, this.hoveringValue);
+        this.setState({ hoveringValue: this.hoveringValue });
+
+        if (this.resultsElement) {
+            const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.resultsElement, this.filteredData, this.lastScrollTopIndex);
+            if (lastScrollTopIndex !== null) {
+                this.lastScrollTopIndex = lastScrollTopIndex;
+                this.setState({ lastScrollTopIndex: this.lastScrollTopIndex });
+            }
+        }
+    }
+    private moveDown() {
+        this.hoveringValue = common.getNextOption(this.filteredData, this.hoveringValue);
+        this.setState({ hoveringValue: this.hoveringValue });
+
+        if (this.resultsElement) {
+            const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.resultsElement, this.filteredData, this.lastScrollTopIndex);
+            if (lastScrollTopIndex !== null) {
+                this.lastScrollTopIndex = lastScrollTopIndex;
+                this.setState({ lastScrollTopIndex: this.lastScrollTopIndex });
+            }
+        }
+    }
+    private selectByEnter() {
+        if (this.hoveringValue) {
+            const option = common.getOptionByValue(this.props.data, this.hoveringValue);
+            this.select(option);
+        }
+    }
+    private select(option: common.Select2Option | null) {
+        if (option !== null) {
+            if (this.props.multiple) {
+                const options = this.option as common.Select2Option[];
+                let index = -1;
+                for (let i = 0; i < options.length; i++) {
+                    if (options[i].value === option.value) {
+                        index = i;
+                        break;
+                    }
+                }
+                if (index === -1) {
+                    options.push(option);
+                } else {
+                    options.splice(index, 1);
+                }
+                this.setState({
+                    option: this.option,
+                });
+            } else {
+                this.option = option;
+                this.isOpen = false;
+                this.setState({
+                    option: this.option,
+                    isOpen: this.isOpen,
+                });
+            }
+        }
+
+        if (this.props.update) {
+            this.props.update(this.props.multiple ? (this.option as common.Select2Option[]).map(op => op.value) : (this.option as common.Select2Option).value);
+        }
+    }
+
+    private keyDown(e: React.KeyboardEvent<HTMLInputElement> | React.KeyboardEvent<HTMLUListElement>) {
+        if (e.keyCode === 40) {
+            this.moveDown();
+            e.preventDefault();
+        } else if (e.keyCode === 38) {
+            this.moveUp();
+            e.preventDefault();
+        } else if (e.keyCode === 13) {
+            this.selectByEnter();
+            e.preventDefault();
+        }
+    }
+
+    private onChange = (e: React.FormEvent<{ value: string }>) => {
+        this.searchText = e.currentTarget.value;
+        this.setState({ searchText: this.searchText });
+    }
+
+    private isSelected(option: common.Select2Option) {
+        return common.isSelected(this.option, option, this.props.multiple);
+    }
+    private isDisabled(option: common.Select2Option) {
+        return option.disabled ? "true" : "false";
+    }
+
+    private removeSelection(e: React.MouseEvent<HTMLSpanElement>, option: common.Select2Option) {
+        common.removeSelection(this.option, option);
+        if (this.props.update) {
+            this.props.update((this.option as common.Select2Option[]).map(op => op.value));
+        }
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (this.isOpen) {
+            this.setState({ option: this.option }, () => {
+                if (!this.isSearchboxHidden) {
+                    if (this.searchInputElement) {
+                        this.searchInputElement.focus();
+                    }
+                } else {
+                    if (this.resultsElement) {
+                        this.resultsElement.focus();
+                    }
+                }
+            });
+        }
+
+        if (this.focusoutTimer) {
+            clearTimeout(this.focusoutTimer);
+        }
     }
 }

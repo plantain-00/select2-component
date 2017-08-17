@@ -47,35 +47,33 @@ export class Select2 implements ControlValueAccessor {
     @Output() open = new EventEmitter();
     @Output() search = new EventEmitter();
 
-    hoveringValue: common.Select2Value | null | undefined = null;
     option: common.Select2Option | common.Select2Option[] | null = null;
     isOpen = false;
-    innerSearchText = "";
-    lastScrollTopIndex = 0;
-    isSearchboxHidden: boolean;
     searchStyle: string;
-
-    selectionElement: HTMLElement;
-    searchInputElement: HTMLElement;
-    resultsElement: HTMLElement;
-
     @ViewChild("selection") selection: ElementRef;
     @ViewChild("searchInput") searchInput: ElementRef;
     @ViewChild("results") results: ElementRef;
+    private hoveringValue: common.Select2Value | null | undefined = null;
+    private innerSearchText = "";
+    private lastScrollTopIndex = 0;
+    private isSearchboxHidden: boolean;
+    private selectionElement: HTMLElement;
+    private searchInputElement: HTMLElement;
+    private resultsElement: HTMLElement;
 
     // tslint:disable:variable-name
-    _stateChanges = new Subject<void>();
+    private _stateChanges = new Subject<void>();
 
     /** Whether the element is focused or not. */
-    focused = false;
+    private focused = false;
 
     /** View -> model callback called when select has been touched */
-    _onTouched = () => {
+    private _onTouched = () => {
         // do nothing
     }
 
     /** View -> model callback called when value changes */
-    _onChange: (value: any) => void = () => {
+    private _onChange: (value: any) => void = () => {
         // do nothing
     }
 
@@ -284,7 +282,7 @@ export class Select2 implements ControlValueAccessor {
         this._changeDetectorRef.markForCheck();
     }
 
-    clickDetection(e: MouseEvent) {
+    private clickDetection(e: MouseEvent) {
         if (!this.ifParentContainsClass(e.target as HTMLElement, "selection")) {
             if (this.isOpen && !this.ifParentContainsClass(e.target as HTMLElement, "select2-dropdown")) {
                 this.toggleOpenAndClose();
@@ -298,21 +296,21 @@ export class Select2 implements ControlValueAccessor {
         }
     }
 
-    clickExit() {
+    private clickExit() {
         this.focused = false;
         window.document.body.removeEventListener("click", this._clickDetectionFc);
         this._clickDetection = false;
     }
 
-    ifParentContainsClass(element: HTMLElement, cssClass: string): boolean {
+    private ifParentContainsClass(element: HTMLElement, cssClass: string): boolean {
         return this.getParentElementByClass(element, cssClass) !== null;
     }
 
-    ifParentContainsId(element: HTMLElement, id: string): boolean {
+    private ifParentContainsId(element: HTMLElement, id: string): boolean {
         return this.getParentElementById(element, id) !== null;
     }
 
-    getParentElementByClass(element: HTMLElement, cssClass: string): HTMLElement | null {
+    private getParentElementByClass(element: HTMLElement, cssClass: string): HTMLElement | null {
         if (this.containClasses(element, cssClass.trim().split(/\s+/))) {
             return element;
         }
@@ -321,7 +319,7 @@ export class Select2 implements ControlValueAccessor {
             : null;
     }
 
-    getParentElementById(element: HTMLElement, id: string): HTMLElement | null {
+    private getParentElementById(element: HTMLElement, id: string): HTMLElement | null {
         if (element.id === id) {
             return element;
         }
@@ -330,7 +328,7 @@ export class Select2 implements ControlValueAccessor {
             : null;
     }
 
-    ifContaintThisParentElement(element: HTMLElement, parent: HTMLElement): boolean | null {
+    private ifContaintThisParentElement(element: HTMLElement, parent: HTMLElement): boolean | null {
         if (element === parent) {
             return true;
         }
@@ -339,7 +337,7 @@ export class Select2 implements ControlValueAccessor {
             : null;
     }
 
-    containClasses(element: HTMLElement, cssClasses: string[]): boolean {
+    private containClasses(element: HTMLElement, cssClasses: string[]): boolean {
         if (!element.classList) {
             return false;
         }
@@ -365,7 +363,7 @@ export class Select2 implements ControlValueAccessor {
         }
     }
 
-    moveUp() {
+    private moveUp() {
         this.hoveringValue = common.getPreviousOption(this.filteredData, this.hoveringValue);
 
         if (this.resultsElement) {
@@ -381,7 +379,7 @@ export class Select2 implements ControlValueAccessor {
         }
     }
 
-    moveDown() {
+    private moveDown() {
         this.hoveringValue = common.getNextOption(this.filteredData, this.hoveringValue);
 
         if (this.resultsElement) {
@@ -397,7 +395,7 @@ export class Select2 implements ControlValueAccessor {
         }
     }
 
-    selectByEnter() {
+    private selectByEnter() {
         if (this.hoveringValue) {
             const option = common.getOptionByValue(this.data, this.hoveringValue);
             this.select(option);

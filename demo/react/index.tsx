@@ -18,68 +18,25 @@ for (const groupOrOption of data8) {
 }
 
 class Main extends React.Component<{}, {}> {
-    data1 = data1;
-    data2 = data2;
-    data3 = data3;
-    data4: Select2Data = JSON.parse(JSON.stringify(data3));
-    data5 = data5;
-    data6: Select2Data = JSON.parse(JSON.stringify(data3));
-    data7: Select2Option[] = [];
-    data8 = data8;
-    data9: Select2Data = JSON.parse(JSON.stringify(data1));
+    private data1 = data1;
+    private data2 = data2;
+    private data3 = data3;
+    private data4: Select2Data = JSON.parse(JSON.stringify(data3));
+    private data5 = data5;
+    private data6: Select2Data = JSON.parse(JSON.stringify(data3));
+    private data7: Select2Option[] = [];
+    private data8 = data8;
+    private data9: Select2Data = JSON.parse(JSON.stringify(data1));
 
-    value1 = "CA";
-    value2 = "CA";
-    value3 = "foo";
-    value4 = "bar";
-    value5 = "foo3";
-    value6 = "";
-    value7 = "";
-    value8 = "CA";
-    value9: string[] = [];
-
-    update1(value: string) {
-        this.value1 = value;
-        this.setState({ value1: this.value1 });
-    }
-    update2(value: string) {
-        this.value2 = value;
-        this.setState({ value2: this.value2 });
-    }
-    update3(value: string) {
-        this.value3 = value;
-        this.setState({ value3: this.value3 });
-    }
-    update5(value: string) {
-        this.value5 = value;
-        this.setState({ value5: this.value5 });
-    }
-    update6(value: string) {
-        this.value6 = value;
-        this.setState({ value6: this.value6 });
-    }
-    open7() {
-        this.data7 = JSON.parse(JSON.stringify(data2));
-        this.setState({ data7: this.data7 });
-    }
-    update7(value: string) {
-        this.value7 = value;
-        this.setState({ value7: this.value7 });
-    }
-    search7(text: string) {
-        this.data7 = text
-            ? (JSON.parse(JSON.stringify(data2)) as Select2Option[]).filter(option => option.label.toLowerCase().indexOf(text.toLowerCase()) > -1)
-            : JSON.parse(JSON.stringify(data2));
-        this.setState({ data7: this.data7 });
-    }
-    update8(value: string) {
-        this.value8 = value;
-        this.setState({ value8: this.value8 });
-    }
-    update9(value: string[]) {
-        this.value9 = value;
-        this.setState({ value9: this.value9 });
-    }
+    private value1 = "CA";
+    private value2 = "CA";
+    private value3 = "foo";
+    private value4 = "bar";
+    private value5 = "foo3";
+    private value6 = "";
+    private value7 = "";
+    private value8 = "CA";
+    private value9: string[] = [];
 
     render() {
         return (
@@ -136,6 +93,49 @@ class Main extends React.Component<{}, {}> {
                 </Select2>
             </div>
         );
+    }
+
+    private update1(value: string) {
+        this.value1 = value;
+        this.setState({ value1: this.value1 });
+    }
+    private update2(value: string) {
+        this.value2 = value;
+        this.setState({ value2: this.value2 });
+    }
+    private update3(value: string) {
+        this.value3 = value;
+        this.setState({ value3: this.value3 });
+    }
+    private update5(value: string) {
+        this.value5 = value;
+        this.setState({ value5: this.value5 });
+    }
+    private update6(value: string) {
+        this.value6 = value;
+        this.setState({ value6: this.value6 });
+    }
+    private open7() {
+        this.data7 = JSON.parse(JSON.stringify(data2));
+        this.setState({ data7: this.data7 });
+    }
+    private update7(value: string) {
+        this.value7 = value;
+        this.setState({ value7: this.value7 });
+    }
+    private search7(text: string) {
+        this.data7 = text
+            ? (JSON.parse(JSON.stringify(data2)) as Select2Option[]).filter(option => option.label.toLowerCase().indexOf(text.toLowerCase()) > -1)
+            : JSON.parse(JSON.stringify(data2));
+        this.setState({ data7: this.data7 });
+    }
+    private update8(value: string) {
+        this.value8 = value;
+        this.setState({ value8: this.value8 });
+    }
+    private update9(value: string[]) {
+        this.value9 = value;
+        this.setState({ value9: this.value9 });
     }
 }
 

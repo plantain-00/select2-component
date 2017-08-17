@@ -17,17 +17,16 @@ class Select2 extends Vue {
     customSearchEnabled?: boolean;
     multiple?: boolean;
 
-    hoveringValue: common.Select2Value | null | undefined = null;
     option: common.Select2Option | common.Select2Option[] | null = null;
-    isOpen = false;
-    focusoutTimer?: NodeJS.Timer;
-    innerSearchText = "";
-    lastScrollTopIndex = 0;
-    isSearchboxHidden: boolean;
     searchStyle: string;
-
-    searchInputElement: HTMLElement;
-    resultsElement: HTMLElement;
+    private hoveringValue: common.Select2Value | null | undefined = null;
+    private isOpen = false;
+    private focusoutTimer?: NodeJS.Timer;
+    private innerSearchText = "";
+    private lastScrollTopIndex = 0;
+    private isSearchboxHidden: boolean;
+    private searchInputElement: HTMLElement;
+    private resultsElement: HTMLElement;
 
     get searchText() {
         return this.innerSearchText;
@@ -141,32 +140,6 @@ class Select2 extends Vue {
             this.focusoutTimer = undefined;
         }, common.timeout);
     }
-    moveUp() {
-        this.hoveringValue = common.getPreviousOption(this.filteredData, this.hoveringValue);
-
-        if (this.resultsElement) {
-            const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.resultsElement, this.filteredData, this.lastScrollTopIndex);
-            if (lastScrollTopIndex !== null) {
-                this.lastScrollTopIndex = lastScrollTopIndex;
-            }
-        }
-    }
-    moveDown() {
-        this.hoveringValue = common.getNextOption(this.filteredData, this.hoveringValue);
-
-        if (this.resultsElement) {
-            const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.resultsElement, this.filteredData, this.lastScrollTopIndex);
-            if (lastScrollTopIndex !== null) {
-                this.lastScrollTopIndex = lastScrollTopIndex;
-            }
-        }
-    }
-    selectByEnter() {
-        if (this.hoveringValue) {
-            const option = common.getOptionByValue(this.data, this.hoveringValue);
-            this.select(option);
-        }
-    }
     select(option: common.Select2Option | null) {
         if (option !== null) {
             if (this.multiple) {
@@ -233,6 +206,32 @@ class Select2 extends Vue {
 
         if (this.focusoutTimer) {
             clearTimeout(this.focusoutTimer);
+        }
+    }
+    private moveUp() {
+        this.hoveringValue = common.getPreviousOption(this.filteredData, this.hoveringValue);
+
+        if (this.resultsElement) {
+            const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.resultsElement, this.filteredData, this.lastScrollTopIndex);
+            if (lastScrollTopIndex !== null) {
+                this.lastScrollTopIndex = lastScrollTopIndex;
+            }
+        }
+    }
+    private moveDown() {
+        this.hoveringValue = common.getNextOption(this.filteredData, this.hoveringValue);
+
+        if (this.resultsElement) {
+            const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.resultsElement, this.filteredData, this.lastScrollTopIndex);
+            if (lastScrollTopIndex !== null) {
+                this.lastScrollTopIndex = lastScrollTopIndex;
+            }
+        }
+    }
+    private selectByEnter() {
+        if (this.hoveringValue) {
+            const option = common.getOptionByValue(this.data, this.hoveringValue);
+            this.select(option);
         }
     }
 }
