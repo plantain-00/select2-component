@@ -35,7 +35,6 @@ module.exports = {
   test: [
     'tsc -p spec',
     'karma start spec/karma.config.js',
-    'git checkout package-lock.json',
     () => new Promise((resolve, reject) => {
       childProcess.exec('git status -s', (error, stdout, stderr) => {
         if (error) {
