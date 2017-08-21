@@ -55,5 +55,13 @@ module.exports = {
     less: `stylelint --fix "src/**/*.less"`
   },
   release: `clean-release`,
-  watch: `watch-then-execute "src/**/*.ts" "src/**/*.tsx" "demo/**/*.ts" "demo/**/*.tsx" "src/**/*.template.html" --exclude "src/compiled/**/*,src/*-variables.ts" --script "npm run build"`
+  watch: {
+    vue: `file2variable-cli src/vue.template.html -o src/vue-variables.ts --html-minify --base src --watch`,
+    angular: `file2variable-cli src/angular.template.html -o src/angular-variables.ts --html-minify --base src --watch`,
+    src: `tsc -p src --watch`,
+    demo: `tsc -p demo --watch`,
+    webpack: `webpack --config demo/webpack.config.js --watch`,
+    less: `watch-then-execute "src/select2.less" --script "clean-scripts build[2].css"`,
+    rev: `rev-static --config demo/rev-static.config.js --watch`
+  }
 }
