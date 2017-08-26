@@ -30,11 +30,11 @@ module.exports = {
     ts: `tslint "src/**/*.ts" "src/**/*.tsx" "demo/**/*.ts" "demo/**/*.tsx"`,
     js: `standard "**/*.config.js"`,
     less: `stylelint "src/**/*.less"`,
-    export: `no-unused-export "src/**/*.ts" "src/**/*.tsx" "demo/**/*.ts" "demo/**/*.tsx" --exclude "src/compiled/**/*"`
+    export: `no-unused-export "src/**/*.ts" "src/**/*.tsx" "demo/**/*.ts" "demo/**/*.tsx" "src/**/*.less" --exclude "src/compiled/**/*"`
   },
   test: [
     'tsc -p spec',
-    'karma start spec/karma.config.js',
+    process.env.APPVEYOR ? 'echo "skip karma test"' : 'karma start spec/karma.config.js',
     () => new Promise((resolve, reject) => {
       childProcess.exec('git status -s', (error, stdout, stderr) => {
         if (error) {
