@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Component from "vue-class-component";
+// tslint:disable-next-line:no-duplicate-imports
 import "../../dist/vue";
 import { Select2Option, Select2Data, Select2Group } from "../../dist/vue";
 import { data1, data2, data3, data5 } from "../common";

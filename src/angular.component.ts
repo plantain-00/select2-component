@@ -51,8 +51,8 @@ export class Select2 implements ControlValueAccessor {
     isOpen = false;
     searchStyle: string;
     @ViewChild("selection") selection: ElementRef;
-    @ViewChild("searchInput") searchInput: ElementRef;
     @ViewChild("results") results: ElementRef;
+    @ViewChild("searchInput") private searchInput: ElementRef;
     private hoveringValue: common.Select2Value | null | undefined = null;
     private innerSearchText = "";
     private lastScrollTopIndex = 0;
