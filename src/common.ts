@@ -21,8 +21,6 @@ export type Select2Data = (Select2Group | Select2Option)[];
 
 export const timeout = 200;
 
-const height = 28;
-
 const unicodePatterns: { l: string, s: RegExp }[] = [
     { l: "a", s: /[ⓐａẚàáâầấẫẩãāăằắẵẳȧǡäǟảåǻǎȁȃạậặḁąⱥɐ]/gi },
     { l: "aa", s: /ꜳ/gi },
@@ -248,14 +246,14 @@ export function getLastScrollTopIndex(
         return 0;
     } else {
         const scrollTop = getScrollUpIndex(filteredData, hoveringValue);
-        if (scrollTop - lastScrollTopIndex > 6) {
-            lastScrollTopIndex += scrollTop - lastScrollTopIndex - 6;
-            results.scrollTop = lastScrollTopIndex * height;
+        if (scrollTop - lastScrollTopIndex > 5) {
+            lastScrollTopIndex += scrollTop - lastScrollTopIndex - 5;
+            results.scrollTop = results.querySelectorAll("li").item(scrollTop).offsetTop - results.offsetHeight;
             return lastScrollTopIndex;
         }
         if (lastScrollTopIndex - scrollTop > 0) {
             lastScrollTopIndex -= lastScrollTopIndex - scrollTop;
-            results.scrollTop = lastScrollTopIndex * height;
+            results.scrollTop = results.querySelectorAll("li").item(lastScrollTopIndex - 1).offsetTop;
             return lastScrollTopIndex;
         }
         return null;
