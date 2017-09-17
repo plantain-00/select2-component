@@ -2,8 +2,8 @@
   "angularIndexBundleJs": "962 kB 230 kB",
   "indexBundleCss": "15.6 kB 2.64 kB",
   "reactIndexBundleJs": "166 kB 50.2 kB",
-  "vueIndexBundleJs": "103 kB 36 kB",
-  "demoAngularIndexHtml": "565 B 410 B",
+  "vueIndexBundleJs": "104 kB 36.4 kB",
+  "demoAngularIndexHtml": "565 B 409 B",
   "demoReactIndexHtml": "580 B 416 B",
   "demoVueIndexHtml": "580 B 415 B"
 }
