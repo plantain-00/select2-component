@@ -61,11 +61,12 @@ export class Select2 implements ControlValueAccessor {
     private searchInputElement: HTMLElement;
     private resultsElement: HTMLElement;
 
+    // tslint:disable:member-ordering
     // tslint:disable:variable-name
     private _stateChanges = new Subject<void>();
 
     /** Whether the element is focused or not. */
-    private focused = false;
+    focused = false;
 
     /** View -> model callback called when select has been touched */
     private _onTouched = () => {
@@ -158,8 +159,6 @@ export class Select2 implements ControlValueAccessor {
             this._tabIndex = value;
         }
     }
-
-    // tslint:disable:member-ordering
 
     /** Tab index for the element. */
     private _tabIndex: number;
