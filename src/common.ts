@@ -248,12 +248,18 @@ export function getLastScrollTopIndex(
         const scrollTop = getScrollUpIndex(filteredData, hoveringValue);
         if (scrollTop - lastScrollTopIndex > 5) {
             lastScrollTopIndex += scrollTop - lastScrollTopIndex - 5;
-            results.scrollTop = results.querySelectorAll("li").item(scrollTop).offsetTop - results.offsetHeight;
+            const item = results.querySelectorAll("li").item(scrollTop);
+            if (item) {
+                results.scrollTop = item.offsetTop - results.offsetHeight;
+            }
             return lastScrollTopIndex;
         }
         if (lastScrollTopIndex - scrollTop > 0) {
             lastScrollTopIndex -= lastScrollTopIndex - scrollTop;
-            results.scrollTop = results.querySelectorAll("li").item(lastScrollTopIndex - 1).offsetTop;
+            const item = results.querySelectorAll("li").item(lastScrollTopIndex - 1);
+            if (item) {
+                results.scrollTop = item.offsetTop;
+            }
             return lastScrollTopIndex;
         }
         return null;
