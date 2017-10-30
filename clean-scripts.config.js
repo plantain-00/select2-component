@@ -4,6 +4,13 @@ const tsFiles = `"src/**/*.ts" "src/**/*.tsx" "spec/**/*.ts" "demo/**/*.ts" "dem
 const lessFiles = `"src/**/*.less"`
 const jsFiles = `"*.config.js" "demo/*.config.js" "spec/**/*.config.js"`
 
+const vueTemplateCommand = `file2variable-cli src/vue.template.html -o src/vue-variables.ts --html-minify --base src`
+const angularTemplateCommand = `file2variable-cli src/angular.template.html -o src/angular-variables.ts --html-minify --base src`
+const ngcSrcCommand = `ngc -p src`
+const tscDemoCommand = `tsc -p demo`
+const webpackCommand = `webpack --display-modules --config demo/webpack.config.js`
+const revStaticCommand = `rev-static --config demo/rev-static.config.js`
+
 module.exports = {
   build: [
     `rimraf dist`,
@@ -11,12 +18,12 @@ module.exports = {
     {
       js: [
         {
-          vue: `file2variable-cli src/vue.template.html -o src/vue-variables.ts --html-minify --base src`,
-          angular: `file2variable-cli src/angular.template.html -o src/angular-variables.ts --html-minify --base src`
+          vue: vueTemplateCommand,
+          angular: angularTemplateCommand
         },
-        `ngc -p src`,
-        `tsc -p demo`,
-        `webpack --display-modules --config demo/webpack.config.js`
+        ngcSrcCommand,
+        tscDemoCommand,
+        webpackCommand
       ],
       css: [
         `lessc src/select2.less -sm=on > src/select2.css`,
@@ -29,7 +36,7 @@ module.exports = {
         `rimraf demo/*.bundle-*.css`
       ]
     },
-    `rev-static --config demo/rev-static.config.js`
+    revStaticCommand
   ],
   lint: {
     ts: `tslint ${tsFiles}`,
@@ -55,13 +62,13 @@ module.exports = {
   },
   release: `clean-release`,
   watch: {
-    vue: `file2variable-cli src/vue.template.html -o src/vue-variables.ts --html-minify --base src --watch`,
-    angular: `file2variable-cli src/angular.template.html -o src/angular-variables.ts --html-minify --base src --watch`,
-    src: `tsc -p src --watch`,
-    demo: `tsc -p demo --watch`,
-    webpack: `webpack --config demo/webpack.config.js --watch`,
-    less: `watch-then-execute "src/select2.less" --script "clean-scripts build[2].css"`,
-    rev: `rev-static --config demo/rev-static.config.js --watch`
+    vue: `${vueTemplateCommand} --watch`,
+    angular: `${angularTemplateCommand} --watch`,
+    src: `${ngcSrcCommand} --watch`,
+    demo: `${tscDemoCommand} --watch`,
+    webpack: `${webpackCommand} --watch`,
+    less: `watch-then-execute ${lessFiles} --script "clean-scripts build[2].css"`,
+    rev: `${revStaticCommand} --watch`
   },
   screenshot: [
     new Service(`http-server -p 8000`),
