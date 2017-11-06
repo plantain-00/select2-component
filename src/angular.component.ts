@@ -327,15 +327,6 @@ export class Select2 implements ControlValueAccessor {
             : null;
     }
 
-    private ifContaintThisParentElement(element: HTMLElement, parent: HTMLElement): boolean | null {
-        if (element === parent) {
-            return true;
-        }
-        return element.parentElement
-            ? this.ifContaintThisParentElement(element.parentElement, parent)
-            : null;
-    }
-
     private containClasses(element: HTMLElement, cssClasses: string[]): boolean {
         if (!element.classList) {
             return false;

@@ -13,7 +13,7 @@
                 <b role="presentation"></b>
             </span>
             <ul v-if="multiple" class="select2-selection__rendered">
-                <li v-for="op in option" class="select2-selection__choice" :title="op.label">
+                <li v-for="(op, i) in option" :key="i" class="select2-selection__choice" :title="op.label">
                     <span @click="removeSelection($event, op)" class="select2-selection__choice__remove" role="presentation">×</span>
                     {{op.label}}
                 </li>
@@ -42,13 +42,14 @@
                     tabindex="-1"
                     @keydown="keyDown($event)"
                     @focusout="focusout()">
-                    <template v-for="groupOrOption in filteredData">
+                    <template v-for="(groupOrOption, i) in filteredData" :key="i">
                         <li v-if="groupOrOption.options"
                             class="select2-results__option"
                             role="group">
                             <strong class="select2-results__group">{{groupOrOption.label}}</strong>
                             <ul class="select2-results__options select2-results__options--nested">
-                                <li v-for="option in groupOrOption.options"
+                                <li v-for="(option, j) in groupOrOption.options"
+                                    :key="j"
                                     :class="getOptionStyle(option.value)"
                                     role="treeitem"
                                     :aria-selected="isSelected(option)"

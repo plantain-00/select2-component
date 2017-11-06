@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { Select2, Select2Option, Select2Data, Select2Group } from "../../dist/react";
+import { Select2, Select2Option, Select2Data, Select2Group, Select2UpdateValue } from "../../dist/react";
 import { data1, data2, data3, data5 } from "../common";
 
 const CustomOption: React.StatelessComponent<{ option: Select2Option }> = props => <span>{props.option.label}<span style={{ float: "right", color: "red" }}>{props.option.value}</span></span>;
@@ -45,17 +45,17 @@ class Main extends React.Component<{}, {}> {
                 <h3>options in group ({this.value1})</h3>
                 <Select2 data={this.data1}
                     value={this.value1}
-                    update={(value: string) => this.update1(value)}>
+                    update={value => this.update1(value)}>
                 </Select2>
                 <h3>options ({this.value2})</h3>
                 <Select2 data={this.data2}
                     value={this.value2}
-                    update={(value: string) => this.update2(value)}>
+                    update={value => this.update2(value)}>
                 </Select2>
                 <h3>less options ({this.value3})</h3>
                 <Select2 data={this.data3}
                     value={this.value3}
-                    update={(value: string) => this.update3(value)}>
+                    update={value => this.update3(value)}>
                 </Select2>
                 <h3>disabled ({this.value4})</h3>
                 <Select2 data={this.data4}
@@ -66,61 +66,61 @@ class Main extends React.Component<{}, {}> {
                 <Select2 data={this.data5}
                     value={this.value5}
                     minCountForSearch={Infinity}
-                    update={(value: string) => this.update5(value)}>
+                    update={value => this.update5(value)}>
                 </Select2>
                 <h3>placeholder ({this.value6})</h3>
                 <Select2 data={this.data6}
                     placeholder="select an item"
-                    update={(value: string) => this.update6(value)}>
+                    update={value => this.update6(value)}>
                 </Select2>
                 <h3>open and search event ({this.value7})</h3>
                 <Select2 data={this.data7}
                     customSearchEnabled={true}
                     open={() => this.open7()}
                     search={text => this.search7(text)}
-                    update={(value: string) => this.update7(value)}>
+                    update={value => this.update7(value)}>
                 </Select2>
                 <h3>custom component ({this.value8})</h3>
                 <Select2 data={this.data8}
                     value={this.value8}
-                    update={(value: string) => this.update8(value)}>
+                    update={value => this.update8(value)}>
                 </Select2>
                 <h3>multiple ({this.value9})</h3>
                 <Select2 data={this.data9}
                     value={this.value9}
                     multiple={true}
-                    update={(value: string[]) => this.update9(value)}>
+                    update={value => this.update9(value)}>
                 </Select2>
             </div>
         );
     }
 
-    private update1(value: string) {
-        this.value1 = value;
+    private update1(value: Select2UpdateValue) {
+        this.value1 = value as string;
         this.setState({ value1: this.value1 });
     }
-    private update2(value: string) {
-        this.value2 = value;
+    private update2(value: Select2UpdateValue) {
+        this.value2 = value as string;
         this.setState({ value2: this.value2 });
     }
-    private update3(value: string) {
-        this.value3 = value;
+    private update3(value: Select2UpdateValue) {
+        this.value3 = value as string;
         this.setState({ value3: this.value3 });
     }
-    private update5(value: string) {
-        this.value5 = value;
+    private update5(value: Select2UpdateValue) {
+        this.value5 = value as string;
         this.setState({ value5: this.value5 });
     }
-    private update6(value: string) {
-        this.value6 = value;
+    private update6(value: Select2UpdateValue) {
+        this.value6 = value as string;
         this.setState({ value6: this.value6 });
     }
     private open7() {
         this.data7 = JSON.parse(JSON.stringify(data2));
         this.setState({ data7: this.data7 });
     }
-    private update7(value: string) {
-        this.value7 = value;
+    private update7(value: Select2UpdateValue) {
+        this.value7 = value as string;
         this.setState({ value7: this.value7 });
     }
     private search7(text: string) {
@@ -129,12 +129,12 @@ class Main extends React.Component<{}, {}> {
             : JSON.parse(JSON.stringify(data2));
         this.setState({ data7: this.data7 });
     }
-    private update8(value: string) {
-        this.value8 = value;
+    private update8(value: Select2UpdateValue) {
+        this.value8 = value as string;
         this.setState({ value8: this.value8 });
     }
-    private update9(value: string[]) {
-        this.value9 = value;
+    private update9(value: Select2UpdateValue) {
+        this.value9 = value as string[];
         this.setState({ value9: this.value9 });
     }
 }

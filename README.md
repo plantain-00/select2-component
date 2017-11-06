@@ -74,6 +74,9 @@ the online demo: https://plantain-00.github.io/select2-component/demo/react/inde
 ```ts
 import { Select2Module } from "select2-component/angular";
 
+// for angular AOT:
+// import { Select2Module } from "select2-component/aot/angular";
+
 @NgModule({
     imports: [BrowserModule, FormsModule, Select2Module],
     declarations: [MainComponent],
@@ -134,6 +137,14 @@ type Select2UpdateValue = Select2Value | Select2Value[];
 ```
 
 #### change log
+
+```ts
+// v3 angular AOT:
+import { Select2Module } from "select2-component/angular";
+
+// v4 angular AOT:
+import { Select2Module } from "select2-component/aot/angular";
+```
 
 ```ts
 // v3.1
