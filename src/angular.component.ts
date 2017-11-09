@@ -6,7 +6,7 @@ import {
     FormGroupDirective, NgControl, NgForm, ControlValueAccessor,
 } from "@angular/forms";
 
-import { Subject } from "rxjs";
+import { Subject } from "rxjs/Subject";
 
 import * as common from "./common";
 export * from "./common";

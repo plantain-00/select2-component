@@ -7,7 +7,7 @@ import * as puppeteer from "puppeteer";
 
     for (const type of ["vue", "react", "angular"]) {
         await page.goto(`http://localhost:8000/demo/${type}`);
-        await page.screenshot({ path: `screenshots/${type}-initial.png`, fullPage: true });
+        await page.screenshot({ path: `screenshots/${type}-initial.png` });
     }
 
     browser.close();
