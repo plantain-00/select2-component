@@ -94,6 +94,8 @@ class MainModule { }
 
 the online demo: https://plantain-00.github.io/select2-component/demo/angular/index.html
 
+the AOT online demo: https://plantain-00.github.io/select2-component/demo/aot/index.html
+
 #### properties and events of the component
 
 name | type | description
