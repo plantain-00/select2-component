@@ -42,7 +42,7 @@
                     tabindex="-1"
                     @keydown="keyDown($event)"
                     @focusout="focusout()">
-                    <template v-for="(groupOrOption, i) in filteredData" :key="i">
+                    <template v-for="(groupOrOption, i) in filteredData">
                         <li v-if="groupOrOption.options"
                             class="select2-results__option"
                             role="group">

@@ -1,6 +1,6 @@
 {
   "name": "select2-component",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "A vuejs, reactjs and angular select component.",
   "main": "index.js",
   "scripts": {
@@ -50,7 +50,7 @@
     "karma-webpack": "2.0.6",
     "less": "2.7.3",
     "mkdirp": "0.5.1",
-    "no-unused-export": "1.4.2",
+    "no-unused-export": "1.4.3",
     "postcss-cli": "4.1.1",
     "puppeteer": "0.13.0",
     "react": "16.1.1",
