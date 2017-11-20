@@ -1,8 +1,7 @@
 {
   "name": "select2-component",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "A vuejs, reactjs and angular select component.",
-  "main": "index.js",
   "scripts": {
     "build": "clean-scripts build",
     "lint": "clean-scripts lint",
