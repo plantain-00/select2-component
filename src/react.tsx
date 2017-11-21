@@ -94,15 +94,16 @@ export class Select2 extends React.PureComponent<{
     }
 
     render() {
-        const results = this.filteredData.map(groupOrOption => {
+        const results = this.filteredData.map((groupOrOption, i) => {
             const options = (groupOrOption as common.Select2Group).options;
             if (options) {
-                const optionsElements = options.map(option => {
+                const optionsElements = options.map((option, j) => {
                     const optionElement = option.component
                         ? React.createElement(option.component as React.ComponentClass<{ option: common.Select2Option }>, { option })
                         : option.label;
                     return (
                         <li className={this.getOptionStyle(option.value)}
+                            key={j}
                             role="treeitem"
                             aria-selected={this.isSelected(option)}
                             aria-disabled={this.isDisabled(option)}
@@ -113,7 +114,7 @@ export class Select2 extends React.PureComponent<{
                     );
                 });
                 return (
-                    <li className="select2-results__option" role="group">
+                    <li className="select2-results__option" role="group" key={i}>
                         <strong className="select2-results__group">{groupOrOption.label}</strong>
                         <ul className="select2-results__options select2-results__options--nested">
                             {optionsElements}
@@ -127,6 +128,7 @@ export class Select2 extends React.PureComponent<{
                     : option.label;
                 return (
                     <li className={this.getOptionStyle(option.value)}
+                        key={i}
                         role="treeitem"
                         aria-selected={this.isSelected(option)}
                         aria-disabled={this.isDisabled(option)}
@@ -139,8 +141,8 @@ export class Select2 extends React.PureComponent<{
         });
         let selection: JSX.Element | JSX.Element[];
         if (this.props.multiple) {
-            const items = (this.option as common.Select2Option[]).map(op => (
-                <li className="select2-selection__choice" title={op.label}>
+            const items = (this.option as common.Select2Option[]).map((op, i) => (
+                <li className="select2-selection__choice" title={op.label} key={i}>
                     <span onClick={e => this.removeSelection(e, op)} className="select2-selection__choice__remove" role="presentation">×</span>
                     {op.label}
                 </li >
