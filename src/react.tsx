@@ -44,26 +44,6 @@ export class Select2 extends React.PureComponent<{
         return common.getDropdownStyle(this.isOpen);
     }
 
-    private get filteredData() {
-        const result = this.props.customSearchEnabled
-            ? this.props.data
-            : common.getFilteredData(this.props.data, this.searchText);
-
-        if (common.valueIsNotInFilteredData(result, this.hoveringValue)) {
-            this.hoveringValue = common.getFirstAvailableOption(result);
-            this.setState({ hoveringValue: this.hoveringValue });
-
-            if (this.resultsElement) {
-                const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.resultsElement, result, this.lastScrollTopIndex);
-                if (lastScrollTopIndex !== null) {
-                    this.lastScrollTopIndex = lastScrollTopIndex;
-                    this.setState({ lastScrollTopIndex: this.lastScrollTopIndex });
-                }
-            }
-        }
-        return result;
-    }
-
     private get containerStyle() {
         return common.getContainerStyle(this.props.disabled, this.isOpen);
     }
@@ -94,7 +74,7 @@ export class Select2 extends React.PureComponent<{
     }
 
     render() {
-        const results = this.filteredData.map((groupOrOption, i) => {
+        const results = this.getFilteredData(false).map((groupOrOption, i) => {
             const options = (groupOrOption as common.Select2Group).options;
             if (options) {
                 const optionsElements = options.map((option, j) => {
@@ -158,8 +138,8 @@ export class Select2 extends React.PureComponent<{
                 ? (option.component ? React.createElement(option.component as React.ComponentClass<{ option: common.Select2Option }>, { option }) : option.label)
                 : <span className="select2-selection__placeholder">{this.props.placeholder}</span>;
             selection = [
-                <span className="select2-selection__rendered" title={option ? option.label : ""}>{label}</span>,
-                <span className="select2-selection__arrow" role="presentation">
+                <span key="label" className="select2-selection__rendered" title={option ? option.label : ""}>{label}</span>,
+                <span key="arrow" className="select2-selection__arrow" role="presentation">
                     <b role="presentation"></b>
                 </span>,
             ];
@@ -202,6 +182,29 @@ export class Select2 extends React.PureComponent<{
         );
     }
 
+    private getFilteredData(canSetState: boolean) {
+        const result = this.props.customSearchEnabled
+            ? this.props.data
+            : common.getFilteredData(this.props.data, this.searchText);
+
+        if (common.valueIsNotInFilteredData(result, this.hoveringValue)) {
+            this.hoveringValue = common.getFirstAvailableOption(result);
+            if (canSetState) {
+                this.setState({ hoveringValue: this.hoveringValue });
+            }
+
+            if (this.resultsElement) {
+                const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.resultsElement, result, this.lastScrollTopIndex);
+                if (lastScrollTopIndex !== null) {
+                    this.lastScrollTopIndex = lastScrollTopIndex;
+                    if (canSetState) {
+                        this.setState({ lastScrollTopIndex: this.lastScrollTopIndex });
+                    }
+                }
+            }
+        }
+        return result;
+    }
     private getOptionStyle(value: common.Select2Value) {
         return common.getOptionStyle(value, this.hoveringValue);
     }
@@ -261,11 +264,11 @@ export class Select2 extends React.PureComponent<{
         }, common.timeout);
     }
     private moveUp() {
-        this.hoveringValue = common.getPreviousOption(this.filteredData, this.hoveringValue);
+        this.hoveringValue = common.getPreviousOption(this.getFilteredData(true), this.hoveringValue);
         this.setState({ hoveringValue: this.hoveringValue });
 
         if (this.resultsElement) {
-            const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.resultsElement, this.filteredData, this.lastScrollTopIndex);
+            const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.resultsElement, this.getFilteredData(true), this.lastScrollTopIndex);
             if (lastScrollTopIndex !== null) {
                 this.lastScrollTopIndex = lastScrollTopIndex;
                 this.setState({ lastScrollTopIndex: this.lastScrollTopIndex });
@@ -273,11 +276,11 @@ export class Select2 extends React.PureComponent<{
         }
     }
     private moveDown() {
-        this.hoveringValue = common.getNextOption(this.filteredData, this.hoveringValue);
+        this.hoveringValue = common.getNextOption(this.getFilteredData(true), this.hoveringValue);
         this.setState({ hoveringValue: this.hoveringValue });
 
         if (this.resultsElement) {
-            const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.resultsElement, this.filteredData, this.lastScrollTopIndex);
+            const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.resultsElement, this.getFilteredData(true), this.lastScrollTopIndex);
             if (lastScrollTopIndex !== null) {
                 this.lastScrollTopIndex = lastScrollTopIndex;
                 this.setState({ lastScrollTopIndex: this.lastScrollTopIndex });
