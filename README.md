@@ -27,22 +27,18 @@ A vuejs, reactjs and angular select component.
 + material style(angular only)
 + form binding(angular only)
 
-#### install
-
-`npm i select2-component`
-
 #### link css
 
 ```html
 <link rel="stylesheet" href="./node_modules/select2-component/select2.min.css" />
 ```
 
-#### vuejs component demo
+#### vuejs component
 
-`npm i vue vue-class-component`
+`npm i vue-select2-component`
 
 ```ts
-import "select2-component/vue";
+import "vue-select2-component";
 ```
 
 ```html
@@ -52,12 +48,14 @@ import "select2-component/vue";
 </select2>
 ```
 
-the online demo: https://plantain-00.github.io/select2-component/demo/vue/index.html
+the online demo: https://plantain-00.github.io/select2-component/packages/vue/demo
 
-#### reactjs component demo
+#### reactjs component
+
+`npm i react-select2-component`
 
 ```ts
-import { Select2 } from "select2-component/react";
+import { Select2 } from "react-select2-component";
 ```
 
 ```jsx
@@ -67,15 +65,14 @@ import { Select2 } from "select2-component/react";
 </Select2>
 ```
 
-the online demo: https://plantain-00.github.io/select2-component/demo/react/index.html
+the online demo: https://plantain-00.github.io/select2-component/packages/react/demo
 
-#### angular component demo
+#### angular component
+
+`npm i angular-select2-component`
 
 ```ts
-import { Select2Module } from "select2-component/angular";
-
-// for angular AOT:
-// import { Select2Module } from "select2-component/aot/angular";
+import { Select2Module } from "angular-select2-component";
 
 @NgModule({
     imports: [BrowserModule, FormsModule, Select2Module],
@@ -92,9 +89,9 @@ class MainModule { }
 </select2>
 ```
 
-the online demo: https://plantain-00.github.io/select2-component/demo/angular/index.html
+the online demo: https://plantain-00.github.io/select2-component/packages/angular/demo/jit
 
-the AOT online demo: https://plantain-00.github.io/select2-component/demo/aot/index.html
+the AOT online demo: https://plantain-00.github.io/select2-component/packages/angular/demo/aot
 
 #### properties and events of the component
 
@@ -138,7 +135,30 @@ type Select2Value = string | number;
 type Select2UpdateValue = Select2Value | Select2Value[];
 ```
 
-#### change log
+#### change logs
+
+
+```bash
+# v4
+npm i select2-component
+
+# v5
+npm i vue-select2-component
+npm i react-select2-component
+npm i angular-select2-component
+```
+
+```ts
+// v4
+import "select2-component/vue";
+import { Select2 } from "select2-component/react";
+import { Select2Module } from "select2-component/angular";
+
+// v5
+import "vue-select2-component";
+import { Select2 } from "react-select2-component";
+import { Select2Module } from "angular-select2-component";
+```
 
 ```ts
 // v3 angular AOT:

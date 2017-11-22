@@ -1,0 +1,17 @@
+{
+  "name": "select2-component",
+  "version": "5.0.0-0",
+  "description": "A vuejs, reactjs and angular select component core.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plantain-00/select2-component.git"
+  },
+  "author": "York Yao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/plantain-00/select2-component/issues"
+  },
+  "homepage": "https://github.com/plantain-00/select2-component#readme"
+}

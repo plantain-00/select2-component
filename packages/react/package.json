@@ -1,0 +1,24 @@
+{
+  "name": "react-select2-component",
+  "version": "5.0.0-0",
+  "description": "A reactjs select component.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plantain-00/select2-component.git"
+  },
+  "author": "York Yao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/plantain-00/select2-component/issues"
+  },
+  "homepage": "https://github.com/plantain-00/select2-component#readme",
+  "dependencies": {
+    "@types/node": "*",
+    "react": "16",
+    "react-dom": "16",
+    "select2-component": "^5.0.0-0",
+    "tslib": "1"
+  }
+}
