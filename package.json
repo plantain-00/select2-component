@@ -1,6 +1,6 @@
 {
   "name": "select2-component",
-  "version": "4.0.5",
+  "private": true,
   "description": "A vuejs, reactjs and angular select component.",
   "scripts": {
     "build": "clean-scripts build",
