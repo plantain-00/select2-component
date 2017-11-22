@@ -3,6 +3,7 @@
   "private": true,
   "description": "A vuejs, reactjs and angular select component.",
   "scripts": {
+    "bootstrap": "lerna bootstrap",
     "build": "clean-scripts build",
     "lint": "clean-scripts lint.ts",
     "fix": "clean-scripts fix",
