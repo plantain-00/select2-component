@@ -1,6 +1,6 @@
 {
-  "name": "react-select2-component",
-  "version": "5.0.0-0",
+  "name": "select2-react-component",
+  "version": "5.0.0-1",
   "description": "A reactjs select component.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -18,7 +18,7 @@
     "@types/node": "*",
     "react": "16",
     "react-dom": "16",
-    "select2-component": "^5.0.0-0",
+    "select2-component": "^5.0.0-1",
     "tslib": "1"
   }
 }

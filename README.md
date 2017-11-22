@@ -35,10 +35,10 @@ A vuejs, reactjs and angular select component.
 
 #### vuejs component
 
-`npm i vue-select2-component`
+`npm i select2-vue-component`
 
 ```ts
-import "vue-select2-component";
+import "select2-vue-component";
 ```
 
 ```html
@@ -52,10 +52,10 @@ the online demo: https://plantain-00.github.io/select2-component/packages/vue/de
 
 #### reactjs component
 
-`npm i react-select2-component`
+`npm i select2-react-component`
 
 ```ts
-import { Select2 } from "react-select2-component";
+import { Select2 } from "select2-react-component";
 ```
 
 ```jsx
@@ -69,10 +69,10 @@ the online demo: https://plantain-00.github.io/select2-component/packages/react/
 
 #### angular component
 
-`npm i angular-select2-component`
+`npm i select2-angular-component`
 
 ```ts
-import { Select2Module } from "angular-select2-component";
+import { Select2Module } from "select2-angular-component";
 
 @NgModule({
     imports: [BrowserModule, FormsModule, Select2Module],
@@ -143,9 +143,9 @@ type Select2UpdateValue = Select2Value | Select2Value[];
 npm i select2-component
 
 # v5
-npm i vue-select2-component
-npm i react-select2-component
-npm i angular-select2-component
+npm i select2-vue-component
+npm i select2-react-component
+npm i select2-angular-component
 ```
 
 ```ts
@@ -155,9 +155,9 @@ import { Select2 } from "select2-component/react";
 import { Select2Module } from "select2-component/angular";
 
 // v5
-import "vue-select2-component";
-import { Select2 } from "react-select2-component";
-import { Select2Module } from "angular-select2-component";
+import "select2-vue-component";
+import { Select2 } from "select2-react-component";
+import { Select2Module } from "select2-angular-component";
 ```
 
 ```ts

@@ -3,6 +3,11 @@
   "packages": [
     "packages/*"
   ],
-  "version": "5.0.0-0",
-  "npmClient": "yarn"
+  "version": "5.0.0-1",
+  "npmClient": "yarn",
+  "command": {
+    "publish": {
+      "message": "feat: publish %s"
+    }
+  }
 }

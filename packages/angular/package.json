@@ -1,6 +1,6 @@
 {
-  "name": "angular-select2-component",
-  "version": "5.0.0-0",
+  "name": "select2-angular-component",
+  "version": "5.0.0-1",
   "description": "A angular select component.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -25,7 +25,7 @@
     "@types/node": "*",
     "core-js": "2",
     "rxjs": "5",
-    "select2-component": "^5.0.0-0",
+    "select2-component": "^5.0.0-1",
     "tslib": "1",
     "zone.js": "0.8"
   }
