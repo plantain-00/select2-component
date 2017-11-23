@@ -51,15 +51,13 @@
     "puppeteer": "0.13.0",
     "rev-static": "3.4.1",
     "rimraf": "2.6.2",
-    "rxjs": "5.5.2",
     "standard": "10.0.3",
     "stylelint": "8.2.0",
     "stylelint-config-standard": "17.0.0",
     "tslint": "5.8.0",
     "typescript": "2.4.2",
     "watch-then-execute": "1.1.1",
-    "webpack": "3.8.1",
-    "zone.js": "0.8.18"
+    "webpack": "3.8.1"
   },
   "dependencies": {
     "@types/node": "*",
