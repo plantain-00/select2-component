@@ -30,7 +30,7 @@ A vuejs, reactjs and angular select component.
 #### link css
 
 ```html
-<link rel="stylesheet" href="./node_modules/select2-component/select2.min.css" />
+<link rel="stylesheet" href="./node_modules/select2-component/dist/select2.min.css" />
 ```
 
 #### vuejs component
@@ -158,6 +158,14 @@ import { Select2Module } from "select2-component/angular";
 import "select2-vue-component";
 import { Select2 } from "select2-react-component";
 import { Select2Module } from "select2-angular-component";
+```
+
+```html
+// v4
+<link rel="stylesheet" href="./node_modules/select2-component/select2.min.css" />
+
+// v5
+<link rel="stylesheet" href="./node_modules/select2-component/dist/select2.min.css" />
 ```
 
 ```ts
