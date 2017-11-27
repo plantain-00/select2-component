@@ -29,8 +29,6 @@
     "@commitlint/config-angular": "5.0.1",
     "@types/jasmine": "2.8.2",
     "@types/puppeteer": "0.13.0",
-    "@types/react": "16.0.25",
-    "@types/react-dom": "16.0.3",
     "autoprefixer": "7.1.6",
     "clean-css-cli": "4.1.10",
     "clean-scripts": "1.7.0",

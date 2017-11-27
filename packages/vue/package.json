@@ -17,7 +17,6 @@
   "dependencies": {
     "@types/node": "*",
     "select2-component": "^5.0.0",
-    "tslib": "1",
     "vue": "2",
     "vue-class-component": "6"
   }

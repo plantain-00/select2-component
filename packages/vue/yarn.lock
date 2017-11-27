@@ -6,9 +6,9 @@
   version "8.0.53"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.53.tgz#396b35af826fa66aad472c8cb7b8d5e277f4e6d8"
 
-tslib@1:
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.8.0.tgz#dc604ebad64bcbf696d613da6c954aa0e7ea1eb6"
+select2-component@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/select2-component/-/select2-component-5.0.0.tgz#0e4f43a34a7db3b36207b111128956e6d1a6746e"
 
 vue-class-component@6:
   version "6.1.0"

@@ -13,5 +13,8 @@
   "bugs": {
     "url": "https://github.com/plantain-00/select2-component/issues"
   },
-  "homepage": "https://github.com/plantain-00/select2-component#readme"
+  "homepage": "https://github.com/plantain-00/select2-component#readme",
+  "dependencies": {
+    "tslib": "1"
+  }
 }

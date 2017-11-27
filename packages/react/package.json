@@ -18,7 +18,10 @@
     "@types/node": "*",
     "react": "16",
     "react-dom": "16",
-    "select2-component": "^5.0.0",
-    "tslib": "1"
+    "select2-component": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "16.0.25",
+    "@types/react-dom": "16.0.3"
   }
 }
