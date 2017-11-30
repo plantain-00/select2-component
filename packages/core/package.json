@@ -1,6 +1,6 @@
 {
   "name": "select2-component",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "A vuejs, reactjs and angular select component core.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -15,6 +15,7 @@
   },
   "homepage": "https://github.com/plantain-00/select2-component#readme",
   "dependencies": {
+    "@types/node": "*",
     "tslib": "1"
   }
 }
