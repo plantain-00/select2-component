@@ -9,7 +9,7 @@ import { data1, data2, data3, data5 } from "select2-component/demo/";
     changeDetection: ChangeDetectionStrategy.OnPush,
     template: `
     <div style="width: 500px;">
-        <a href="https://github.com/plantain-00/select2-component/tree/master/demo/aot/index.ts" target="_blank">the source code of the demo</a>
+        <a href="https://github.com/plantain-00/select2-component/tree/master/packages/angular/demo" target="_blank">the source code of the demo</a>
         <h3>options in group ({{value1}})</h3>
         <select2 [data]="data1"
             [value]="value1"

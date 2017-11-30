@@ -29,7 +29,7 @@ for (const groupOrOption of data8) {
 @Component({
     template: `
     <div style="width: 500px;">
-        <a href="https://github.com/plantain-00/select2-component/tree/master/demo/vue/index.ts" target="_blank">the source code of the demo</a>
+        <a href="https://github.com/plantain-00/select2-component/tree/master/packages/vue/demo" target="_blank">the source code of the demo</a>
         <h3>options in group ({{value1}})</h3>
         <select2 :data="data1"
             :value="value1"
