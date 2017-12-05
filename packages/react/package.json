@@ -21,7 +21,7 @@
     "select2-component": "^5.0.1"
   },
   "devDependencies": {
-    "@types/react": "16.0.25",
+    "@types/react": "16.0.27",
     "@types/react-dom": "16.0.3"
   }
 }

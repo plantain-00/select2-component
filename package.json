@@ -29,7 +29,7 @@
     "@commitlint/config-angular": "5.1.1",
     "@types/jasmine": "2.8.2",
     "@types/puppeteer": "0.13.6",
-    "autoprefixer": "7.2.0",
+    "autoprefixer": "7.2.1",
     "clean-css-cli": "4.1.10",
     "clean-scripts": "1.7.0",
     "file2variable-cli": "1.6.0",
@@ -55,7 +55,7 @@
     "tslint": "5.8.0",
     "typescript": "2.4.2",
     "watch-then-execute": "1.1.1",
-    "webpack": "3.9.1"
+    "webpack": "3.10.0"
   },
   "dependencies": {
     "@types/node": "*",
