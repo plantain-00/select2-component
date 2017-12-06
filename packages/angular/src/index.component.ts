@@ -547,7 +547,7 @@ export class Select2 implements ControlValueAccessor {
      * found with the designated value, the select trigger is cleared.
      */
     private _setSelectionByValue(value: any | any[]): void {
-        if (this.option || value) {
+        if (this.option || (value !== undefined && value !== null)) {
             const isArray = Array.isArray(value);
             if (this.multiple && value && !isArray) {
                 throw new Error("Non array value.");
