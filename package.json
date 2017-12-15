@@ -32,7 +32,7 @@
     "autoprefixer": "7.2.2",
     "clean-css-cli": "4.1.10",
     "clean-scripts": "1.7.0",
-    "file2variable-cli": "1.6.0",
+    "file2variable-cli": "1.7.3",
     "github-fork-ribbon-css": "0.2.1",
     "http-server": "0.10.0",
     "jasmine": "2.8.0",
@@ -43,7 +43,6 @@
     "karma-webpack": "2.0.6",
     "lerna": "2.5.1",
     "less": "2.7.3",
-    "mkdirp": "0.5.1",
     "no-unused-export": "1.4.3",
     "postcss-cli": "4.1.1",
     "puppeteer": "0.13.0",
@@ -57,8 +56,5 @@
     "watch-then-execute": "1.1.1",
     "webpack": "3.10.0"
   },
-  "dependencies": {
-    "@types/node": "*",
-    "tslib": "1"
-  }
+  "dependencies": {}
 }

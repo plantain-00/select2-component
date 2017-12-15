@@ -5,10 +5,10 @@ export * from "select2-component";
 import { indexTemplateHtml } from "./variables";
 
 @Component({
-    template: indexTemplateHtml,
+    render: indexTemplateHtml,
     props: ["data", "value", "disabled", "minCountForSearch", "placeholder", "customSearchEnabled", "multiple"],
 })
-class Select2 extends Vue {
+export class Select2 extends Vue {
     data: common.Select2Data;
     value?: common.Select2UpdateValue;
     disabled?: boolean;
