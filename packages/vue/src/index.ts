@@ -2,10 +2,11 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import * as common from "select2-component";
 export * from "select2-component";
-import { indexTemplateHtml } from "./variables";
+import { indexTemplateHtml, indexTemplateHtmlStatic } from "./variables";
 
 @Component({
     render: indexTemplateHtml,
+    staticRenderFns: indexTemplateHtmlStatic,
     props: ["data", "value", "disabled", "minCountForSearch", "placeholder", "customSearchEnabled", "multiple"],
 })
 export class Select2 extends Vue {
