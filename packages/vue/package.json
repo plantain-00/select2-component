@@ -1,6 +1,6 @@
 {
   "name": "select2-vue-component",
-  "version": "5.1.0",
+  "version": "5.1.1",
   "description": "A vuejs select component.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -17,13 +17,22 @@
     "url": "https://github.com/plantain-00/select2-component/issues"
   },
   "homepage": "https://github.com/plantain-00/select2-component#readme",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@types/node": "*",
-    "select2-component": "^5.0.2",
+    "select2-component": "^5.1.1",
     "vue": "2",
     "vue-class-component": "6"
   },
   "devDependencies": {
     "typescript": "2.6.2"
+  },
+  "peerDependencies": {
+    "@types/node": "*",
+    "select2-component": "^5.1.1",
+    "vue": "2",
+    "vue-class-component": "6"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "select2-react-component",
-  "version": "5.0.2",
+  "version": "5.1.1",
   "description": "A reactjs select component.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -14,14 +14,23 @@
     "url": "https://github.com/plantain-00/select2-component/issues"
   },
   "homepage": "https://github.com/plantain-00/select2-component#readme",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@types/node": "*",
     "react": "16",
     "react-dom": "16",
-    "select2-component": "^5.0.2"
+    "select2-component": "^5.1.1"
   },
   "devDependencies": {
     "@types/react": "16.0.27",
     "@types/react-dom": "16.0.3"
+  },
+  "peerDependencies": {
+    "@types/node": "*",
+    "react": "16",
+    "react-dom": "16",
+    "select2-component": "^5.1.1"
   }
 }
