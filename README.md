@@ -1,3 +1,5 @@
+# select2-component
+
 [![Dependency Status](https://david-dm.org/plantain-00/select2-component.svg)](https://david-dm.org/plantain-00/select2-component)
 [![devDependency Status](https://david-dm.org/plantain-00/select2-component/dev-status.svg)](https://david-dm.org/plantain-00/select2-component#info=devDependencies)
 [![Build Status: Linux](https://travis-ci.org/plantain-00/select2-component.svg?branch=master)](https://travis-ci.org/plantain-00/select2-component)
@@ -5,10 +7,9 @@
 [![npm version](https://badge.fury.io/js/select2-component.svg)](https://badge.fury.io/js/select2-component)
 [![Downloads](https://img.shields.io/npm/dm/select2-component.svg)](https://www.npmjs.com/package/select2-component)
 
-# select2-component
 A vuejs, reactjs and angular select component.
 
-#### features
+## features
 
 + vuejs component
 + reactjs component
@@ -27,13 +28,13 @@ A vuejs, reactjs and angular select component.
 + material style(angular only)
 + form binding(angular only)
 
-#### link css
+## link css
 
 ```html
 <link rel="stylesheet" href="./node_modules/select2-component/dist/select2.min.css" />
 ```
 
-#### vuejs component
+## vuejs component
 
 `npm i select2-vue-component`
 
@@ -48,9 +49,9 @@ import "select2-vue-component";
 </select2>
 ```
 
-the online demo: https://plantain-00.github.io/select2-component/packages/vue/demo
+the online demo: <https://plantain-00.github.io/select2-component/packages/vue/demo>
 
-#### reactjs component
+## reactjs component
 
 `npm i select2-react-component`
 
@@ -65,9 +66,9 @@ import { Select2 } from "select2-react-component";
 </Select2>
 ```
 
-the online demo: https://plantain-00.github.io/select2-component/packages/react/demo
+the online demo: <https://plantain-00.github.io/select2-component/packages/react/demo>
 
-#### angular component
+## angular component
 
 `npm i select2-angular-component`
 
@@ -89,11 +90,11 @@ class MainModule { }
 </select2>
 ```
 
-the online demo: https://plantain-00.github.io/select2-component/packages/angular/demo/jit
+the online demo: <https://plantain-00.github.io/select2-component/packages/angular/demo/jit>
 
-the AOT online demo: https://plantain-00.github.io/select2-component/packages/angular/demo/aot
+the AOT online demo: <https://plantain-00.github.io/select2-component/packages/angular/demo/aot>
 
-#### properties and events of the component
+## properties and events of the component
 
 name | type | description
 --- | --- | ---
@@ -111,7 +112,7 @@ update | (value: [Select2UpdateValue](#select2-data-structure)) => void | trigge
 open | () => void | triggered when user open the options
 search | (text: string) => void | triggered when search text changed
 
-#### select2 data structure
+## select2 data structure
 
 ```ts
 type Select2Data = (Select2Group | Select2Option)[];
@@ -135,8 +136,7 @@ type Select2Value = string | number;
 type Select2UpdateValue = Select2Value | Select2Value[];
 ```
 
-#### change logs
-
+## change logs
 
 ```bash
 # v4
