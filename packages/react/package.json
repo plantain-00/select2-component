@@ -1,6 +1,6 @@
 {
   "name": "select2-react-component",
-  "version": "5.1.1",
+  "version": "5.1.2",
   "description": "A reactjs select component.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -19,9 +19,9 @@
   ],
   "dependencies": {
     "@types/node": "*",
-    "react": "16",
-    "react-dom": "16",
-    "select2-component": "^5.1.1"
+    "react": "15 || 16",
+    "react-dom": "15 || 16",
+    "select2-component": "^5.1.2"
   },
   "devDependencies": {
     "@types/react": "16.0.34",
@@ -29,8 +29,8 @@
   },
   "peerDependencies": {
     "@types/node": "*",
-    "react": "16",
-    "react-dom": "16",
-    "select2-component": "^5.1.1"
+    "react": "15 || 16",
+    "react-dom": "15 || 16",
+    "select2-component": "^5.1.2"
   }
 }
