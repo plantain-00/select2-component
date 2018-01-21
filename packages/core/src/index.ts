@@ -8,7 +8,6 @@ export type Select2Option = {
   value: Select2Value;
   label: string;
   disabled?: boolean;
-    // tslint:disable-next-line:ban-types
   component?: string | Function;
   classes?: string;
 }
