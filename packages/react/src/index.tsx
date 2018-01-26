@@ -63,8 +63,8 @@ export class Select2 extends React.PureComponent<{
     }
     this.setState({ hoveringValue: this.hoveringValue })
     this.isSearchboxHidden = this.props.customSearchEnabled
-            ? false
-            : common.isSearchboxHiddex(this.props.data, this.props.minCountForSearch)
+      ? false
+      : common.isSearchboxHiddex(this.props.data, this.props.minCountForSearch)
     this.searchStyle = common.getSearchStyle(this.isSearchboxHidden)
   }
 
@@ -79,113 +79,113 @@ export class Select2 extends React.PureComponent<{
       if (options) {
         const optionsElements = options.map((option, j) => {
           const optionElement = option.component
-                        ? React.createElement(option.component as React.ComponentClass<{ option: common.Select2Option }>, { option })
-                        : option.label
+            ? React.createElement(option.component as React.ComponentClass<{ option: common.Select2Option }>, { option })
+            : option.label
           return (
-                        <li className={this.getOptionStyle(option.value)}
-                            key={j}
-                            role='treeitem'
-                            aria-selected={this.isSelected(option)}
-                            aria-disabled={this.isDisabled(option)}
-                            onMouseEnter={() => this.mouseenter(option)}
-                            onClick={() => this.click(option)}>
-                            {optionElement}
-                        </li>
+            <li className={this.getOptionStyle(option.value)}
+              key={j}
+              role='treeitem'
+              aria-selected={this.isSelected(option)}
+              aria-disabled={this.isDisabled(option)}
+              onMouseEnter={() => this.mouseenter(option)}
+              onClick={() => this.click(option)}>
+              {optionElement}
+            </li>
           )
         })
         return (
-                    <li className='select2-results__option' role='group' key={i}>
-                        <strong className='select2-results__group'>{groupOrOption.label}</strong>
-                        <ul className='select2-results__options select2-results__options--nested'>
-                            {optionsElements}
-                        </ul>
-                    </li>
+          <li className='select2-results__option' role='group' key={i}>
+            <strong className='select2-results__group'>{groupOrOption.label}</strong>
+            <ul className='select2-results__options select2-results__options--nested'>
+              {optionsElements}
+            </ul>
+          </li>
         )
       } else {
         const option = groupOrOption as common.Select2Option
         const optionElement = option.component
-                    ? React.createElement(option.component as React.ComponentClass<{ option: common.Select2Option }>, { option })
-                    : option.label
+          ? React.createElement(option.component as React.ComponentClass<{ option: common.Select2Option }>, { option })
+          : option.label
         return (
-                    <li className={this.getOptionStyle(option.value)}
-                        key={i}
-                        role='treeitem'
-                        aria-selected={this.isSelected(option)}
-                        aria-disabled={this.isDisabled(option)}
-                        onMouseEnter={() => this.mouseenter(option)}
-                        onClick={() => this.click(option)}>
-                        {optionElement}
-                    </li>
+          <li className={this.getOptionStyle(option.value)}
+            key={i}
+            role='treeitem'
+            aria-selected={this.isSelected(option)}
+            aria-disabled={this.isDisabled(option)}
+            onMouseEnter={() => this.mouseenter(option)}
+            onClick={() => this.click(option)}>
+            {optionElement}
+          </li>
         )
       }
     })
     let selection: JSX.Element | JSX.Element[]
     if (this.props.multiple) {
       const items = (this.option as common.Select2Option[]).map((op, i) => (
-                <li className='select2-selection__choice' title={op.label} key={i}>
-                    <span onClick={e => this.removeSelection(e, op)} className='select2-selection__choice__remove' role='presentation'>×</span>
-                    {op.label}
-                </li >
-            ))
+        <li className='select2-selection__choice' title={op.label} key={i}>
+          <span onClick={e => this.removeSelection(e, op)} className='select2-selection__choice__remove' role='presentation'>×</span>
+          {op.label}
+        </li >
+      ))
       selection = (
-                <ul className='select2-selection__rendered'>
-                    {items}
-                </ul>
-            )
+        <ul className='select2-selection__rendered'>
+          {items}
+        </ul>
+      )
     } else {
       const option = this.option as common.Select2Option
       const label = option
-                ? (option.component ? React.createElement(option.component as React.ComponentClass<{ option: common.Select2Option }>, { option }) : option.label)
-                : <span className='select2-selection__placeholder'>{this.props.placeholder}</span>
+        ? (option.component ? React.createElement(option.component as React.ComponentClass<{ option: common.Select2Option }>, { option }) : option.label)
+        : <span className='select2-selection__placeholder'>{this.props.placeholder}</span>
       selection = [
         <span key='label' className='select2-selection__rendered' title={option ? option.label : ''}>{label}</span>,
         <span key='arrow' className='select2-selection__arrow' role='presentation'>
-                    <b role='presentation'></b>
-                </span>
+          <b role='presentation'></b>
+        </span>
       ]
     }
     return (
-            <div className={this.containerStyle}>
-                <div className='selection'
-                    onClick={() => this.toggleOpenAndClose()}>
-                    <div className={this.selectionStyle} role='combobox'>
-                        {selection}
-                    </div>
-                </div>
-                <div className={this.dropdownStyle}>
-                    <div className='select2-dropdown select2-dropdown--below'>
-                        <div className={this.searchStyle}>
-                            <input value={this.searchText}
-                                onChange={this.onChange}
-                                onKeyDown={e => this.keyDown(e)}
-                                onBlur={() => this.focusout()}
-                                className='select2-search__field'
-                                type='search'
-                                role='textbox'
-                                autoComplete='off'
-                                autoCorrect='off'
-                                autoCapitalize='off'
-                                spellCheck={false} />
-                        </div>
-                        <div className='select2-results'>
-                            <ul className='select2-results__options'
-                                role='tree'
-                                tabIndex={-1}
-                                onKeyDown={e => this.keyDown(e)}
-                                onBlur={() => this.focusout()}>
-                                {results}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+      <div className={this.containerStyle}>
+        <div className='selection'
+          onClick={() => this.toggleOpenAndClose()}>
+          <div className={this.selectionStyle} role='combobox'>
+            {selection}
+          </div>
+        </div>
+        <div className={this.dropdownStyle}>
+          <div className='select2-dropdown select2-dropdown--below'>
+            <div className={this.searchStyle}>
+              <input value={this.searchText}
+                onChange={this.onChange}
+                onKeyDown={e => this.keyDown(e)}
+                onBlur={() => this.focusout()}
+                className='select2-search__field'
+                type='search'
+                role='textbox'
+                autoComplete='off'
+                autoCorrect='off'
+                autoCapitalize='off'
+                spellCheck={false} />
             </div>
+            <div className='select2-results'>
+              <ul className='select2-results__options'
+                role='tree'
+                tabIndex={-1}
+                onKeyDown={e => this.keyDown(e)}
+                onBlur={() => this.focusout()}>
+                {results}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     )
   }
 
   private getFilteredData (canSetState: boolean) {
     const result = this.props.customSearchEnabled
-            ? this.props.data
-            : common.getFilteredData(this.props.data, this.searchText)
+      ? this.props.data
+      : common.getFilteredData(this.props.data, this.searchText)
 
     if (common.valueIsNotInFilteredData(result, this.hoveringValue)) {
       this.hoveringValue = common.getFirstAvailableOption(result)

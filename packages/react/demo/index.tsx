@@ -40,58 +40,58 @@ class Main extends React.Component<{}, {}> {
 
   render () {
     return (
-            <div style={{ width: '500px' }}>
-                <a href='https://github.com/plantain-00/select2-component/tree/master/packages/react/demo' target='_blank'>the source code of the demo</a>
-                <h3>options in group ({this.value1})</h3>
-                <Select2 data={this.data1}
-                    value={this.value1}
-                    update={value => this.update1(value)}>
-                </Select2>
-                <h3>options ({this.value2})</h3>
-                <Select2 data={this.data2}
-                    value={this.value2}
-                    update={value => this.update2(value)}>
-                </Select2>
-                <h3>less options ({this.value3})</h3>
-                <Select2 data={this.data3}
-                    value={this.value3}
-                    update={value => this.update3(value)}>
-                </Select2>
-                <h3>disabled ({this.value4})</h3>
-                <Select2 data={this.data4}
-                    value={this.value4}
-                    disabled={true}>
-                </Select2>
-                <h3>hide search box ({this.value5})</h3>
-                <Select2 data={this.data5}
-                    value={this.value5}
-                    minCountForSearch={Infinity}
-                    update={value => this.update5(value)}>
-                </Select2>
-                <h3>placeholder ({this.value6})</h3>
-                <Select2 data={this.data6}
-                    placeholder='select an item'
-                    update={value => this.update6(value)}>
-                </Select2>
-                <h3>open and search event ({this.value7})</h3>
-                <Select2 data={this.data7}
-                    customSearchEnabled={true}
-                    open={() => this.open7()}
-                    search={text => this.search7(text)}
-                    update={value => this.update7(value)}>
-                </Select2>
-                <h3>custom component ({this.value8})</h3>
-                <Select2 data={this.data8}
-                    value={this.value8}
-                    update={value => this.update8(value)}>
-                </Select2>
-                <h3>multiple ({this.value9})</h3>
-                <Select2 data={this.data9}
-                    value={this.value9}
-                    multiple={true}
-                    update={value => this.update9(value)}>
-                </Select2>
-            </div>
+      <div style={{ width: '500px' }}>
+        <a href='https://github.com/plantain-00/select2-component/tree/master/packages/react/demo' target='_blank'>the source code of the demo</a>
+        <h3>options in group ({this.value1})</h3>
+        <Select2 data={this.data1}
+          value={this.value1}
+          update={value => this.update1(value)}>
+        </Select2>
+        <h3>options ({this.value2})</h3>
+        <Select2 data={this.data2}
+          value={this.value2}
+          update={value => this.update2(value)}>
+        </Select2>
+        <h3>less options ({this.value3})</h3>
+        <Select2 data={this.data3}
+          value={this.value3}
+          update={value => this.update3(value)}>
+        </Select2>
+        <h3>disabled ({this.value4})</h3>
+        <Select2 data={this.data4}
+          value={this.value4}
+          disabled={true}>
+        </Select2>
+        <h3>hide search box ({this.value5})</h3>
+        <Select2 data={this.data5}
+          value={this.value5}
+          minCountForSearch={Infinity}
+          update={value => this.update5(value)}>
+        </Select2>
+        <h3>placeholder ({this.value6})</h3>
+        <Select2 data={this.data6}
+          placeholder='select an item'
+          update={value => this.update6(value)}>
+        </Select2>
+        <h3>open and search event ({this.value7})</h3>
+        <Select2 data={this.data7}
+          customSearchEnabled={true}
+          open={() => this.open7()}
+          search={text => this.search7(text)}
+          update={value => this.update7(value)}>
+        </Select2>
+        <h3>custom component ({this.value8})</h3>
+        <Select2 data={this.data8}
+          value={this.value8}
+          update={value => this.update8(value)}>
+        </Select2>
+        <h3>multiple ({this.value9})</h3>
+        <Select2 data={this.data9}
+          value={this.value9}
+          multiple={true}
+          update={value => this.update9(value)}>
+        </Select2>
+      </div>
     )
   }
 
@@ -125,8 +125,8 @@ class Main extends React.Component<{}, {}> {
   }
   private search7 (text: string) {
     this.data7 = text
-            ? (JSON.parse(JSON.stringify(data2)) as Select2Option[]).filter(option => option.label.toLowerCase().indexOf(text.toLowerCase()) > -1)
-            : JSON.parse(JSON.stringify(data2))
+      ? (JSON.parse(JSON.stringify(data2)) as Select2Option[]).filter(option => option.label.toLowerCase().indexOf(text.toLowerCase()) > -1)
+      : JSON.parse(JSON.stringify(data2))
     this.setState({ data7: this.data7 })
   }
   private update8 (value: Select2UpdateValue) {
