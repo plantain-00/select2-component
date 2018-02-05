@@ -29,19 +29,19 @@ export class Select2Hint { }
 })
 export class Select2 implements ControlValueAccessor {
 
-    /** data of options & optiongrps */
-  @Input() data: common.Select2Data
-    /** minimal data of show the search field */
+  /** data of options & optiongrps */
+  @Input() data!: common.Select2Data
+  /** minimal data of show the search field */
   @Input() minCountForSearch?: number
   @Input() placeholder?: string
   @Input() customSearchEnabled?: boolean
   @Input() multiple?: boolean
 
-    /** use the material style */
+  /** use the material style */
   @Input() material?: '' | true
 
-    /** use it for change the pattern of the filter search */
-  @Input() editPattern: (str: string) => string
+  /** use it for change the pattern of the filter search */
+  @Input() editPattern!: (str: string) => string
 
   @Output() update = new EventEmitter()
   @Output() open = new EventEmitter()
@@ -49,32 +49,32 @@ export class Select2 implements ControlValueAccessor {
 
   option: common.Select2Option | common.Select2Option[] | null = null
   isOpen = false
-  searchStyle: string
-  @ViewChild('selection') selection: ElementRef
-  @ViewChild('results') private results: ElementRef
-  @ViewChild('searchInput') private searchInput: ElementRef
+  searchStyle!: string
+  @ViewChild('selection') selection!: ElementRef
+  @ViewChild('results') private results!: ElementRef
+  @ViewChild('searchInput') private searchInput!: ElementRef
   private hoveringValue: common.Select2Value | null | undefined = null
   private innerSearchText = ''
   private lastScrollTopIndex = 0
-  private isSearchboxHidden: boolean
-  private selectionElement: HTMLElement
-  private searchInputElement: HTMLElement
-  private resultsElement: HTMLElement
+  private isSearchboxHidden!: boolean
+  private selectionElement!: HTMLElement
+  private searchInputElement!: HTMLElement
+  private resultsElement!: HTMLElement
 
   // tslint:disable:member-ordering
   private _stateChanges = new Subject<void>()
 
-    /** Whether the element is focused or not. */
+  /** Whether the element is focused or not. */
   focused = false
 
-    /** View -> model callback called when select has been touched */
+  /** View -> model callback called when select has been touched */
   private _onTouched = () => {
-        // do nothing
+    // do nothing
   }
 
-    /** View -> model callback called when value changes */
+  /** View -> model callback called when value changes */
   private _onChange: (value: any) => void = () => {
-        // do nothing
+    // do nothing
   }
 
   get searchText () {
@@ -122,27 +122,27 @@ export class Select2 implements ControlValueAccessor {
     return common.getSelectionStyle(this.multiple)
   }
 
-    /** Unique id of the element. */
+  /** Unique id of the element. */
   @Input()
     get id () { return this._id }
   set id (value: string) { this._id = value || this._uid }
 
-    /** Whether the element is required. */
+  /** Whether the element is required. */
   @Input()
     get required () { return this._required }
   set required (value: any) { this._required = this._coerceBooleanProperty(value) }
 
-    /** Whether the element is disabled. */
+  /** Whether the element is disabled. */
   @Input()
     get disabled () { return this._control ? this._control.disabled : this._disabled }
   set disabled (value: any) { this._disabled = this._coerceBooleanProperty(value) }
 
-    /** Whether the element is readonly. */
+  /** Whether the element is readonly. */
   @Input()
     get readonly () { return this._readonly }
   set readonly (value: any) { this._readonly = this._coerceBooleanProperty(value) }
 
-    /** The input element's value. */
+  /** The input element's value. */
   @Input()
     get value () { return this._value }
   set value (value: common.Select2UpdateValue) {
@@ -150,7 +150,7 @@ export class Select2 implements ControlValueAccessor {
     this.writeValue(value)
   }
 
-    /** Tab index for the select2 element. */
+  /** Tab index for the select2 element. */
   @Input()
     get tabIndex (): number { return this.disabled ? -1 : this._tabIndex }
   set tabIndex (value: number) {
@@ -159,7 +159,7 @@ export class Select2 implements ControlValueAccessor {
     }
   }
 
-    /** Tab index for the element. */
+  /** Tab index for the element. */
   private _tabIndex: number
 
   private _disabled = false
@@ -167,9 +167,9 @@ export class Select2 implements ControlValueAccessor {
   private _readonly = false
   private _clickDetection = false
   private _clickDetectionFc: (e: MouseEvent) => void
-  private _id: string
+  private _id!: string
   private _uid: string = `select2-${nextUniqueId++}`
-  private _value: common.Select2UpdateValue
+  private _value!: common.Select2UpdateValue
   private _previousNativeValue: common.Select2UpdateValue = this._value
 
   constructor (
@@ -493,41 +493,41 @@ export class Select2 implements ControlValueAccessor {
     }
   }
 
-    /**
-     * Sets the model value. Implemented as part of ControlValueAccessor.
-     * @param value
-     */
+  /**
+   * Sets the model value. Implemented as part of ControlValueAccessor.
+   * @param value
+   */
   writeValue (value: any) {
     this._setSelectionByValue(value)
   }
 
-    /**
-     * Saves a callback function to be invoked when the select's value
-     * changes from user input. Part of the ControlValueAccessor interface
-     * required to integrate with Angular's core forms API.
-     *
-     * @param fn Callback to be triggered when the value changes.
-     */
+  /**
+   * Saves a callback function to be invoked when the select's value
+   * changes from user input. Part of the ControlValueAccessor interface
+   * required to integrate with Angular's core forms API.
+   *
+   * @param fn Callback to be triggered when the value changes.
+   */
   registerOnChange (fn: (value: any) => void): void {
     this._onChange = fn
   }
 
-    /**
-     * Saves a callback function to be invoked when the select is blurred
-     * by the user. Part of the ControlValueAccessor interface required
-     * to integrate with Angular's core forms API.
-     *
-     * @param fn Callback to be triggered when the component has been touched.
-     */
+  /**
+   * Saves a callback function to be invoked when the select is blurred
+   * by the user. Part of the ControlValueAccessor interface required
+   * to integrate with Angular's core forms API.
+   *
+   * @param fn Callback to be triggered when the component has been touched.
+   */
   registerOnTouched (fn: () => {}): void {
     this._onTouched = fn
   }
 
-    /**
-     * Sets whether the component should be disabled.
-     * Implemented as part of ControlValueAccessor.
-     * @param isDisabled
-     */
+  /**
+   * Sets whether the component should be disabled.
+   * Implemented as part of ControlValueAccessor.
+   * @param isDisabled
+   */
   setDisabledState (isDisabled: boolean) {
     this.disabled = isDisabled
   }
@@ -541,10 +541,10 @@ export class Select2 implements ControlValueAccessor {
     return !!(isInvalid && (isTouched || isSubmitted))
   }
 
-    /**
-     * Sets the selected option based on a value. If no option can be
-     * found with the designated value, the select trigger is cleared.
-     */
+  /**
+   * Sets the selected option based on a value. If no option can be
+   * found with the designated value, the select trigger is cleared.
+   */
   private _setSelectionByValue (value: any | any[]): void {
     if (this.option || (value !== undefined && value !== null)) {
       const isArray = Array.isArray(value)
@@ -560,7 +560,7 @@ export class Select2 implements ControlValueAccessor {
     }
   }
 
-    /** Does some manual dirty checking on the native input `value` property. */
+  /** Does some manual dirty checking on the native input `value` property. */
   private _dirtyCheckNativeValue () {
     const newValue = this.value
 

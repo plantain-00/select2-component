@@ -10,7 +10,7 @@ import { data1, data2, data3, data5 } from 'select2-component/demo/'
   props: ['option']
 })
 class CustomOption extends Vue {
-  option: Select2Option
+  option!: Select2Option
 }
 Vue.component('custom-option', CustomOption)
 

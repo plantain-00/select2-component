@@ -10,7 +10,7 @@ import { indexTemplateHtml, indexTemplateHtmlStatic } from './variables'
   props: ['data', 'value', 'disabled', 'minCountForSearch', 'placeholder', 'customSearchEnabled', 'multiple']
 })
 export class Select2 extends Vue {
-  data: common.Select2Data
+  data!: common.Select2Data
   value?: common.Select2UpdateValue
   disabled?: boolean
   minCountForSearch?: number
@@ -19,15 +19,15 @@ export class Select2 extends Vue {
   multiple?: boolean
 
   option: common.Select2Option | common.Select2Option[] | null = null
-  searchStyle: string
+  searchStyle!: string
   private hoveringValue: common.Select2Value | null | undefined = null
   private isOpen = false
   private focusoutTimer?: NodeJS.Timer
   private innerSearchText = ''
   private lastScrollTopIndex = 0
-  private isSearchboxHidden: boolean
-  private searchInputElement: HTMLElement
-  private resultsElement: HTMLElement
+  private isSearchboxHidden!: boolean
+  private searchInputElement!: HTMLElement
+  private resultsElement!: HTMLElement
 
   get searchText () {
     return this.innerSearchText

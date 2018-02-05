@@ -24,11 +24,11 @@ export class Select2 extends React.PureComponent<{
   private focusoutTimer?: NodeJS.Timer
   private innerSearchText = ''
   private lastScrollTopIndex = 0
-  private isSearchboxHidden: boolean
-  private searchStyle: string
+  private isSearchboxHidden!: boolean
+  private searchStyle!: string
 
-  private searchInputElement: HTMLElement
-  private resultsElement: HTMLElement
+  private searchInputElement!: HTMLElement
+  private resultsElement!: HTMLElement
 
   private get searchText () {
     return this.innerSearchText
