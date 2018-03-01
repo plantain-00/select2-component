@@ -1,6 +1,6 @@
 {
   "name": "select2-vue-component",
-  "version": "5.1.2",
+  "version": "5.1.3",
   "description": "A vuejs select component.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -19,13 +19,13 @@
   ],
   "dependencies": {
     "@types/node": "*",
-    "select2-component": "^5.1.2",
+    "select2-component": "^5.1.3",
     "vue": "2",
     "vue-class-component": "6"
   },
   "peerDependencies": {
     "@types/node": "*",
-    "select2-component": "^5.1.2",
+    "select2-component": "^5.1.3",
     "vue": "2",
     "vue-class-component": "6"
   }
