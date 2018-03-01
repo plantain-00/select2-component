@@ -77,6 +77,12 @@ export class Select2 implements ControlValueAccessor {
     // do nothing
   }
 
+  get select2Options () {
+    return this.multiple ? this.option as common.Select2Option[] : null
+  }
+  get select2Option () {
+    return this.multiple ? null : this.option as common.Select2Option
+  }
   get searchText () {
     return this.innerSearchText
   }

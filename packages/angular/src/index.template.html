@@ -7,15 +7,15 @@
          (keydown)="openKey($event)"
          [class.select2-focused]="focused">
          <div [class]="selectionStyle" role="combobox">
-            <span *ngIf="!multiple" class="select2-selection__rendered" [title]="option ? option.label : ''">
-                <span *ngIf="!option">&nbsp;</span><ng-container *ngIf="option">{{option.label}}</ng-container>
+            <span *ngIf="!multiple" class="select2-selection__rendered" [title]="select2Option ? select2Option.label : ''">
+                <span *ngIf="!select2Option">&nbsp;</span><ng-container *ngIf="select2Option">{{select2Option.label}}</ng-container>
                 <span [class.select2-selection__placeholder__option]="option" class="select2-selection__placeholder">{{placeholder}}</span>
             </span>
             <span *ngIf="!multiple" class="select2-selection__arrow" role="presentation">
                 <b role="presentation"></b>
             </span>
             <ul *ngIf="multiple" class="select2-selection__rendered">
-                <span [class.select2-selection__placeholder__option]="option?.length > 0" class="select2-selection__placeholder">{{placeholder}}</span>
+                <span [class.select2-selection__placeholder__option]="select2Options?.length > 0" class="select2-selection__placeholder">{{placeholder}}</span>
                 <li *ngFor="let op of option; trackBy: trackBy" class="select2-selection__choice" [title]="op.label">
                     <span (click)="removeSelection($event, op)" class="select2-selection__choice__remove" role="presentation">×</span>
                     {{op.label}}
