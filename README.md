@@ -42,6 +42,14 @@ A vuejs, reactjs and angular select component.
 import "select2-vue-component";
 ```
 
+or
+
+```html
+<script src="./node_modules/vue/dist/vue.min.js"></script>
+<script src="./node_modules/vue-class-component/dist/vue-class-component.min.js"></script>
+<script src="./node_modules/select2-vue-component/dist/select2-vue-component.min.js"></script>
+```
+
 ```html
 <select2 :data="data"
     :value="value"
@@ -57,6 +65,14 @@ the online demo: <https://plantain-00.github.io/select2-component/packages/vue/d
 
 ```ts
 import { Select2 } from "select2-react-component";
+```
+
+or
+
+```html
+<script src="./node_modules/react/umd/react.production.min.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.production.min.js"></script>
+<script src="./node_modules/select2-react-component/dist/select2-react-component.min.js"></script>
 ```
 
 ```jsx
