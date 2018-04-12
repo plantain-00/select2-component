@@ -1,6 +1,6 @@
 {
   "name": "select2-angular-component",
-  "version": "5.2.1",
+  "version": "5.2.2",
   "description": "A angular select component.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,7 +21,7 @@
     "@angular/common": "4 || 5",
     "@angular/core": "4 || 5",
     "@angular/forms": "4 || 5",
-    "select2-component": "^5.2.1"
+    "select2-component": "^5.2.2"
   },
   "devDependencies": {
     "@angular/platform-browser": "5.2.9",
@@ -34,6 +34,6 @@
     "@angular/common": "4 || 5",
     "@angular/core": "4 || 5",
     "@angular/forms": "4 || 5",
-    "select2-component": "^5.2.1"
+    "select2-component": "^5.2.2"
   }
 }
