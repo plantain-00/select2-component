@@ -1,4 +1,5 @@
 module.exports = {
+  mode: process.env.NODE_ENV,
   entry: './packages/vue/demo/index',
   output: {
     path: __dirname,
