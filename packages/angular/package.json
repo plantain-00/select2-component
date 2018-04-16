@@ -1,0 +1,39 @@
+{
+  "name": "select2-angular-component",
+  "version": "5.2.2",
+  "description": "A angular select component.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plantain-00/select2-component.git"
+  },
+  "author": "York Yao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/plantain-00/select2-component/issues"
+  },
+  "homepage": "https://github.com/plantain-00/select2-component#readme",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@angular/common": "4 || 5",
+    "@angular/core": "4 || 5",
+    "@angular/forms": "4 || 5",
+    "select2-component": "^5.2.2"
+  },
+  "devDependencies": {
+    "@angular/platform-browser": "5.2.9",
+    "@angular/platform-browser-dynamic": "5.2.9",
+    "core-js": "2.5.5",
+    "rxjs": "5.5.10",
+    "zone.js": "0.8.26"
+  },
+  "peerDependencies": {
+    "@angular/common": "4 || 5",
+    "@angular/core": "4 || 5",
+    "@angular/forms": "4 || 5",
+    "select2-component": "^5.2.2"
+  }
+}

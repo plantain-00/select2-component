@@ -1,0 +1,39 @@
+{
+  "name": "select2-react-component",
+  "version": "5.2.2",
+  "description": "A reactjs select component.",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "unpkg": "dist/select2-react-component.min.js",
+  "jsdelivr": "dist/select2-react-component.min.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plantain-00/select2-component.git"
+  },
+  "author": "York Yao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/plantain-00/select2-component/issues"
+  },
+  "homepage": "https://github.com/plantain-00/select2-component#readme",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@types/node": "*",
+    "react": "15 || 16",
+    "react-dom": "15 || 16",
+    "select2-component": "^5.2.2"
+  },
+  "devDependencies": {
+    "@types/react": "16.3.10",
+    "@types/react-dom": "16.0.5"
+  },
+  "peerDependencies": {
+    "@types/node": "*",
+    "react": "15 || 16",
+    "react-dom": "15 || 16",
+    "select2-component": "^5.2.2"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "name": "select2-vue-component",
+  "version": "5.2.2",
+  "description": "A vuejs select component.",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "unpkg": "dist/select2-vue-component.min.js",
+  "jsdelivr": "dist/select2-vue-component.min.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plantain-00/select2-component.git"
+  },
+  "author": "York Yao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/plantain-00/select2-component/issues"
+  },
+  "homepage": "https://github.com/plantain-00/select2-component#readme",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@types/node": "*",
+    "select2-component": "^5.2.2",
+    "vue": "2",
+    "vue-class-component": "6"
+  },
+  "peerDependencies": {
+    "@types/node": "*",
+    "select2-component": "^5.2.2",
+    "vue": "2",
+    "vue-class-component": "6"
+  }
+}

@@ -1,0 +1,79 @@
+<div :class="containerStyle">
+    <div class="selection"
+        @click="toggleOpenAndClose()">
+        <div :class="selectionStyle" role="combobox">
+            <span v-if="!multiple" class="select2-selection__rendered" :title="option ? option.label : ''">
+                <template v-if="option">
+                    <component v-if="option.component" :is="option.component" :option="option"></component>
+                    <template v-else>{{option.label}}</template>
+                </template>
+                <span v-else class="select2-selection__placeholder">{{placeholder}}</span>
+            </span>
+            <span v-if="!multiple" class="select2-selection__arrow" role="presentation">
+                <b role="presentation"></b>
+            </span>
+            <ul v-if="multiple" class="select2-selection__rendered">
+                <li v-for="(op, i) in option" :key="i" class="select2-selection__choice" :title="op.label">
+                    <span @click="removeSelection($event, op)" class="select2-selection__choice__remove" role="presentation">×</span>
+                    {{op.label}}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div :class="dropdownStyle">
+        <div class="select2-dropdown select2-dropdown--below">
+            <div :class="searchStyle">
+                <input ref="searchInput"
+                    v-model="searchText"
+                    @keydown="keyDown($event)"
+                    @focusout="focusout()"
+                    class="select2-search__field"
+                    type="search"
+                    role="textbox"
+                    autocomplete="off"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    spellcheck="false">
+            </div>
+            <div class="select2-results">
+                <ul ref="results"
+                    class="select2-results__options"
+                    role="tree"
+                    tabindex="-1"
+                    @keydown="keyDown($event)"
+                    @focusout="focusout()">
+                    <template v-for="(groupOrOption, i) in filteredData">
+                        <li v-if="groupOrOption.options"
+                            class="select2-results__option"
+                            role="group">
+                            <strong class="select2-results__group">{{groupOrOption.label}}</strong>
+                            <ul class="select2-results__options select2-results__options--nested">
+                                <li v-for="(option, j) in groupOrOption.options"
+                                    :key="j"
+                                    :class="getOptionStyle(option.value)"
+                                    role="treeitem"
+                                    :aria-selected="isSelected(option)"
+                                    :aria-disabled="isDisabled(option)"
+                                    @mouseenter="mouseenter(option)"
+                                    @click="click(option)">
+                                    <component v-if="option.component" :is="option.component" :option="option"></component>
+                                    <template v-else>{{option.label}}</template>
+                                </li>
+                            </ul>
+                        </li>
+                        <li v-else
+                            :class="getOptionStyle(groupOrOption.value)"
+                            role="treeitem"
+                            :aria-selected="isSelected(groupOrOption)"
+                            :aria-disabled="isDisabled(groupOrOption)"
+                            @mouseenter="mouseenter(groupOrOption)"
+                            @click="click(groupOrOption)">
+                            <component v-if="groupOrOption.component" :is="groupOrOption.component" :option="groupOrOption"></component>
+                            <template v-else>{{groupOrOption.label}}</template>
+                        </li>
+                    </template>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
