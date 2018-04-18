@@ -12,7 +12,7 @@ export type Select2Option = {
   classes?: string;
 }
 
-export type Select2Value = string | number
+export type Select2Value = string | number | boolean
 
 export type Select2UpdateValue = Select2Value | Select2Value[]
 

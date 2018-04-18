@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { Select2, Select2Option, Select2Data, Select2Group, Select2UpdateValue } from '../dist/'
-import { data1, data2, data3, data5 } from 'select2-component/demo/'
+import { data1, data2, data3, data5, data12 } from 'select2-component/demo/'
 
 const CustomOption: React.StatelessComponent<{ option: Select2Option }> = props => <span>{props.option.label}<span style={{ float: 'right', color: 'red' }}>{props.option.value}</span></span>
 const data8: Select2Data = JSON.parse(JSON.stringify(data1))
@@ -27,6 +27,7 @@ class Main extends React.Component<{}, {}> {
   private data7: Select2Option[] = []
   private data8 = data8
   private data9: Select2Data = JSON.parse(JSON.stringify(data1))
+  private data12 = data12
 
   private value1 = 'CA'
   private value2 = 'CA'
@@ -37,6 +38,7 @@ class Main extends React.Component<{}, {}> {
   private value7 = ''
   private value8 = 'CA'
   private value9: string[] = []
+  private value12 = true
 
   render () {
     return (
@@ -91,6 +93,11 @@ class Main extends React.Component<{}, {}> {
           multiple={true}
           update={value => this.update9(value)}>
         </Select2>
+        <h3>boolean value ({String(this.value12)})</h3>
+        <Select2 data={this.data12}
+          value={this.value12}
+          update={value => this.update12(value)}>
+        </Select2>
       </div>
     )
   }
@@ -136,6 +143,10 @@ class Main extends React.Component<{}, {}> {
   private update9 (value: Select2UpdateValue) {
     this.value9 = value as string[]
     this.setState({ value9: this.value9 })
+  }
+  private update12 (value: Select2UpdateValue) {
+    this.value12 = value as boolean
+    this.setState({ value12: this.value12 })
   }
 }
 

@@ -145,3 +145,8 @@ export const data5: common.Select2Data = [
     { value: 'foo5', label: 'foo5' },
     { value: 'foo6', label: 'foo6' }
 ]
+
+export const data12: common.Select2Data = [
+  { value: true, label: 'true' },
+  { value: false, label: 'false' }
+]
