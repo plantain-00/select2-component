@@ -147,7 +147,7 @@ type Select2Option = {
     classes?: string;
 };
 
-type Select2Value = string | number;
+type Select2Value = string | number | boolean;
 
 type Select2UpdateValue = Select2Value | Select2Value[];
 ```

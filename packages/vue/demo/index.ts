@@ -3,7 +3,7 @@ import Component from 'vue-class-component'
 // tslint:disable:no-duplicate-imports
 import '../dist/'
 import { Select2Option, Select2Data, Select2Group } from '../dist/'
-import { data1, data2, data3, data5 } from 'select2-component/demo/'
+import { data1, data2, data3, data5, data12 } from 'select2-component/demo/'
 
 @Component({
   template: `<span>{{option.label}}<span style="float:right;color:red">{{option.value}}</span></span>`,
@@ -29,56 +29,61 @@ for (const groupOrOption of data8) {
 @Component({
   template: `
     <div style="width: 500px;">
-        <a href="https://github.com/plantain-00/select2-component/tree/master/packages/vue/demo" target="_blank">the source code of the demo</a>
-        <h3>options in group ({{value1}})</h3>
-        <select2 :data="data1"
-            :value="value1"
-            @update="update1($event)">
-        </select2>
-        <h3>options ({{value2}})</h3>
-        <select2 :data="data2"
-            :value="value2"
-            @update="update2($event)">
-        </select2>
-        <h3>less options ({{value3}})</h3>
-        <select2 :data="data3"
-            :value="value3"
-            @update="update3($event)">
-        </select2>
-        <h3>disabled ({{value4}})</h3>
-        <select2 :data="data4"
-            :value="value4"
-            :disabled="true">
-        </select2>
-        <h3>hide search box ({{value5}})</h3>
-        <select2 :data="data5"
-            :value="value5"
-            :min-count-for-search="Infinity"
-            @update="update5($event)">
-        </select2>
-        <h3>placeholder ({{value6}})</h3>
-        <select2 :data="data6"
-            placeholder="select an item"
-            @update="update6($event)">
-        </select2>
-        <h3>open and search event ({{value7}})</h3>
-        <select2 :data="data7"
-            custom-search-enabled="true"
-            @open="open7()"
-            @search="search7($event)"
-            @update="update7($event)">
-        </select2>
-        <h3>custom component ({{value8}})</h3>
-        <select2 :data="data8"
-            :value="value8"
-            @update="update8($event)">
-        </select2>
-        <h3>multiple ({{value9}})</h3>
-        <select2 :data="data9"
-            :value="value9"
-            multiple="true"
-            @update="update9($event)">
-        </select2>
+      <a href="https://github.com/plantain-00/select2-component/tree/master/packages/vue/demo" target="_blank">the source code of the demo</a>
+      <h3>options in group ({{value1}})</h3>
+      <select2 :data="data1"
+        :value="value1"
+        @update="update1($event)">
+      </select2>
+      <h3>options ({{value2}})</h3>
+      <select2 :data="data2"
+        :value="value2"
+        @update="update2($event)">
+      </select2>
+      <h3>less options ({{value3}})</h3>
+      <select2 :data="data3"
+        :value="value3"
+        @update="update3($event)">
+      </select2>
+      <h3>disabled ({{value4}})</h3>
+      <select2 :data="data4"
+        :value="value4"
+        :disabled="true">
+      </select2>
+      <h3>hide search box ({{value5}})</h3>
+      <select2 :data="data5"
+        :value="value5"
+        :min-count-for-search="Infinity"
+        @update="update5($event)">
+      </select2>
+      <h3>placeholder ({{value6}})</h3>
+      <select2 :data="data6"
+        placeholder="select an item"
+        @update="update6($event)">
+      </select2>
+      <h3>open and search event ({{value7}})</h3>
+      <select2 :data="data7"
+        custom-search-enabled="true"
+        @open="open7()"
+        @search="search7($event)"
+        @update="update7($event)">
+      </select2>
+      <h3>custom component ({{value8}})</h3>
+      <select2 :data="data8"
+        :value="value8"
+        @update="update8($event)">
+      </select2>
+      <h3>multiple ({{value9}})</h3>
+      <select2 :data="data9"
+        :value="value9"
+        multiple="true"
+        @update="update9($event)">
+      </select2>
+      <h3>boolean value ({{value12}})</h3>
+      <select2 :data="data12"
+        :value="value12"
+        @update="update12($event)">
+      </select2>
     </div>
     `
 })
@@ -92,6 +97,7 @@ class App extends Vue {
   data7: Select2Option[] = []
   data8 = data8
   data9: Select2Data = JSON.parse(JSON.stringify(data1))
+  data12 = data12
 
   value1 = 'CA'
   value2 = 'CA'
@@ -102,6 +108,7 @@ class App extends Vue {
   value7 = ''
   value8 = 'CA'
   value9: string[] = []
+  value12 = true
 
   update1 (value: string) {
     this.value1 = value
@@ -134,6 +141,9 @@ class App extends Vue {
   }
   update9 (value: string[]) {
     this.value9 = value
+  }
+  update12 (value: boolean) {
+    this.value12 = value
   }
 }
 
