@@ -18,9 +18,9 @@
     "dist"
   ],
   "dependencies": {
-    "@angular/common": "4 || 5",
-    "@angular/core": "4 || 5",
-    "@angular/forms": "4 || 5",
+    "@angular/common": "5",
+    "@angular/core": "5",
+    "@angular/forms": "5",
     "select2-component": "^5.3.0"
   },
   "devDependencies": {
@@ -31,9 +31,9 @@
     "zone.js": "0.8.26"
   },
   "peerDependencies": {
-    "@angular/common": "4 || 5",
-    "@angular/core": "4 || 5",
-    "@angular/forms": "4 || 5",
+    "@angular/common": "5",
+    "@angular/core": "5",
+    "@angular/forms": "5",
     "select2-component": "^5.3.0"
   }
 }
