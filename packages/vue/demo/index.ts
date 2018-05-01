@@ -5,6 +5,8 @@ import '../dist/'
 import { Select2Option, Select2Data, Select2Group } from '../dist/'
 import { data1, data2, data3, data5, data12 } from 'select2-component/demo/'
 
+const customOptionComponentName = 'custom-option'
+
 @Component({
   template: `<span>{{option.label}}<span style="float:right;color:red">{{option.value}}</span></span>`,
   props: ['option']
@@ -12,17 +14,17 @@ import { data1, data2, data3, data5, data12 } from 'select2-component/demo/'
 class CustomOption extends Vue {
   option!: Select2Option
 }
-Vue.component('custom-option', CustomOption)
+Vue.component(customOptionComponentName, CustomOption)
 
 const data8: Select2Data = JSON.parse(JSON.stringify(data1))
 for (const groupOrOption of data8) {
   const options = (groupOrOption as Select2Group).options
   if (options) {
     for (const option of options) {
-      option.component = 'custom-option'
+      option.component = customOptionComponentName
     }
   } else {
-    (options as Select2Option).component = 'custom-option'
+    (options as Select2Option).component = customOptionComponentName
   }
 }
 
@@ -110,39 +112,39 @@ class App extends Vue {
   value9: string[] = []
   value12 = true
 
-  update1 (value: string) {
+  update1(value: string) {
     this.value1 = value
   }
-  update2 (value: string) {
+  update2(value: string) {
     this.value2 = value
   }
-  update3 (value: string) {
+  update3(value: string) {
     this.value3 = value
   }
-  update5 (value: string) {
+  update5(value: string) {
     this.value5 = value
   }
-  update6 (value: string) {
+  update6(value: string) {
     this.value6 = value
   }
-  open7 () {
+  open7() {
     this.data7 = JSON.parse(JSON.stringify(data2))
   }
-  update7 (value: string) {
+  update7(value: string) {
     this.value7 = value
   }
-  search7 (text: string) {
+  search7(text: string) {
     this.data7 = text
-            ? (JSON.parse(JSON.stringify(data2)) as Select2Option[]).filter(option => option.label.toLowerCase().indexOf(text.toLowerCase()) > -1)
-            : JSON.parse(JSON.stringify(data2))
+      ? (JSON.parse(JSON.stringify(data2)) as Select2Option[]).filter(option => option.label.toLowerCase().indexOf(text.toLowerCase()) > -1)
+      : JSON.parse(JSON.stringify(data2))
   }
-  update8 (value: string) {
+  update8(value: string) {
     this.value8 = value
   }
-  update9 (value: string[]) {
+  update9(value: string[]) {
     this.value9 = value
   }
-  update12 (value: boolean) {
+  update12(value: boolean) {
     this.value12 = value
   }
 }

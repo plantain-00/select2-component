@@ -30,29 +30,29 @@ export class Select2 extends React.PureComponent<{
   private searchInputElement!: HTMLElement
   private resultsElement!: HTMLElement
 
-  private get searchText () {
+  private get searchText() {
     return this.innerSearchText
   }
-  private set searchText (text: string) {
+  private set searchText(text: string) {
     if (this.props.customSearchEnabled && this.props.search) {
       this.props.search(text)
     }
     this.innerSearchText = text
   }
 
-  private get dropdownStyle () {
+  private get dropdownStyle() {
     return common.getDropdownStyle(this.isOpen)
   }
 
-  private get containerStyle () {
+  private get containerStyle() {
     return common.getContainerStyle(this.props.disabled, this.isOpen)
   }
 
-  private get selectionStyle () {
+  private get selectionStyle() {
     return common.getSelectionStyle(this.props.multiple)
   }
 
-  componentWillMount () {
+  componentWillMount() {
     const option = common.getOptionsByValue(this.props.data, this.props.value, this.props.multiple)
     if (option !== null) {
       this.option = option
@@ -68,13 +68,81 @@ export class Select2 extends React.PureComponent<{
     this.searchStyle = common.getSearchStyle(this.isSearchboxHidden)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.searchInputElement = ReactDOM.findDOMNode(this as any)!.childNodes[1].childNodes[0].childNodes[0].childNodes[0] as HTMLElement
     this.resultsElement = ReactDOM.findDOMNode(this as any)!.childNodes[1].childNodes[0].childNodes[1].childNodes[0] as HTMLElement
   }
 
-  render () {
-    const results = this.getFilteredData(false).map((groupOrOption, i) => {
+  render() {
+    const results = this.renderResult()
+    const selection = this.renderSelection()
+    return (
+      <div className={this.containerStyle}>
+        <div className='selection'
+          onClick={() => this.toggleOpenAndClose()}>
+          <div className={this.selectionStyle} role='combobox'>
+            {selection}
+          </div>
+        </div>
+        <div className={this.dropdownStyle}>
+          <div className='select2-dropdown select2-dropdown--below'>
+            <div className={this.searchStyle}>
+              <input value={this.searchText}
+                onChange={this.onChange}
+                onKeyDown={e => this.keyDown(e)}
+                onBlur={() => this.focusout()}
+                className='select2-search__field'
+                type='search'
+                role='textbox'
+                autoComplete='off'
+                autoCorrect='off'
+                autoCapitalize='off'
+                spellCheck={false} />
+            </div>
+            <div className='select2-results'>
+              <ul className='select2-results__options'
+                role='tree'
+                tabIndex={-1}
+                onKeyDown={e => this.keyDown(e)}
+                onBlur={() => this.focusout()}>
+                {results}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  private renderSelection() {
+    if (this.props.multiple) {
+      const items = (this.option as common.Select2Option[]).map((op, i) => (
+        <li className='select2-selection__choice' title={op.label} key={i}>
+          <span onClick={e => this.removeSelection(e, op)} className='select2-selection__choice__remove' role='presentation'>×</span>
+          {op.label}
+        </li >
+      ))
+      return (
+        <ul className='select2-selection__rendered'>
+          {items}
+        </ul>
+      )
+    } else {
+      const option = this.option as common.Select2Option
+      const label = option
+        ? (option.component ? React.createElement(option.component as React.ComponentClass<{ option: common.Select2Option }>, { option }) : option.label)
+        : <span className='select2-selection__placeholder'>{this.props.placeholder}</span>
+      return [
+        <span key='label' className='select2-selection__rendered' title={option ? option.label : ''}>{label}</span>,
+        <span key='arrow' className='select2-selection__arrow' role='presentation'>
+          <b role='presentation'></b>
+        </span>
+      ]
+    }
+  }
+
+  private renderResult() {
+    return this.getFilteredData(false).map((groupOrOption, i) => {
       const options = (groupOrOption as common.Select2Group).options
       if (options) {
         const optionsElements = options.map((option, j) => {
@@ -119,70 +187,9 @@ export class Select2 extends React.PureComponent<{
         )
       }
     })
-    let selection: JSX.Element | JSX.Element[]
-    if (this.props.multiple) {
-      const items = (this.option as common.Select2Option[]).map((op, i) => (
-        <li className='select2-selection__choice' title={op.label} key={i}>
-          <span onClick={e => this.removeSelection(e, op)} className='select2-selection__choice__remove' role='presentation'>×</span>
-          {op.label}
-        </li >
-      ))
-      selection = (
-        <ul className='select2-selection__rendered'>
-          {items}
-        </ul>
-      )
-    } else {
-      const option = this.option as common.Select2Option
-      const label = option
-        ? (option.component ? React.createElement(option.component as React.ComponentClass<{ option: common.Select2Option }>, { option }) : option.label)
-        : <span className='select2-selection__placeholder'>{this.props.placeholder}</span>
-      selection = [
-        <span key='label' className='select2-selection__rendered' title={option ? option.label : ''}>{label}</span>,
-        <span key='arrow' className='select2-selection__arrow' role='presentation'>
-          <b role='presentation'></b>
-        </span>
-      ]
-    }
-    return (
-      <div className={this.containerStyle}>
-        <div className='selection'
-          onClick={() => this.toggleOpenAndClose()}>
-          <div className={this.selectionStyle} role='combobox'>
-            {selection}
-          </div>
-        </div>
-        <div className={this.dropdownStyle}>
-          <div className='select2-dropdown select2-dropdown--below'>
-            <div className={this.searchStyle}>
-              <input value={this.searchText}
-                onChange={this.onChange}
-                onKeyDown={e => this.keyDown(e)}
-                onBlur={() => this.focusout()}
-                className='select2-search__field'
-                type='search'
-                role='textbox'
-                autoComplete='off'
-                autoCorrect='off'
-                autoCapitalize='off'
-                spellCheck={false} />
-            </div>
-            <div className='select2-results'>
-              <ul className='select2-results__options'
-                role='tree'
-                tabIndex={-1}
-                onKeyDown={e => this.keyDown(e)}
-                onBlur={() => this.focusout()}>
-                {results}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
   }
 
-  private getFilteredData (canSetState: boolean) {
+  private getFilteredData(canSetState: boolean) {
     const result = this.props.customSearchEnabled
       ? this.props.data
       : common.getFilteredData(this.props.data, this.searchText)
@@ -205,16 +212,16 @@ export class Select2 extends React.PureComponent<{
     }
     return result
   }
-  private getOptionStyle (value: common.Select2Value) {
+  private getOptionStyle(value: common.Select2Value) {
     return common.getOptionStyle(value, this.hoveringValue)
   }
-  private mouseenter (option: common.Select2Option) {
+  private mouseenter(option: common.Select2Option) {
     if (!option.disabled) {
       this.hoveringValue = option.value
       this.setState({ hoveringValue: this.hoveringValue })
     }
   }
-  private click (option: common.Select2Option) {
+  private click(option: common.Select2Option) {
     if (!option.disabled) {
       this.select(option)
     }
@@ -222,7 +229,7 @@ export class Select2 extends React.PureComponent<{
       clearTimeout(this.focusoutTimer)
     }
   }
-  private toggleOpenAndClose () {
+  private toggleOpenAndClose() {
     if (this.props.disabled) {
       return
     }
@@ -231,15 +238,7 @@ export class Select2 extends React.PureComponent<{
     if (this.isOpen) {
       this.innerSearchText = ''
       this.setState({ searchText: this.searchText }, () => {
-        if (!this.isSearchboxHidden) {
-          if (this.searchInputElement) {
-            this.searchInputElement.focus()
-          }
-        } else {
-          if (this.resultsElement) {
-            this.resultsElement.focus()
-          }
-        }
+        this.focusSearchboxOrResultsElement()
 
         if (this.resultsElement) {
           const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.resultsElement, this.props.data, this.lastScrollTopIndex)
@@ -256,14 +255,14 @@ export class Select2 extends React.PureComponent<{
       clearTimeout(this.focusoutTimer)
     }
   }
-  private focusout () {
+  private focusout() {
     this.focusoutTimer = setTimeout(() => {
       this.isOpen = false
       this.setState({ isOpen: this.isOpen })
       this.focusoutTimer = undefined
     }, common.timeout)
   }
-  private moveUp () {
+  private moveUp() {
     this.hoveringValue = common.getPreviousOption(this.getFilteredData(true), this.hoveringValue)
     this.setState({ hoveringValue: this.hoveringValue })
 
@@ -275,7 +274,7 @@ export class Select2 extends React.PureComponent<{
       }
     }
   }
-  private moveDown () {
+  private moveDown() {
     this.hoveringValue = common.getNextOption(this.getFilteredData(true), this.hoveringValue)
     this.setState({ hoveringValue: this.hoveringValue })
 
@@ -287,23 +286,17 @@ export class Select2 extends React.PureComponent<{
       }
     }
   }
-  private selectByEnter () {
+  private selectByEnter() {
     if (this.hoveringValue) {
       const option = common.getOptionByValue(this.props.data, this.hoveringValue)
       this.select(option)
     }
   }
-  private select (option: common.Select2Option | null) {
+  private select(option: common.Select2Option | null) {
     if (option !== null) {
       if (this.props.multiple) {
         const options = this.option as common.Select2Option[]
-        let index = -1
-        for (let i = 0; i < options.length; i++) {
-          if (options[i].value === option.value) {
-            index = i
-            break
-          }
-        }
+        const index = options.findIndex(op => op.value === option.value)
         if (index === -1) {
           options.push(option)
         } else {
@@ -327,7 +320,7 @@ export class Select2 extends React.PureComponent<{
     }
   }
 
-  private keyDown (e: React.KeyboardEvent<HTMLInputElement> | React.KeyboardEvent<HTMLUListElement>) {
+  private keyDown(e: React.KeyboardEvent<HTMLInputElement> | React.KeyboardEvent<HTMLUListElement>) {
     if (e.keyCode === 40) {
       this.moveDown()
       e.preventDefault()
@@ -345,14 +338,25 @@ export class Select2 extends React.PureComponent<{
     this.setState({ searchText: this.searchText })
   }
 
-  private isSelected (option: common.Select2Option) {
+  private isSelected(option: common.Select2Option) {
     return common.isSelected(this.option, option, this.props.multiple)
   }
-  private isDisabled (option: common.Select2Option) {
+  private isDisabled(option: common.Select2Option) {
     return option.disabled ? 'true' : 'false'
   }
+  private focusSearchboxOrResultsElement() {
+    if (!this.isSearchboxHidden) {
+      if (this.searchInputElement) {
+        this.searchInputElement.focus()
+      }
+    } else {
+      if (this.resultsElement) {
+        this.resultsElement.focus()
+      }
+    }
+  }
 
-  private removeSelection (e: React.MouseEvent<HTMLSpanElement>, option: common.Select2Option) {
+  private removeSelection(e: React.MouseEvent<HTMLSpanElement>, option: common.Select2Option) {
     common.removeSelection(this.option, option)
     if (this.props.update) {
       this.props.update((this.option as common.Select2Option[]).map(op => op.value))
@@ -363,15 +367,7 @@ export class Select2 extends React.PureComponent<{
 
     if (this.isOpen) {
       this.setState({ option: this.option }, () => {
-        if (!this.isSearchboxHidden) {
-          if (this.searchInputElement) {
-            this.searchInputElement.focus()
-          }
-        } else {
-          if (this.resultsElement) {
-            this.resultsElement.focus()
-          }
-        }
+        this.focusSearchboxOrResultsElement()
       })
     }
 
