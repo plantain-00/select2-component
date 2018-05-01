@@ -109,57 +109,57 @@ export class MainComponent {
   value11 = 'CA'
   value12 = true
 
-  constructor (private fb: FormBuilder) {
+  constructor(private fb: FormBuilder) {
     this.ctrlForm = this.fb.group({
       test10: new FormControl(null, Validators.required)
     })
   }
 
-  update1 (value: string) {
+  update1(value: string) {
     this.value1 = value
   }
-  update2 (value: string) {
+  update2(value: string) {
     this.value2 = value
   }
-  update3 (value: string) {
+  update3(value: string) {
     this.value3 = value
   }
-  update5 (value: string) {
+  update5(value: string) {
     this.value5 = value
   }
-  update6 (value: string) {
+  update6(value: string) {
     this.value6 = value
   }
-  open7 () {
+  open7() {
     this.data7 = JSON.parse(JSON.stringify(data2))
   }
-  update7 (value: string) {
+  update7(value: string) {
     this.value7 = value
   }
-  search7 (text: string) {
+  search7(text: string) {
     this.data7 = text
-            ? (JSON.parse(JSON.stringify(data2)) as Select2Option[]).filter(option => option.label.toLowerCase().indexOf(text.toLowerCase()) > -1)
-            : JSON.parse(JSON.stringify(data2))
+      ? (JSON.parse(JSON.stringify(data2)) as Select2Option[]).filter(option => option.label.toLowerCase().indexOf(text.toLowerCase()) > -1)
+      : JSON.parse(JSON.stringify(data2))
   }
-  update9 (value: string[]) {
+  update9(value: string[]) {
     this.value9 = value
   }
-  reset10 () {
+  reset10() {
     const test10 = this.ctrlForm.get('test10')
     if (test10) {
       test10.reset()
     }
   }
-  change10 () {
+  change10() {
     const test10 = this.ctrlForm.get('test10')
     if (test10) {
       test10.setValue('UT')
     }
   }
-  update11 (value: string) {
+  update11(value: string) {
     this.value11 = value
   }
-  update12 (value: boolean) {
+  update12(value: boolean) {
     this.value12 = value
   }
 }

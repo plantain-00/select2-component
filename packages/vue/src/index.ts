@@ -29,24 +29,24 @@ export class Select2 extends Vue {
   private searchInputElement!: HTMLElement
   private resultsElement!: HTMLElement
 
-  get searchText () {
+  get searchText() {
     return this.innerSearchText
   }
-  set searchText (text: string) {
+  set searchText(text: string) {
     if (this.customSearchEnabled) {
       this.$emit('search', text)
     }
     this.innerSearchText = text
   }
 
-  get dropdownStyle () {
+  get dropdownStyle() {
     return common.getDropdownStyle(this.isOpen)
   }
 
-  get filteredData () {
+  get filteredData() {
     const result = this.customSearchEnabled
-            ? this.data
-            : common.getFilteredData(this.data, this.searchText)
+      ? this.data
+      : common.getFilteredData(this.data, this.searchText)
 
     if (common.valueIsNotInFilteredData(result, this.hoveringValue)) {
       this.hoveringValue = common.getFirstAvailableOption(result)
@@ -61,15 +61,15 @@ export class Select2 extends Vue {
     return result
   }
 
-  get containerStyle () {
+  get containerStyle() {
     return common.getContainerStyle(this.disabled, this.isOpen)
   }
 
-  get selectionStyle () {
+  get selectionStyle() {
     return common.getSelectionStyle(this.multiple)
   }
 
-  beforeMount () {
+  beforeMount() {
     const option = common.getOptionsByValue(this.data, this.value, this.multiple)
     if (option !== null) {
       this.option = option
@@ -78,25 +78,25 @@ export class Select2 extends Vue {
       this.hoveringValue = this.value as string | undefined
     }
     this.isSearchboxHidden = this.customSearchEnabled
-            ? false
-            : common.isSearchboxHiddex(this.data, this.minCountForSearch)
+      ? false
+      : common.isSearchboxHiddex(this.data, this.minCountForSearch)
     this.searchStyle = common.getSearchStyle(this.isSearchboxHidden)
   }
 
-  mounted () {
+  mounted() {
     this.searchInputElement = this.$refs.searchInput as HTMLElement
     this.resultsElement = this.$refs.results as HTMLElement
   }
 
-  getOptionStyle (value: string) {
+  getOptionStyle(value: string) {
     return common.getOptionStyle(value, this.hoveringValue)
   }
-  mouseenter (option: common.Select2Option) {
+  mouseenter(option: common.Select2Option) {
     if (!option.disabled) {
       this.hoveringValue = option.value
     }
   }
-  click (option: common.Select2Option) {
+  click(option: common.Select2Option) {
     if (!option.disabled) {
       this.select(option)
     }
@@ -104,7 +104,7 @@ export class Select2 extends Vue {
       clearTimeout(this.focusoutTimer)
     }
   }
-  toggleOpenAndClose () {
+  toggleOpenAndClose() {
     if (this.disabled) {
       return
     }
@@ -112,15 +112,7 @@ export class Select2 extends Vue {
     if (this.isOpen) {
       this.innerSearchText = ''
       Vue.nextTick(() => {
-        if (!this.isSearchboxHidden) {
-          if (this.searchInputElement) {
-            this.searchInputElement.focus()
-          }
-        } else {
-          if (this.resultsElement) {
-            this.resultsElement.focus()
-          }
-        }
+        this.focusSearchboxOrResultsElement()
 
         if (this.resultsElement) {
           const lastScrollTopIndex = common.getLastScrollTopIndex(this.hoveringValue, this.resultsElement, this.data, this.lastScrollTopIndex)
@@ -135,23 +127,17 @@ export class Select2 extends Vue {
       clearTimeout(this.focusoutTimer)
     }
   }
-  focusout () {
+  focusout() {
     this.focusoutTimer = setTimeout(() => {
       this.isOpen = false
       this.focusoutTimer = undefined
     }, common.timeout)
   }
-  select (option: common.Select2Option | null) {
+  select(option: common.Select2Option | null) {
     if (option !== null) {
       if (this.multiple) {
         const options = this.option as common.Select2Option[]
-        let index = -1
-        for (let i = 0; i < options.length; i++) {
-          if (options[i].value === option.value) {
-            index = i
-            break
-          }
-        }
+        const index = options.findIndex(op => op.value === option.value)
         if (index === -1) {
           options.push(option)
         } else {
@@ -166,7 +152,7 @@ export class Select2 extends Vue {
     this.$emit('update', this.multiple ? (this.option as common.Select2Option[]).map(op => op.value) : (this.option as common.Select2Option).value)
   }
 
-  keyDown (e: KeyboardEvent) {
+  keyDown(e: KeyboardEvent) {
     if (e.keyCode === 40) {
       this.moveDown()
       e.preventDefault()
@@ -178,13 +164,13 @@ export class Select2 extends Vue {
       e.preventDefault()
     }
   }
-  isSelected (option: common.Select2Option) {
+  isSelected(option: common.Select2Option) {
     return common.isSelected(this.option, option, this.multiple)
   }
-  isDisabled (option: common.Select2Option) {
+  isDisabled(option: common.Select2Option) {
     return option.disabled ? 'true' : 'false'
   }
-  removeSelection (e: MouseEvent, option: common.Select2Option) {
+  removeSelection(e: MouseEvent, option: common.Select2Option) {
     common.removeSelection(this.option, option)
     this.$emit('update', (this.option as common.Select2Option[]).map(op => op.value))
 
@@ -193,15 +179,7 @@ export class Select2 extends Vue {
 
     if (this.isOpen) {
       Vue.nextTick(() => {
-        if (!this.isSearchboxHidden) {
-          if (this.searchInputElement) {
-            this.searchInputElement.focus()
-          }
-        } else {
-          if (this.resultsElement) {
-            this.resultsElement.focus()
-          }
-        }
+        this.focusSearchboxOrResultsElement()
       })
     }
 
@@ -209,7 +187,18 @@ export class Select2 extends Vue {
       clearTimeout(this.focusoutTimer)
     }
   }
-  private moveUp () {
+  private focusSearchboxOrResultsElement() {
+    if (!this.isSearchboxHidden) {
+      if (this.searchInputElement) {
+        this.searchInputElement.focus()
+      }
+    } else {
+      if (this.resultsElement) {
+        this.resultsElement.focus()
+      }
+    }
+  }
+  private moveUp() {
     this.hoveringValue = common.getPreviousOption(this.filteredData, this.hoveringValue)
 
     if (this.resultsElement) {
@@ -219,7 +208,7 @@ export class Select2 extends Vue {
       }
     }
   }
-  private moveDown () {
+  private moveDown() {
     this.hoveringValue = common.getNextOption(this.filteredData, this.hoveringValue)
 
     if (this.resultsElement) {
@@ -229,7 +218,7 @@ export class Select2 extends Vue {
       }
     }
   }
-  private selectByEnter () {
+  private selectByEnter() {
     if (this.hoveringValue) {
       const option = common.getOptionByValue(this.data, this.hoveringValue)
       this.select(option)

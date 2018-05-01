@@ -40,7 +40,7 @@ class Main extends React.Component<{}, {}> {
   private value9: string[] = []
   private value12 = true
 
-  render () {
+  render() {
     return (
       <div style={{ width: '500px' }}>
         <a href='https://github.com/plantain-00/select2-component/tree/master/packages/react/demo' target='_blank'>the source code of the demo</a>
@@ -102,49 +102,49 @@ class Main extends React.Component<{}, {}> {
     )
   }
 
-  private update1 (value: Select2UpdateValue) {
+  private update1(value: Select2UpdateValue) {
     this.value1 = value as string
     this.setState({ value1: this.value1 })
   }
-  private update2 (value: Select2UpdateValue) {
+  private update2(value: Select2UpdateValue) {
     this.value2 = value as string
     this.setState({ value2: this.value2 })
   }
-  private update3 (value: Select2UpdateValue) {
+  private update3(value: Select2UpdateValue) {
     this.value3 = value as string
     this.setState({ value3: this.value3 })
   }
-  private update5 (value: Select2UpdateValue) {
+  private update5(value: Select2UpdateValue) {
     this.value5 = value as string
     this.setState({ value5: this.value5 })
   }
-  private update6 (value: Select2UpdateValue) {
+  private update6(value: Select2UpdateValue) {
     this.value6 = value as string
     this.setState({ value6: this.value6 })
   }
-  private open7 () {
+  private open7() {
     this.data7 = JSON.parse(JSON.stringify(data2))
     this.setState({ data7: this.data7 })
   }
-  private update7 (value: Select2UpdateValue) {
+  private update7(value: Select2UpdateValue) {
     this.value7 = value as string
     this.setState({ value7: this.value7 })
   }
-  private search7 (text: string) {
+  private search7(text: string) {
     this.data7 = text
       ? (JSON.parse(JSON.stringify(data2)) as Select2Option[]).filter(option => option.label.toLowerCase().indexOf(text.toLowerCase()) > -1)
       : JSON.parse(JSON.stringify(data2))
     this.setState({ data7: this.data7 })
   }
-  private update8 (value: Select2UpdateValue) {
+  private update8(value: Select2UpdateValue) {
     this.value8 = value as string
     this.setState({ value8: this.value8 })
   }
-  private update9 (value: Select2UpdateValue) {
+  private update9(value: Select2UpdateValue) {
     this.value9 = value as string[]
     this.setState({ value9: this.value9 })
   }
-  private update12 (value: Select2UpdateValue) {
+  private update12(value: Select2UpdateValue) {
     this.value12 = value as boolean
     this.setState({ value12: this.value12 })
   }

@@ -20,7 +20,7 @@ import { MainComponent } from './main.component'
   bootstrap: [MainComponent]
 })
 export class MainModule {
-  constructor (
-        public appRef: ApplicationRef
-    ) { }
+  constructor(
+    public appRef: ApplicationRef
+  ) { }
 }
