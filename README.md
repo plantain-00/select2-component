@@ -36,6 +36,8 @@ A vuejs, reactjs and angular select component.
 
 ## vuejs component
 
+[![gzip size](https://img.badgesize.io/https://unpkg.com/select2-vue-component?compression=gzip)](https://unpkg.com/select2-vue-component)
+
 `npm i select2-vue-component`
 
 ```ts
@@ -60,6 +62,8 @@ or
 the online demo: <https://plantain-00.github.io/select2-component/packages/vue/demo>
 
 ## reactjs component
+
+[![gzip size](https://img.badgesize.io/https://unpkg.com/select2-react-component?compression=gzip)](https://unpkg.com/select2-react-component)
 
 `npm i select2-react-component`
 
