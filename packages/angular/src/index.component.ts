@@ -6,7 +6,7 @@ import {
   FormGroupDirective, NgControl, NgForm, ControlValueAccessor
 } from '@angular/forms'
 
-import { Subject } from 'rxjs/Subject'
+import { Subject } from 'rxjs'
 
 import * as common from 'select2-component'
 export * from 'select2-component'
