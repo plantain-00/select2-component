@@ -20,7 +20,7 @@ export class Select2 extends Vue {
 
   option: common.Select2Option | common.Select2Option[] | null = null
   searchStyle!: string
-  private hoveringValue: common.Select2Value | null | undefined = null
+  private hoveringValue?: common.Select2Value | null = null
   private isOpen = false
   private focusoutTimer?: NodeJS.Timer
   private innerSearchText = ''

@@ -187,19 +187,15 @@ export function getPreviousOption(filteredData: Select2Data, hoveringValue: Sele
     if (options) {
       for (let j = options.length - 1; j >= 0; j--) {
         const option = options[j]
-        if (findIt) {
-          if (!option.disabled) {
-            return option.value
-          }
+        if (findIt && !option.disabled) {
+          return option.value
         }
         findIt = option.value === hoveringValue
       }
     } else {
       const option = groupOrOption as Select2Option
-      if (findIt) {
-        if (!option.disabled) {
-          return option.value
-        }
+      if (findIt && !option.disabled) {
+        return option.value
       }
       findIt = option.value === hoveringValue
     }

@@ -18,7 +18,7 @@ export class Select2 extends React.PureComponent<{
   open?: () => void;
   search?: (text: string) => void;
 }, {}> {
-  private hoveringValue: common.Select2Value | null | undefined = null
+  private hoveringValue?: common.Select2Value | null = null
   private option: common.Select2Option | common.Select2Option[] | null = null
   private isOpen = false
   private focusoutTimer?: NodeJS.Timer
