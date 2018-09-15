@@ -23,7 +23,7 @@
   "dependencies": {
     "@types/node": "*",
     "react": "16",
-    "react-dom": "15",
+    "react-dom": "16",
     "select2-component": "^5.4.0"
   },
   "devDependencies": {
