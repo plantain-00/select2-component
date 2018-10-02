@@ -69,8 +69,9 @@ export class Select2 extends React.PureComponent<{
   }
 
   componentDidMount() {
-    this.searchInputElement = ReactDOM.findDOMNode(this as any)!.childNodes[1].childNodes[0].childNodes[0].childNodes[0] as HTMLElement
-    this.resultsElement = ReactDOM.findDOMNode(this as any)!.childNodes[1].childNodes[0].childNodes[1].childNodes[0] as HTMLElement
+    const theElement = ReactDOM.findDOMNode(this as any) as HTMLElement
+    this.searchInputElement = theElement.childNodes[1].childNodes[0].childNodes[0].childNodes[0] as HTMLElement
+    this.resultsElement = theElement.childNodes[1].childNodes[0].childNodes[1].childNodes[0] as HTMLElement
   }
 
   render() {
