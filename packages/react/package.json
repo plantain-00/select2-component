@@ -27,7 +27,7 @@
     "select2-component": "^5.4.0"
   },
   "devDependencies": {
-    "@types/react": "16.4.16",
+    "@types/react": "16.4.18",
     "@types/react-dom": "16.0.9"
   },
   "peerDependencies": {
