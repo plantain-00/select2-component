@@ -6,7 +6,7 @@ export default {
   input: 'packages/react/dist/index.js',
   name: 'Select2',
   plugins: [
-    resolve(),
+    resolve({ browser: true }),
     uglify(),
     commonjs()
   ],
