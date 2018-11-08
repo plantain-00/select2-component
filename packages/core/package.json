@@ -1,6 +1,6 @@
 {
   "name": "select2-component",
-  "version": "5.5.0",
+  "version": "5.5.1",
   "description": "A vuejs, reactjs and angular select component core.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -18,10 +18,6 @@
     "dist"
   ],
   "dependencies": {
-    "@types/node": "*",
-    "tslib": "1"
-  },
-  "peerDependencies": {
     "@types/node": "*",
     "tslib": "1"
   }
