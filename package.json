@@ -21,6 +21,9 @@
   "bugs": {
     "url": "https://github.com/plantain-00/select2-component/issues"
   },
+  "typeCoverage": {
+    "atLeast": 89
+  },
   "homepage": "https://github.com/plantain-00/select2-component#readme",
   "devDependencies": {
     "@angular/compiler": "7.0.3",
