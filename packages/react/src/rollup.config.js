@@ -4,13 +4,13 @@ import commonjs from 'rollup-plugin-commonjs'
 
 export default {
   input: 'packages/react/dist/index.js',
-  name: 'Select2',
   plugins: [
     resolve({ browser: true }),
     uglify(),
     commonjs()
   ],
   output: {
+    name: 'Select2',
     file: 'packages/react/dist/select2-react-component.min.js',
     format: 'umd'
   },
