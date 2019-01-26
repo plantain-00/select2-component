@@ -329,12 +329,12 @@ export function getDropdownStyle(isOpen: boolean) {
     : 'select2-container select2-container--default select2-container-dropdown'
 }
 
-export function getContainerStyle(disabled: boolean | undefined, isOpen: boolean) {
+export function getContainerStyle(disabled: boolean | undefined = undefined, isOpen: boolean) {
   return `select2 select2-container select2-container--default ${disabled ? 'select2-container--disabled' : ''} `
     + `${isOpen ? 'select2-container--open' : ''} select2-container--below select2-container--focus`
 }
 
-export function getSelectionStyle(multiple: boolean | undefined) {
+export function getSelectionStyle(multiple: boolean | undefined = undefined) {
   return `select2-selection select2-selection--${multiple ? 'multiple' : 'single'}`
 }
 
