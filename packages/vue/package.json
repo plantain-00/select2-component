@@ -24,6 +24,6 @@
     "@types/node": "*",
     "select2-component": "^5.5.1",
     "vue": "2",
-    "vue-class-component": "6"
+    "vue-class-component": "7"
   }
 }
