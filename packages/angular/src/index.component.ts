@@ -50,9 +50,9 @@ export class Select2 implements ControlValueAccessor {
   option: common.Select2Option | common.Select2Option[] | null = null
   isOpen = false
   searchStyle!: string
-  @ViewChild('selection') selection!: ElementRef
-  @ViewChild('results') private results!: ElementRef
-  @ViewChild('searchInput') private searchInput!: ElementRef
+  @ViewChild('selection', { static: false }) selection!: ElementRef
+  @ViewChild('results', { static: false }) private results!: ElementRef
+  @ViewChild('searchInput', { static: false }) private searchInput!: ElementRef
   private hoveringValue?: common.Select2Value | null = null
   private innerSearchText = ''
   private lastScrollTopIndex = 0
