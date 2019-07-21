@@ -17,5 +17,5 @@ import puppeteer from 'puppeteer'
     await page.screenshot({ path: `screenshots/${type}-initial.png` })
   }
 
-  browser.close()
+  await browser.close()
 })()

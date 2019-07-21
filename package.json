@@ -58,17 +58,21 @@
     "rollup-plugin-commonjs": "10.0.1",
     "rollup-plugin-node-resolve": "5.2.0",
     "rollup-plugin-uglify": "6.0.2",
-    "standard": "13.0.2",
     "stylelint": "10.1.0",
     "stylelint-config-standard": "18.3.0",
-    "tslint": "5.18.0",
-    "tslint-config-standard": "8.0.1",
-    "tslint-sonarts": "1.9.0",
+    "@typescript-eslint/eslint-plugin": "^1.9.0",
+    "@typescript-eslint/parser": "^1.9.0",
+    "eslint-config-prettier": "6.0.0",
+    "eslint-plugin-plantain": "0.1.2",
+    "eslint": "5.16.0",
     "type-coverage": "2.1.0",
     "typescript": "3.4.5",
     "watch-then-execute": "1.1.1",
     "webpack": "4.36.1",
     "webpack-cli": "3.3.6"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "dependencies": {}
 }

@@ -1,10 +1,10 @@
-export type Select2Group = {
+export interface Select2Group {
   label: string;
   options: Select2Option[];
   classes?: string;
 }
 
-export type Select2Option = {
+export interface Select2Option {
   value: Select2Value;
   label: string;
   disabled?: boolean;
@@ -178,7 +178,6 @@ export function valueIsNotInFilteredData(filteredData: Select2Data, value: Selec
   return true
 }
 
-// tslint:disable-next-line:cognitive-complexity
 export function getPreviousOption(filteredData: Select2Data, hoveringValue: Select2Value | null | undefined) {
   let findIt = isNullOrUndefined(hoveringValue)
   for (let i = filteredData.length - 1; i >= 0; i--) {
@@ -202,7 +201,6 @@ export function getPreviousOption(filteredData: Select2Data, hoveringValue: Sele
   }
   return findIt ? hoveringValue : null
 }
-// tslint:disable-next-line:cognitive-complexity
 export function getNextOption(filteredData: Select2Data, hoveringValue: Select2Value | null | undefined) {
   let findIt = isNullOrUndefined(hoveringValue)
   for (const groupOrOption of filteredData) {
@@ -231,7 +229,7 @@ export function getNextOption(filteredData: Select2Data, hoveringValue: Select2V
   return findIt ? hoveringValue : null
 }
 
-function isNullOrUndefined(value: any) {
+function isNullOrUndefined<T>(value: T): value is (T extends null | undefined ? T : never) {
   return value === null || value === undefined
 }
 
@@ -245,7 +243,7 @@ export function getLastScrollTopIndex(
     results.scrollTop = 0
     return 0
   } else {
-    const scrollTop = getScrollUpIndex(filteredData, hoveringValue!)
+    const scrollTop = getScrollUpIndex(filteredData, hoveringValue)
     if (scrollTop - lastScrollTopIndex > 5) {
       lastScrollTopIndex += scrollTop - lastScrollTopIndex - 5
       const item = results.querySelectorAll('li').item(scrollTop)
