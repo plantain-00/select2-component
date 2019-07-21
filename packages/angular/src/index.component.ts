@@ -61,7 +61,6 @@ export class Select2 implements ControlValueAccessor {
   private searchInputElement!: HTMLElement
   private resultsElement!: HTMLElement
 
-  // tslint:disable:member-ordering
   private _stateChanges = new Subject<void>()
 
   /** Whether the element is focused or not. */
