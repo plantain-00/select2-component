@@ -4,8 +4,8 @@
   "coreDemoIndexBundleCss": "16.8 kB 2.77 kB",
   "reactDemoIndexBundleJs": "143 kB 44.6 kB",
   "vueDemoIndexBundleJs": "124 kB 43.3 kB",
-  "packagesAngularDemoAotIndexHtml": "639 B 453 B",
-  "packagesAngularDemoJitIndexHtml": "639 B 448 B",
+  "packagesAngularDemoAotIndexHtml": "639 B 452 B",
+  "packagesAngularDemoJitIndexHtml": "639 B 450 B",
   "packagesReactDemoIndexHtml": "651 B 458 B",
   "packagesVueDemoIndexHtml": "651 B 460 B"
 }
