@@ -173,7 +173,7 @@ export class Select2 implements ControlValueAccessor {
   private _clickDetection = false
   private _clickDetectionFc: (e: MouseEvent) => void
   private _id!: string
-  private _uid: string = `select2-${nextUniqueId++}`
+  private _uid = `select2-${nextUniqueId++}`
   private _value!: common.Select2UpdateValue
   private _previousNativeValue: common.Select2UpdateValue = this._value
 
