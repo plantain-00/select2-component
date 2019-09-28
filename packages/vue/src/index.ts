@@ -153,6 +153,7 @@ export class Select2 extends Vue {
   }
 
   keyDown(e: KeyboardEvent) {
+    this.$emit('keydown', e) 
     if (e.keyCode === 40) {
       this.moveDown()
       e.preventDefault()
@@ -163,6 +164,12 @@ export class Select2 extends Vue {
       this.selectByEnter()
       e.preventDefault()
     }
+  }
+  keyUp(e: KeyboardEvent) {
+    this.$emit('keyup', e) 
+  }
+  keyPress(e: KeyboardEvent) {
+    this.$emit('keypress', e) 
   }
   isSelected(option: common.Select2Option) {
     return common.isSelected(this.option, option, this.multiple)

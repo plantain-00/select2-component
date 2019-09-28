@@ -80,6 +80,7 @@ class Main extends React.Component<{}, {}> {
           customSearchEnabled={true}
           open={() => this.open7()}
           search={text => this.search7(text)}
+          keydown={(e) => this.keydown(e)}
           update={value => this.update7(value)}>
         </Select2>
         <h3>custom component ({this.value8})</h3>
@@ -147,6 +148,9 @@ class Main extends React.Component<{}, {}> {
   private update12(value: Select2UpdateValue) {
     this.value12 = value as boolean
     this.setState({ value12: this.value12 })
+  }
+  private keydown(e: React.KeyboardEvent) {
+    console.info(e.key)
   }
 }
 

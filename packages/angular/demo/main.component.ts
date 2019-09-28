@@ -46,6 +46,7 @@ import { data1, data2, data3, data5, data12 } from 'select2-component/demo/'
         customSearchEnabled="true"
         (open)="open7()"
         (search)="search7($event)"
+        (keydown)="keydown($event)"
         (update)="update7($event)">
       </select2>
       <h3>multiple ({{value9}})</h3>
@@ -161,5 +162,8 @@ export class MainComponent {
   }
   update12(value: boolean) {
     this.value12 = value
+  }
+  keydown(e: KeyboardEvent) {
+    console.info(e.key)
   }
 }

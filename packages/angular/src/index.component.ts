@@ -46,6 +46,9 @@ export class Select2 implements ControlValueAccessor {
   @Output() update = new EventEmitter()
   @Output() open = new EventEmitter()
   @Output() search = new EventEmitter()
+  @Output() keydown = new EventEmitter()
+  @Output() keyup = new EventEmitter()
+  @Output() keypress = new EventEmitter()
 
   option: common.Select2Option | common.Select2Option[] | null = null
   isOpen = false
@@ -420,6 +423,7 @@ export class Select2 implements ControlValueAccessor {
   }
 
   keyDown(e: KeyboardEvent) {
+    this.keydown.emit(e)
     if (e.keyCode === 40) {
       this.moveDown()
       e.preventDefault()
@@ -433,6 +437,10 @@ export class Select2 implements ControlValueAccessor {
       this.toggleOpenAndClose()
       this.focused = false
     }
+  }
+
+  keyPress(e: KeyboardEvent) {
+    this.keypress.emit(e)
   }
 
   openKey(e: KeyboardEvent) {
@@ -450,6 +458,7 @@ export class Select2 implements ControlValueAccessor {
   }
 
   searchUpdate(e: Event) {
+    this.keyup.emit(e)
     this.searchText = (e.target as HTMLInputElement).value
   }
 
