@@ -26,6 +26,8 @@
                 <input ref="searchInput"
                     v-model="searchText"
                     @keydown="keyDown($event)"
+                    @keyup="keyUp($event)"
+                    @keypress="keyPress($event)"
                     @focusout="focusout()"
                     class="select2-search__field"
                     type="search"

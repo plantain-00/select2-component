@@ -132,6 +132,7 @@ ngModel/id/required/disabled/readonly/tabIndex | just like a `select` control | 
 update | (value: [Select2UpdateValue](#select2-data-structure)) => void | triggered when user select an option
 open | () => void | triggered when user open the options
 search | (text: string) => void | triggered when search text changed
+keydown, keyup, keypress | (e: KeyboardEvent) => void | triggered when search input triggers keydown, keyup, keypress
 
 ## select2 data structure
 

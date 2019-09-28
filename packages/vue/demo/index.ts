@@ -67,6 +67,7 @@ for (const groupOrOption of data8) {
         custom-search-enabled="true"
         @open="open7()"
         @search="search7($event)"
+        @keydown="keydown($event)"
         @update="update7($event)">
       </select2>
       <h3>custom component ({{value8}})</h3>
@@ -145,6 +146,9 @@ class App extends Vue {
   }
   update12(value: boolean) {
     this.value12 = value
+  }
+  keydown(e: KeyboardEvent) {
+    console.info(e.key)
   }
 }
 

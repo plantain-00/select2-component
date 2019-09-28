@@ -17,6 +17,9 @@ export class Select2 extends React.PureComponent<{
   update?: (value: common.Select2UpdateValue) => void;
   open?: () => void;
   search?: (text: string) => void;
+  keydown?: (e: React.KeyboardEvent) => void;
+  keyup?: (e: React.KeyboardEvent) => void;
+  keypress?: (e: React.KeyboardEvent) => void;
 }, {}> {
   private hoveringValue?: common.Select2Value | null = null
   private option: common.Select2Option | common.Select2Option[] | null = null
@@ -91,6 +94,8 @@ export class Select2 extends React.PureComponent<{
               <input value={this.searchText}
                 onChange={this.onChange}
                 onKeyDown={e => this.keyDown(e)}
+                onKeyUp={e => this.keyUp(e)}
+                onKeyPress={e => this.keyPress(e)}
                 onBlur={() => this.focusout()}
                 className='select2-search__field'
                 type='search'
@@ -322,6 +327,9 @@ export class Select2 extends React.PureComponent<{
   }
 
   private keyDown(e: React.KeyboardEvent<HTMLInputElement> | React.KeyboardEvent<HTMLUListElement>) {
+    if (this.props.keydown) {
+      this.props.keydown(e)
+    }
     if (e.keyCode === 40) {
       this.moveDown()
       e.preventDefault()
@@ -331,6 +339,18 @@ export class Select2 extends React.PureComponent<{
     } else if (e.keyCode === 13) {
       this.selectByEnter()
       e.preventDefault()
+    }
+  }
+
+  private keyUp(e: React.KeyboardEvent<HTMLInputElement> | React.KeyboardEvent<HTMLUListElement>) {
+    if (this.props.keyup) {
+      this.props.keyup(e)
+    }
+  }
+
+  private keyPress(e: React.KeyboardEvent<HTMLInputElement> | React.KeyboardEvent<HTMLUListElement>) {
+    if (this.props.keypress) {
+      this.props.keypress(e)
     }
   }
 
