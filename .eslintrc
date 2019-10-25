@@ -20,6 +20,7 @@
     "no-case-declarations": "off",
     "no-useless-escape": "off",
     "no-console": "off",
+    "no-self-assign": "off",
     "plantain/promise-not-await": "error"
   },
   "env": {
