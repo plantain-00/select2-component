@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { Select2, Select2Option, Select2Data, Select2Group, Select2UpdateValue } from '../dist/'
+import { Select2, Select2Option, Select2Data, Select2Group, Select2UpdateValue, AutoComplete } from '../dist/'
 import { data1, data2, data3, data5, data12 } from 'select2-component/demo/'
 
 const CustomOption: React.StatelessComponent<{ option: Select2Option }> = props => <span>{props.option.label}<span style={{ float: 'right', color: 'red' }}>{props.option.value}</span></span>
@@ -28,6 +28,24 @@ class Main extends React.Component<{}, {}> {
   private data8 = data8
   private data9: Select2Data = JSON.parse(JSON.stringify(data1))
   private data12 = data12
+  private get data13(): Select2Data {
+    return this.value13
+      ? [
+        {
+          value: this.value13,
+          label: this.value13,
+        },
+        {
+          value: this.value13 + this.value13,
+          label: this.value13 + this.value13,
+        },
+        {
+          value: this.value13 + this.value13 + this.value13,
+          label: this.value13 + this.value13 + this.value13,
+        },
+      ]
+      : []
+  }
 
   private value1 = 'CA'
   private value2 = 'CA'
@@ -39,6 +57,7 @@ class Main extends React.Component<{}, {}> {
   private value8 = 'CA'
   private value9: string[] = []
   private value12 = true
+  private value13 = ''
 
   render() {
     return (
@@ -99,6 +118,12 @@ class Main extends React.Component<{}, {}> {
           value={this.value12}
           update={value => this.update12(value)}>
         </Select2>
+        <h3>auto complete ({this.value13})</h3>
+        <AutoComplete data={this.data13}
+          value={this.value13}
+          search={value => this.update13(value)}
+          select={value => this.update13(value)}>
+        </AutoComplete>
       </div>
     )
   }
@@ -151,6 +176,10 @@ class Main extends React.Component<{}, {}> {
   }
   private keydown(e: React.KeyboardEvent) {
     console.info(e.key)
+  }
+  private update13(value: Select2UpdateValue) {
+    this.value13 = value as string
+    this.setState({ value13: this.value13 })
   }
 }
 
