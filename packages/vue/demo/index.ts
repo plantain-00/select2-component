@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import '../dist/'
-import { Select2Option, Select2Data, Select2Group } from '../dist/'
+import { Select2Option, Select2Data, Select2Group, AutoComplete } from '../dist/'
 import { data1, data2, data3, data5, data12 } from 'select2-component/demo/'
 
 const customOptionComponentName = 'custom-option'
@@ -14,6 +14,8 @@ class CustomOption extends Vue {
   option!: Select2Option
 }
 Vue.component(customOptionComponentName, CustomOption)
+
+Vue.component('auto-complete', AutoComplete)
 
 const data8: Select2Data = JSON.parse(JSON.stringify(data1))
 for (const groupOrOption of data8) {
@@ -86,6 +88,12 @@ for (const groupOrOption of data8) {
         :value="value12"
         @update="update12($event)">
       </select2>
+      <h3>auto complete ({{value13}})</h3>
+      <auto-complete :data="data13"
+        :value="value13"
+        @search="update13($event)"
+        @select="update13($event)">
+      </auto-complete>
     </div>
     `
 })
@@ -100,6 +108,24 @@ class App extends Vue {
   data8 = data8
   data9: Select2Data = JSON.parse(JSON.stringify(data1))
   data12 = data12
+  get data13(): Select2Data {
+    return this.value13
+      ? [
+        {
+          value: this.value13,
+          label: this.value13,
+        },
+        {
+          value: this.value13 + this.value13,
+          label: this.value13 + this.value13,
+        },
+        {
+          value: this.value13 + this.value13 + this.value13,
+          label: this.value13 + this.value13 + this.value13,
+        },
+      ]
+      : []
+  }
 
   value1 = 'CA'
   value2 = 'CA'
@@ -111,6 +137,8 @@ class App extends Vue {
   value8 = 'CA'
   value9: string[] = []
   value12 = true
+  value13 = ''
+  
 
   update1(value: string) {
     this.value1 = value
@@ -149,6 +177,9 @@ class App extends Vue {
   }
   keydown(e: KeyboardEvent) {
     console.info(e.key)
+  }
+  update13(value: string) {
+    this.value13 = value
   }
 }
 

@@ -234,10 +234,10 @@ export class AutoComplete extends React.PureComponent<{
     if (option !== null) {
       this.option = option
       this.isOpen = false
-        this.setState({
-          option: this.option,
-          isOpen: this.isOpen
-        })
+      this.setState({
+        option: this.option,
+        isOpen: this.isOpen
+      })
     }
 
     if (this.props.select) {

@@ -158,6 +158,54 @@ type Select2Value = string | number | boolean;
 type Select2UpdateValue = Select2Value | Select2Value[];
 ```
 
+## auto complete
+
+### vuejs auto complete component
+
+`npm i select2-vue-component`
+
+```ts
+import Vue from "vue";
+import { AutoComplete } "select2-vue-component";
+
+Vue.component("auto-complete", AutoComplete)
+```
+
+```html
+<auto-complete :data="data"
+    :value="value"
+    @search="search($event)"
+    @select="select($event)">
+</auto-complete>
+```
+
+### reactjs auto complete component
+
+`npm i select2-react-component`
+
+```ts
+import { AutoComplete } from "select2-react-component";
+```
+
+```jsx
+<AutoComplete data={this.data}
+    value={this.value}
+    search={value => this.search(value)}
+    select={value => this.select(value)}>
+</AutoComplete>
+```
+
+### properties and events of the auto complete  component
+
+name | type | description
+--- | --- | ---
+data | [Select2Data](#select2-data-structure) | the data of the select2
+value | string | initial value
+update | (value: [Select2UpdateValue](#select2-data-structure)) => void | triggered when user change search text or select an option
+select | (value: [Select2UpdateValue](#select2-data-structure)) => void | triggered when user select an option
+search | (text: string) => void | triggered when search text changed
+keydown, keyup, keypress | (e: KeyboardEvent) => void | triggered when search input triggers keydown, keyup, keypress
+
 ## change logs
 
 ```bash
