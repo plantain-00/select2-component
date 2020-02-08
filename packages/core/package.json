@@ -1,7 +1,7 @@
 {
   "name": "select2-component",
   "version": "5.7.0",
-  "description": "A vuejs, reactjs and angular select component core.",
+  "description": "A vuejs and reactjs select component core.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": {

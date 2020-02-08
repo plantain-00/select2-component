@@ -1,7 +1,7 @@
 module.exports = {
   inputFiles: [
-    'packages/@(vue|react|angular)/demo/**/index.bundle.js',
-    'packages/@(vue|react|angular)/demo/**/index.ejs.html',
+    'packages/@(vue|react)/demo/**/index.bundle.js',
+    'packages/@(vue|react)/demo/**/index.ejs.html',
     'packages/core/demo/*.bundle.css'
   ],
   outputFiles: file => file.replace('.ejs', ''),
