@@ -8,13 +8,12 @@
 [![Downloads](https://img.shields.io/npm/dm/select2-component.svg)](https://www.npmjs.com/package/select2-component)
 [![type-coverage](https://img.shields.io/badge/dynamic/json.svg?label=type-coverage&prefix=%E2%89%A5&suffix=%&query=$.typeCoverage.atLeast&uri=https%3A%2F%2Fraw.githubusercontent.com%2Fplantain-00%2Fselect2-component%2Fmaster%2Fpackage.json)](https://github.com/plantain-00/select2-component)
 
-A vuejs, reactjs and angular select component.
+A vuejs and reactjs select component.
 
 ## features
 
 + vuejs component
 + reactjs component
-+ angular component
 + select one
 + options or groups
 + scroll
@@ -26,8 +25,6 @@ A vuejs, reactjs and angular select component.
 + placeholder
 + custom component(vuejs and reactjs only)
 + multiple selection
-+ material style(angular only)
-+ form binding(angular only)
 
 ## link css
 
@@ -89,32 +86,6 @@ or
 
 the online demo: <https://plantain-00.github.io/select2-component/packages/react/demo>
 
-## angular component
-
-`npm i select2-angular-component`
-
-```ts
-import { Select2Module } from "select2-angular-component";
-
-@NgModule({
-    imports: [BrowserModule, FormsModule, Select2Module],
-    declarations: [MainComponent],
-    bootstrap: [MainComponent],
-})
-class MainModule { }
-```
-
-```html
-<select2 [data]="data"
-    [value]="value"
-    (update)="update($event)">
-</select2>
-```
-
-the online demo: <https://plantain-00.github.io/select2-component/packages/angular/demo/jit>
-
-the AOT online demo: <https://plantain-00.github.io/select2-component/packages/angular/demo/aot>
-
 ## properties and events of the component
 
 name | type | description
@@ -126,9 +97,6 @@ minCountForSearch | number? = 6 | hide search box if `options.length < minCountF
 placeholder | string? | the placeholder string if nothing selected
 customSearchEnabled | boolean? | will trigger `search` event, and disable inside filter
 multiple | boolean? | select multiple options
-material | `""` or `true` | enable material style(angular only)
-editPattern | (str: string) => string | use it for change the pattern of the filter search(angular only)
-ngModel/id/required/disabled/readonly/tabIndex | just like a `select` control | (angular only)
 update | (value: [Select2UpdateValue](#select2-data-structure)) => void | triggered when user select an option
 open | () => void | triggered when user open the options
 search | (text: string) => void | triggered when search text changed
