@@ -2,7 +2,7 @@
   "name": "select2-react-component",
   "version": "5.8.0",
   "description": "A reactjs select component.",
-  "main": "dist/index.js",
+  "main": "dist/select2-react-component.min.js",
   "module": "dist/index.js",
   "unpkg": "dist/select2-react-component.min.js",
   "jsdelivr": "dist/select2-react-component.min.js",
