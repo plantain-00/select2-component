@@ -19,13 +19,11 @@ export class Select2 extends Vue {
   multiple?: boolean
 
   option: common.Select2Option | common.Select2Option[] | null = null
-  searchStyle!: string
   private hoveringValue?: common.Select2Value | null = null
   private isOpen = false
   private focusoutTimer?: NodeJS.Timer
   private innerSearchText = ''
   private lastScrollTopIndex = 0
-  private isSearchboxHidden!: boolean
   private searchInputElement!: HTMLElement
   private resultsElement!: HTMLElement
 
@@ -69,6 +67,16 @@ export class Select2 extends Vue {
     return common.getSelectionStyle(this.multiple)
   }
 
+  private get isSearchboxHidden() {
+    return this.customSearchEnabled
+      ? false
+      : common.isSearchboxHiddex(this.data, this.minCountForSearch)
+  }
+
+  private get searchStyle() {
+    return common.getSearchStyle(this.isSearchboxHidden)
+  }
+
   beforeMount() {
     const option = common.getOptionsByValue(this.data, this.value, this.multiple)
     if (option !== null) {
@@ -77,10 +85,6 @@ export class Select2 extends Vue {
     if (!Array.isArray(option)) {
       this.hoveringValue = this.value as string | undefined
     }
-    this.isSearchboxHidden = this.customSearchEnabled
-      ? false
-      : common.isSearchboxHiddex(this.data, this.minCountForSearch)
-    this.searchStyle = common.getSearchStyle(this.isSearchboxHidden)
   }
 
   mounted() {
@@ -229,6 +233,11 @@ export class Select2 extends Vue {
     if (this.hoveringValue) {
       const option = common.getOptionByValue(this.data, this.hoveringValue)
       this.select(option)
+    }
+  }
+  cancelFocusoutTimer() {
+    if (this.focusoutTimer) {
+      clearTimeout(this.focusoutTimer)
     }
   }
 }

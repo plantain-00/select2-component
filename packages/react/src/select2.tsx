@@ -27,8 +27,6 @@ export class Select2 extends React.PureComponent<{
   private focusoutTimer?: NodeJS.Timer
   private innerSearchText = ''
   private lastScrollTopIndex = 0
-  private isSearchboxHidden!: boolean
-  private searchStyle!: string
 
   private searchInputElement!: HTMLElement
   private resultsElement!: HTMLElement
@@ -55,7 +53,17 @@ export class Select2 extends React.PureComponent<{
     return common.getSelectionStyle(this.props.multiple)
   }
 
-  componentWillMount() {
+  private get isSearchboxHidden() {
+    return this.props.customSearchEnabled
+      ? false
+      : common.isSearchboxHiddex(this.props.data, this.props.minCountForSearch)
+  }
+
+  private get searchStyle() {
+    return common.getSearchStyle(this.isSearchboxHidden)
+  }
+
+  UNSAFE_componentWillMount() {
     const option = common.getOptionsByValue(this.props.data, this.props.value, this.props.multiple)
     if (option !== null) {
       this.option = option
@@ -65,10 +73,6 @@ export class Select2 extends React.PureComponent<{
       this.hoveringValue = this.props.value as string | undefined
     }
     this.setState({ hoveringValue: this.hoveringValue })
-    this.isSearchboxHidden = this.props.customSearchEnabled
-      ? false
-      : common.isSearchboxHiddex(this.props.data, this.props.minCountForSearch)
-    this.searchStyle = common.getSearchStyle(this.isSearchboxHidden)
   }
 
   componentDidMount() {
@@ -110,6 +114,7 @@ export class Select2 extends React.PureComponent<{
                 role='tree'
                 tabIndex={-1}
                 onKeyDown={e => this.keyDown(e)}
+                onFocus={() => this.cancelFocusoutTimer()}
                 onBlur={() => this.focusout()}>
                 {results}
               </ul>
@@ -392,6 +397,12 @@ export class Select2 extends React.PureComponent<{
       })
     }
 
+    if (this.focusoutTimer) {
+      clearTimeout(this.focusoutTimer)
+    }
+  }
+
+  private cancelFocusoutTimer() {
     if (this.focusoutTimer) {
       clearTimeout(this.focusoutTimer)
     }

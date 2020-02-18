@@ -43,6 +43,7 @@
                     role="tree"
                     tabindex="-1"
                     @keydown="keyDown($event)"
+                    @focus="cancelFocusoutTimer()"
                     @focusout="focusout()">
                     <template v-for="(groupOrOption, i) in filteredData">
                         <li v-if="groupOrOption.options"

@@ -33,7 +33,7 @@ export class AutoComplete extends React.PureComponent<{
     return common.getContainerStyle(false, this.isOpen && this.props.data.length > 0)
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const option = common.getOptionsByValue(this.props.data, this.props.value, false)
     if (option !== null) {
       this.option = option
