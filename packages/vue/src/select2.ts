@@ -92,6 +92,10 @@ export class Select2 extends Vue {
     this.resultsElement = this.$refs.results as HTMLElement
   }
 
+  beforeDestroy() {
+    this.cancelFocusoutTimer()
+  }
+
   getOptionStyle(value: string) {
     return common.getOptionStyle(value, this.hoveringValue)
   }

@@ -81,6 +81,10 @@ export class Select2 extends React.PureComponent<{
     this.resultsElement = theElement.childNodes[1].childNodes[0].childNodes[1].childNodes[0] as HTMLElement
   }
 
+  componentWillUnmount() {
+    this.cancelFocusoutTimer()
+  }
+
   render() {
     const results = this.renderResult()
     const selection = this.renderSelection()
