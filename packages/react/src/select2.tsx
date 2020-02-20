@@ -27,6 +27,7 @@ export class Select2 extends React.PureComponent<{
   private focusoutTimer?: NodeJS.Timer
   private innerSearchText = ''
   private lastScrollTopIndex = 0
+  private mounted?: boolean
 
   private searchInputElement!: HTMLElement
   private resultsElement!: HTMLElement
@@ -79,9 +80,11 @@ export class Select2 extends React.PureComponent<{
     const theElement = ReactDOM.findDOMNode(this as any) as HTMLElement
     this.searchInputElement = theElement.childNodes[1].childNodes[0].childNodes[0].childNodes[0] as HTMLElement
     this.resultsElement = theElement.childNodes[1].childNodes[0].childNodes[1].childNodes[0] as HTMLElement
+    this.mounted = true
   }
 
   componentWillUnmount() {
+    this.mounted = false
     this.cancelFocusoutTimer()
   }
 
@@ -273,7 +276,9 @@ export class Select2 extends React.PureComponent<{
   private focusout() {
     this.focusoutTimer = setTimeout(() => {
       this.isOpen = false
-      this.setState({ isOpen: this.isOpen })
+      if (this.mounted) {
+        this.setState({ isOpen: this.isOpen })
+      }
       this.focusoutTimer = undefined
     }, common.timeout)
   }
