@@ -99,7 +99,7 @@ export class AutoComplete extends React.PureComponent<{
             ? React.createElement(option.component as React.ComponentClass<{ option: common.Select2Option }>, { option })
             : option.label
           return (
-            <li className={this.getOptionStyle(option.value)}
+            <li className={this.getOptionStyle(option)}
               key={j}
               role='treeitem'
               aria-selected={this.isSelected(option)}
@@ -124,7 +124,7 @@ export class AutoComplete extends React.PureComponent<{
           ? React.createElement(option.component as React.ComponentClass<{ option: common.Select2Option }>, { option })
           : option.label
         return (
-          <li className={this.getOptionStyle(option.value)}
+          <li className={this.getOptionStyle(option)}
             key={i}
             role='treeitem'
             aria-selected={this.isSelected(option)}
@@ -159,8 +159,8 @@ export class AutoComplete extends React.PureComponent<{
     }
     return result
   }
-  private getOptionStyle(value: common.Select2Value) {
-    return common.getOptionStyle(value, this.hoveringValue)
+  private getOptionStyle(option: common.Select2Option) {
+    return common.getOptionStyle(option, this.hoveringValue)
   }
   private mouseenter(option: common.Select2Option) {
     if (!option.disabled) {

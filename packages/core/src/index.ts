@@ -315,10 +315,11 @@ export function getFilteredData(data: Select2Data, searchText: string | null, ed
   }
 }
 
-export function getOptionStyle(value: Select2Value, hoveringValue: Select2Value | null | undefined) {
-  return value === hoveringValue
-    ? 'select2-results__option select2-results__option--highlighted'
-    : 'select2-results__option'
+export function getOptionStyle(option: Select2Option, hoveringValue: Select2Value | null | undefined) {
+  const extraClasses = option.classes ? ' ' + option.classes : ''
+  return option.value === hoveringValue
+    ? 'select2-results__option select2-results__option--highlighted' + extraClasses
+    : 'select2-results__option' + extraClasses
 }
 
 export function getDropdownStyle(isOpen: boolean) {

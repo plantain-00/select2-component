@@ -53,7 +53,7 @@
                             <ul class="select2-results__options select2-results__options--nested">
                                 <li v-for="(option, j) in groupOrOption.options"
                                     :key="j"
-                                    :class="getOptionStyle(option.value)"
+                                    :class="getOptionStyle(option)"
                                     role="treeitem"
                                     :aria-selected="isSelected(option)"
                                     :aria-disabled="isDisabled(option)"
@@ -65,7 +65,7 @@
                             </ul>
                         </li>
                         <li v-else
-                            :class="getOptionStyle(groupOrOption.value)"
+                            :class="getOptionStyle(groupOrOption)"
                             role="treeitem"
                             :aria-selected="isSelected(groupOrOption)"
                             :aria-disabled="isDisabled(groupOrOption)"

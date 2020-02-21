@@ -61,8 +61,8 @@ export class AutoComplete extends Vue {
     this.resultsElement = this.$refs.results as HTMLElement
   }
 
-  getOptionStyle(value: string) {
-    return common.getOptionStyle(value, this.hoveringValue)
+  getOptionStyle(option: common.Select2Option) {
+    return common.getOptionStyle(option, this.hoveringValue)
   }
   mouseenter(option: common.Select2Option) {
     if (!option.disabled) {
