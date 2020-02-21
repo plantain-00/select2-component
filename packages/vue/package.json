@@ -1,6 +1,6 @@
 {
   "name": "select2-vue-component",
-  "version": "5.8.3",
+  "version": "5.9.0",
   "description": "A vuejs select component.",
   "main": "dist/select2-vue-component.min.js",
   "module": "dist/index.js",
@@ -22,7 +22,7 @@
   ],
   "dependencies": {
     "@types/node": "*",
-    "select2-component": "^5.8.1",
+    "select2-component": "^5.9.0",
     "vue": "2",
     "vue-class-component": "7"
   }
