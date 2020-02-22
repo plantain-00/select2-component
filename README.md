@@ -101,6 +101,9 @@ update | (value: [Select2UpdateValue](#select2-data-structure)) => void | trigge
 open | () => void | triggered when user open the options
 search | (text: string) => void | triggered when search text changed
 keydown, keyup, keypress | (e: KeyboardEvent) => void | triggered when search input triggers keydown, keyup, keypress
+minimumInputLength | number? | if minimumInputLength = 3, only start searching when the user has input 3 or more characters
+maximumInputLength | number? | if maximumInputLength = 20, only allow terms up to 20 characters long
+keepSearchText | boolean? | keep search text when the dropdown opens
 
 ## select2 data structure
 
@@ -163,7 +166,7 @@ import { AutoComplete } from "select2-react-component";
 </AutoComplete>
 ```
 
-### properties and events of the auto complete  component
+### properties and events of the auto complete component
 
 name | type | description
 --- | --- | ---

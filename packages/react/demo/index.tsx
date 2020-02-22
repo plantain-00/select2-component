@@ -46,6 +46,7 @@ class Main extends React.Component<{}, {}> {
       ]
       : []
   }
+  private data14 = data1
 
   private value1 = 'CA'
   private value2 = 'CA'
@@ -58,6 +59,7 @@ class Main extends React.Component<{}, {}> {
   private value9: string[] = []
   private value12 = true
   private value13 = ''
+  private value14 = 'CA'
 
   render() {
     return (
@@ -124,6 +126,14 @@ class Main extends React.Component<{}, {}> {
           search={value => this.update13(value)}
           select={value => this.update13(value)}>
         </AutoComplete>
+        <h3>min and max ({this.value14})</h3>
+        <Select2 data={this.data14}
+          value={this.value14}
+          minimumInputLength={2}
+          maximumInputLength={10}
+          keepSearchText
+          update={value => this.update14(value)}>
+        </Select2>
       </div>
     )
   }
@@ -180,6 +190,10 @@ class Main extends React.Component<{}, {}> {
   private update13(value: Select2UpdateValue) {
     this.value13 = value as string
     this.setState({ value13: this.value13 })
+  }
+  private update14(value: Select2UpdateValue) {
+    this.value14 = value as string
+    this.setState({ value14: this.value14 })
   }
 }
 

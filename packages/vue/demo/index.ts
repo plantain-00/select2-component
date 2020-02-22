@@ -94,6 +94,14 @@ for (const groupOrOption of data8) {
         @search="update13($event)"
         @select="update13($event)">
       </auto-complete>
+      <h3>min and max ({{value14}})</h3>
+      <select2 :data="data14"
+        :value="value14"
+        minimumInputLength="2"
+        maximumInputLength="10"
+        :keepSearchText="true"
+        @update="update14($event)">
+      </select2>
     </div>
     `
 })
@@ -126,6 +134,7 @@ class App extends Vue {
       ]
       : []
   }
+  data14 = data1
 
   value1 = 'CA'
   value2 = 'CA'
@@ -138,7 +147,7 @@ class App extends Vue {
   value9: string[] = []
   value12 = true
   value13 = ''
-  
+  value14 = 'CA'
 
   update1(value: string) {
     this.value1 = value
@@ -180,6 +189,9 @@ class App extends Vue {
   }
   update13(value: string) {
     this.value13 = value
+  }
+  update14(value: string) {
+    this.value14 = value
   }
 }
 
