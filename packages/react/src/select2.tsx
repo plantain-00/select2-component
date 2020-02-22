@@ -22,6 +22,7 @@ export class Select2 extends React.PureComponent<{
   keypress?: (e: React.KeyboardEvent) => void;
   minimumInputLength?: number;
   maximumInputLength?: number;
+  keepSearchText?: boolean;
 }, {}> {
   private hoveringValue?: common.Select2Value | null = null
   private option: common.Select2Option | common.Select2Option[] | null = null
@@ -258,7 +259,9 @@ export class Select2 extends React.PureComponent<{
     this.isOpen = !this.isOpen
     this.setState({ isOpen: this.isOpen })
     if (this.isOpen) {
-      this.innerSearchText = ''
+      if (!this.props.keepSearchText) {
+        this.innerSearchText = ''
+      }
       this.setState({ searchText: this.searchText }, () => {
         this.focusSearchboxOrResultsElement()
 

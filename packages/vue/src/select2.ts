@@ -7,7 +7,7 @@ import { select2TemplateHtml, select2TemplateHtmlStatic } from './variables'
 @Component({
   render: select2TemplateHtml,
   staticRenderFns: select2TemplateHtmlStatic,
-  props: ['data', 'value', 'disabled', 'minCountForSearch', 'placeholder', 'customSearchEnabled', 'multiple', 'minimumInputLength', 'maximumInputLength']
+  props: ['data', 'value', 'disabled', 'minCountForSearch', 'placeholder', 'customSearchEnabled', 'multiple', 'minimumInputLength', 'maximumInputLength', 'keepSearchText']
 })
 export class Select2 extends Vue {
   data!: common.Select2Data
@@ -19,6 +19,7 @@ export class Select2 extends Vue {
   multiple?: boolean
   minimumInputLength?: number
   maximumInputLength?: number
+  keepSearchText?: boolean
 
   option: common.Select2Option | common.Select2Option[] | null = null
   private hoveringValue?: common.Select2Value | null = null
@@ -121,7 +122,9 @@ export class Select2 extends Vue {
     }
     this.isOpen = !this.isOpen
     if (this.isOpen) {
-      this.innerSearchText = ''
+      if (!this.keepSearchText) {
+        this.innerSearchText = ''
+      }
       Vue.nextTick(() => {
         this.focusSearchboxOrResultsElement()
 

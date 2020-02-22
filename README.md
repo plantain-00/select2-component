@@ -103,6 +103,7 @@ search | (text: string) => void | triggered when search text changed
 keydown, keyup, keypress | (e: KeyboardEvent) => void | triggered when search input triggers keydown, keyup, keypress
 minimumInputLength | number? | if minimumInputLength = 3, only start searching when the user has input 3 or more characters
 maximumInputLength | number? | if maximumInputLength = 20, only allow terms up to 20 characters long
+keepSearchText | boolean? | keep search text when the dropdown opens
 
 ## select2 data structure
 

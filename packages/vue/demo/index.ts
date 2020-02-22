@@ -99,6 +99,7 @@ for (const groupOrOption of data8) {
         :value="value14"
         minimumInputLength="2"
         maximumInputLength="10"
+        :keepSearchText="true"
         @update="update14($event)">
       </select2>
     </div>

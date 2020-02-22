@@ -131,6 +131,7 @@ class Main extends React.Component<{}, {}> {
           value={this.value14}
           minimumInputLength={2}
           maximumInputLength={10}
+          keepSearchText
           update={value => this.update14(value)}>
         </Select2>
       </div>
