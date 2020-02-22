@@ -20,6 +20,8 @@ export class Select2 extends React.PureComponent<{
   keydown?: (e: React.KeyboardEvent) => void;
   keyup?: (e: React.KeyboardEvent) => void;
   keypress?: (e: React.KeyboardEvent) => void;
+  minimumInputLength?: number;
+  maximumInputLength?: number;
 }, {}> {
   private hoveringValue?: common.Select2Value | null = null
   private option: common.Select2Option | common.Select2Option[] | null = null
@@ -114,6 +116,7 @@ export class Select2 extends React.PureComponent<{
                 autoComplete='off'
                 autoCorrect='off'
                 autoCapitalize='off'
+                maxLength={this.props.maximumInputLength}
                 spellCheck={false} />
             </div>
             <div className='select2-results'>
@@ -209,6 +212,7 @@ export class Select2 extends React.PureComponent<{
 
   private getFilteredData(canSetState: boolean) {
     const result = this.props.customSearchEnabled
+      || (this.props.minimumInputLength && this.props.minimumInputLength > this.searchText.length)
       ? this.props.data
       : common.getFilteredData(this.props.data, this.searchText)
 

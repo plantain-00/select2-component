@@ -7,7 +7,7 @@ import { select2TemplateHtml, select2TemplateHtmlStatic } from './variables'
 @Component({
   render: select2TemplateHtml,
   staticRenderFns: select2TemplateHtmlStatic,
-  props: ['data', 'value', 'disabled', 'minCountForSearch', 'placeholder', 'customSearchEnabled', 'multiple']
+  props: ['data', 'value', 'disabled', 'minCountForSearch', 'placeholder', 'customSearchEnabled', 'multiple', 'minimumInputLength', 'maximumInputLength']
 })
 export class Select2 extends Vue {
   data!: common.Select2Data
@@ -17,6 +17,8 @@ export class Select2 extends Vue {
   placeholder?: string
   customSearchEnabled?: boolean
   multiple?: boolean
+  minimumInputLength?: number
+  maximumInputLength?: number
 
   option: common.Select2Option | common.Select2Option[] | null = null
   private hoveringValue?: common.Select2Value | null = null
@@ -43,6 +45,7 @@ export class Select2 extends Vue {
 
   get filteredData() {
     const result = this.customSearchEnabled
+      || (this.minimumInputLength && this.minimumInputLength > this.searchText.length)
       ? this.data
       : common.getFilteredData(this.data, this.searchText)
 
