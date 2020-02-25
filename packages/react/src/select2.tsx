@@ -31,6 +31,7 @@ export class Select2 extends React.PureComponent<{
   private innerSearchText = ''
   private lastScrollTopIndex = 0
   private mounted?: boolean
+  private value = this.props.value
 
   private searchInputElement!: HTMLElement
   private resultsElement!: HTMLElement
@@ -67,16 +68,29 @@ export class Select2 extends React.PureComponent<{
     return common.getSearchStyle(this.isSearchboxHidden)
   }
 
-  UNSAFE_componentWillMount() {
-    const option = common.getOptionsByValue(this.props.data, this.props.value, this.props.multiple)
+  UNSAFE_componentWillReceiveProps(nextProps: { value?: common.Select2UpdateValue; }) {
+    if (nextProps.value !== this.value) {
+      this.value = nextProps.value
+      this.setState({ value: nextProps.value }, () => {
+        this.updateOptionAndHoveringValue()
+      })
+    }
+  }
+
+  private updateOptionAndHoveringValue() {
+    const option = common.getOptionsByValue(this.props.data, this.value, this.props.multiple)
     if (option !== null) {
       this.option = option
       this.setState({ option: this.option })
     }
     if (!Array.isArray(option)) {
-      this.hoveringValue = this.props.value as string | undefined
+      this.hoveringValue = this.value as string | undefined
     }
     this.setState({ hoveringValue: this.hoveringValue })
+  }
+
+  UNSAFE_componentWillMount() {
+    this.updateOptionAndHoveringValue()
   }
 
   componentDidMount() {
@@ -84,6 +98,7 @@ export class Select2 extends React.PureComponent<{
     this.searchInputElement = theElement.childNodes[1].childNodes[0].childNodes[0].childNodes[0] as HTMLElement
     this.resultsElement = theElement.childNodes[1].childNodes[0].childNodes[1].childNodes[0] as HTMLElement
     this.mounted = true
+    this.value = this.props.value
   }
 
   componentWillUnmount() {
