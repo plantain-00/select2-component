@@ -8,6 +8,7 @@ export interface Select2Option {
   value: Select2Value;
   label: string;
   disabled?: boolean;
+  // eslint-disable-next-line @typescript-eslint/ban-types
   component?: string | Function;
   classes?: string;
 }

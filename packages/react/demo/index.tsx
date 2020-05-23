@@ -17,7 +17,7 @@ for (const groupOrOption of data8) {
   }
 }
 
-class Main extends React.Component<{}, {}> {
+class Main extends React.Component<unknown, unknown> {
   private data1 = data1
   private data2 = data2
   private data3 = data3

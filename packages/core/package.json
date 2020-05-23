@@ -19,6 +19,6 @@
   ],
   "dependencies": {
     "@types/node": "*",
-    "tslib": "1"
+    "tslib": "2"
   }
 }
