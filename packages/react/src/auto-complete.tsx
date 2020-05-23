@@ -15,7 +15,7 @@ export class AutoComplete extends React.PureComponent<{
   keydown?: (e: React.KeyboardEvent) => void;
   keyup?: (e: React.KeyboardEvent) => void;
   keypress?: (e: React.KeyboardEvent) => void;
-}, {}> {
+}, unknown> {
   private hoveringValue?: common.Select2Value | null = null
   private option: common.Select2Option | common.Select2Option[] | null = null
   private isOpen = false

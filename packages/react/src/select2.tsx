@@ -23,7 +23,7 @@ export class Select2 extends React.PureComponent<{
   minimumInputLength?: number;
   maximumInputLength?: number;
   keepSearchText?: boolean;
-}, {}> {
+}, unknown> {
   private hoveringValue?: common.Select2Value | null = null
   private option: common.Select2Option | common.Select2Option[] | null = null
   private isOpen = false
