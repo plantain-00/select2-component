@@ -1,6 +1,6 @@
 {
   "name": "select2-react-component",
-  "version": "5.10.1",
+  "version": "5.10.2",
   "description": "A reactjs select component.",
   "main": "dist/select2-react-component.min.js",
   "module": "dist/index.js",
@@ -24,7 +24,7 @@
     "@types/node": "*",
     "react": "16",
     "react-dom": "16",
-    "select2-component": "^5.9.0"
+    "select2-component": "^5.10.2"
   },
   "devDependencies": {
     "@types/react": "16.9.41",
