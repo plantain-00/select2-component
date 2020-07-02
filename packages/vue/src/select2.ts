@@ -94,6 +94,14 @@ export class Select2 extends Vue {
   mounted() {
     this.searchInputElement = this.$refs.searchInput as HTMLElement
     this.resultsElement = this.$refs.results as HTMLElement
+
+    this.$watch('value', () => {
+      const option = common.getOptionsByValue(this.data, this.value, this.multiple)
+      this.option = option
+      if (!Array.isArray(option)) {
+        this.hoveringValue = this.value as string | undefined
+      }
+    })
   }
 
   beforeDestroy() {
