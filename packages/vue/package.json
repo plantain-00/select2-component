@@ -17,13 +17,13 @@
     "url": "https://github.com/plantain-00/select2-component/issues"
   },
   "homepage": "https://github.com/plantain-00/select2-component#readme",
-  "files": [
-    "dist"
-  ],
   "dependencies": {
     "@types/node": "*",
     "select2-component": "^5.10.2",
     "vue": "2",
     "vue-class-component": "7"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   }
 }
