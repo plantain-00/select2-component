@@ -17,9 +17,6 @@
     "url": "https://github.com/plantain-00/select2-component/issues"
   },
   "homepage": "https://github.com/plantain-00/select2-component#readme",
-  "files": [
-    "dist"
-  ],
   "dependencies": {
     "@types/node": "*",
     "react": "16",
@@ -29,5 +26,8 @@
   "devDependencies": {
     "@types/react": "16.9.44",
     "@types/react-dom": "16.9.8"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   }
 }

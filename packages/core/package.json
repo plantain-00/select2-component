@@ -14,11 +14,11 @@
     "url": "https://github.com/plantain-00/select2-component/issues"
   },
   "homepage": "https://github.com/plantain-00/select2-component#readme",
-  "files": [
-    "dist"
-  ],
   "dependencies": {
     "@types/node": "*",
     "tslib": "2"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   }
 }
