@@ -24,7 +24,7 @@
     "select2-component": "^5.10.2"
   },
   "devDependencies": {
-    "@types/react": "16.9.46",
+    "@types/react": "16.9.48",
     "@types/react-dom": "16.9.8"
   },
   "publishConfig": {
