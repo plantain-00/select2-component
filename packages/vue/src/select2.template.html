@@ -28,6 +28,7 @@
                     @keydown="keyDown($event)"
                     @keyup="keyUp($event)"
                     @keypress="keyPress($event)"
+                    @focus="cancelFocusoutTimer()"
                     @focusout="focusout()"
                     class="select2-search__field"
                     type="search"
