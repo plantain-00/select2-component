@@ -125,6 +125,7 @@ export class Select2 extends React.PureComponent<{
                 onKeyDown={e => this.keyDown(e)}
                 onKeyUp={e => this.keyUp(e)}
                 onKeyPress={e => this.keyPress(e)}
+                onFocus={() => this.cancelFocusoutTimer()}
                 onBlur={() => this.focusout()}
                 className='select2-search__field'
                 type='search'
