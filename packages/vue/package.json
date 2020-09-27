@@ -1,6 +1,6 @@
 {
   "name": "select2-vue-component",
-  "version": "5.10.3",
+  "version": "6.0.0",
   "description": "A vuejs select component.",
   "main": "dist/select2-vue-component.min.js",
   "module": "dist/index.js",
@@ -20,8 +20,7 @@
   "dependencies": {
     "@types/node": "*",
     "select2-component": "^5.10.3",
-    "vue": "2",
-    "vue-class-component": "7"
+    "vue": "3"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

@@ -1,6 +1,6 @@
-import { ConfigData } from 'file2variable-cli'
+import { Configuration } from 'file2variable-cli'
 
-export default {
+const config: Configuration = {
   base: 'packages/vue/src/',
   files: [
     'packages/vue/src/*.template.html'
@@ -8,19 +8,17 @@ export default {
   handler: file => {
     if (file.endsWith('select2.template.html')) {
       return {
-        type: 'vue',
-        name: 'Select2',
-        path: './select2'
+        type: 'vue3',
       }
     }
     if (file.endsWith('auto-complete.template.html')) {
       return {
-        type: 'vue',
-        name: 'AutoComplete',
-        path: './auto-complete'
+        type: 'vue3',
       }
     }
     return { type: 'text' }
   },
   out: 'packages/vue/src/variables.ts'
-} as ConfigData
+}
+
+export default config
