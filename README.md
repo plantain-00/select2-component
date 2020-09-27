@@ -40,7 +40,8 @@ A vuejs and reactjs select component.
 `npm i select2-vue-component`
 
 ```ts
-import "select2-vue-component";
+import { Select2 } from "select2-vue-component";
+app.component('select2', Select2)
 ```
 
 or
@@ -179,6 +180,15 @@ search | (text: string) => void | triggered when search text changed
 keydown, keyup, keypress | (e: KeyboardEvent) => void | triggered when search input triggers keydown, keyup, keypress
 
 ## change logs
+
+```ts
+// v5 vue 2
+import 'select2-vue-component'
+
+// v6 vue 3
+import { Select2 } from "select2-vue-component"
+app.component('select2', Select2)
+```
 
 ```bash
 # v4

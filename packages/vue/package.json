@@ -20,8 +20,7 @@
   "dependencies": {
     "@types/node": "*",
     "select2-component": "^5.10.3",
-    "vue": "2",
-    "vue-class-component": "7"
+    "vue": "3"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
