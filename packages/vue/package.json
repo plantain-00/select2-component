@@ -1,6 +1,6 @@
 {
   "name": "select2-vue-component",
-  "version": "6.0.0",
+  "version": "6.0.1",
   "description": "A vuejs select component.",
   "main": "dist/select2-vue-component.min.js",
   "module": "dist/index.js",

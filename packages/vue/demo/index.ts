@@ -157,7 +157,7 @@ const App = defineComponent({
       </select2>
       <h3>open and search event ({{value7}})</h3>
       <select2 :data="data7"
-        custom-search-enabled="true"
+        :custom-search-enabled="true"
         @open="open7()"
         @search="search7($event)"
         @keydown="keydown($event)"
@@ -171,7 +171,7 @@ const App = defineComponent({
       <h3>multiple ({{value9}})</h3>
       <select2 :data="data9"
         :value="value9"
-        multiple="true"
+        :multiple="true"
         @update="update9($event)">
       </select2>
       <h3>boolean value ({{value12}})</h3>
@@ -188,8 +188,8 @@ const App = defineComponent({
       <h3>min and max ({{value14}})</h3>
       <select2 :data="data14"
         :value="value14"
-        minimumInputLength="2"
-        maximumInputLength="10"
+        :minimumInputLength="2"
+        :maximumInputLength="10"
         :keepSearchText="true"
         @update="update14($event)">
       </select2>

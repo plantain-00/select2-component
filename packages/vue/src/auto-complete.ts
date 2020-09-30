@@ -13,7 +13,7 @@ export const AutoComplete = defineComponent({
       type: Array as PropType<common.Select2Data>,
       required: true,
     },
-    value: Object as PropType<common.Select2UpdateValue>,
+    value: [String, Number, Boolean, Array] as PropType<common.Select2UpdateValue>,
   },
   data: () => {
     return {

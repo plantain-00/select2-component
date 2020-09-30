@@ -1,5 +1,10 @@
 # Change Log
 
+## [6.0.1](https://github.com/plantain-00/select2-component/compare/v6.0.0...v6.0.1) (2020-09-30)
+  
+* fix: warning ([4bd52eb](https://github.com/plantain-00/select2-component/commit/4bd52ebec59e4a73880fe3aa5bde83a08d3bfc99))
+* fix: release script ([7c5d5f1](https://github.com/plantain-00/select2-component/commit/7c5d5f1140b07516b99af95a254966bdeee9937b))
+
 ## [6.0.0](https://github.com/plantain-00/select2-component/compare/v5.10.3...v6.0.0) (2020-09-27)
   
 * feat: support vue3 ([fd3fca2](https://github.com/plantain-00/select2-component/commit/fd3fca21fd5c25c3ad5372e9178f1d35995d02c5))
