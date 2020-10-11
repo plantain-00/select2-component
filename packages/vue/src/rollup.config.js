@@ -12,13 +12,9 @@ export default {
   output: {
     name: 'Select2',
     file: 'packages/vue/dist/select2-vue-component.min.js',
-    format: 'umd',
-    globals: {
-      'vue-class-component': 'VueClassComponent'
-    }
+    format: 'umd'
   },
   external: [
-    'vue',
-    'vue-class-component'
+    'vue'
   ]
 }
