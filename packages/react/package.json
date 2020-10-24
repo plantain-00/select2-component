@@ -19,8 +19,8 @@
   "homepage": "https://github.com/plantain-00/select2-component#readme",
   "dependencies": {
     "@types/node": "*",
-    "react": "16",
-    "react-dom": "16",
+    "react": "17",
+    "react-dom": "17",
     "select2-component": "^5.10.3"
   },
   "devDependencies": {

@@ -1,7 +1,7 @@
 {
   "coreDemoIndexBundleCss": "16.8 kB 2.77 kB",
-  "reactDemoIndexBundleJs": "158 kB 47.3 kB",
-  "vueDemoIndexBundleJs": "280 kB 86.4 kB",
-  "packagesReactDemoIndexHtml": "711 B 481 B",
-  "packagesVueDemoIndexHtml": "711 B 476 B"
+  "reactDemoIndexBundleJs": "160 kB 49 kB",
+  "vueDemoIndexBundleJs": "280 kB 86.6 kB",
+  "packagesReactDemoIndexHtml": "711 B 479 B",
+  "packagesVueDemoIndexHtml": "711 B 481 B"
 }
