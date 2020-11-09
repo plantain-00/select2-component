@@ -1,5 +1,10 @@
 # Change Log
 
+## [6.1.0](https://github.com/plantain-00/select2-component/compare/v6.0.1...v6.1.0) (2020-11-09)
+  
+* chore: update dependencies ([c65e738](https://github.com/plantain-00/select2-component/commit/c65e738e720738b379cf444d3067ad0268e07358)) ([40554ae](https://github.com/plantain-00/select2-component/commit/40554ae5afacdd8e27bfb871915b23e79aac15df)) ([6aba00c](https://github.com/plantain-00/select2-component/commit/6aba00c0e7d34ceb80fc0ca01a34f1340ca05cbe)) ([a0e622e](https://github.com/plantain-00/select2-component/commit/a0e622ee4b451896c138cbcf2a0fa7183585556e)) ([e1fd771](https://github.com/plantain-00/select2-component/commit/e1fd771676ef20212d068942494ba919121a3035)) ([b0df7fd](https://github.com/plantain-00/select2-component/commit/b0df7fd26bb3390debab7a2b52292adbda1ef0b6))
+* docs: remove unused vue-class-component ([0e6520c](https://github.com/plantain-00/select2-component/commit/0e6520c7635a72dcbdee1937f054bb1c881ec8fa))
+
 ## [6.0.1](https://github.com/plantain-00/select2-component/compare/v6.0.0...v6.0.1) (2020-09-30)
   
 * fix: warning ([4bd52eb](https://github.com/plantain-00/select2-component/commit/4bd52ebec59e4a73880fe3aa5bde83a08d3bfc99))
