@@ -23,10 +23,6 @@
     "react-dom": "17",
     "select2-component": "^5.10.3"
   },
-  "devDependencies": {
-    "@types/react": "16.9.56",
-    "@types/react-dom": "16.9.9"
-  },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   }
