@@ -68,7 +68,7 @@ export function autoCompleteTemplateHtml(_ctx, _cache) {
                                 }, null, 8 /* PROPS */, ["option"]))
                               : (_openBlock(), _createBlock(_Fragment, { key: 1 }, [
                                   _createTextVNode(_toDisplayString(option.label), 1 /* TEXT */)
-                                ], 64 /* STABLE_FRAGMENT */))
+                                ], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */))
                           ], 42 /* CLASS, PROPS, HYDRATE_EVENTS */, ["aria-selected", "aria-disabled", "onMouseenter", "onClick"]))
                         }), 128 /* KEYED_FRAGMENT */))
                       ])
@@ -89,7 +89,7 @@ export function autoCompleteTemplateHtml(_ctx, _cache) {
                           }, null, 8 /* PROPS */, ["option"]))
                         : (_openBlock(), _createBlock(_Fragment, { key: 1 }, [
                             _createTextVNode(_toDisplayString(groupOrOption.label), 1 /* TEXT */)
-                          ], 64 /* STABLE_FRAGMENT */))
+                          ], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */))
                     ], 42 /* CLASS, PROPS, HYDRATE_EVENTS */, ["aria-selected", "aria-disabled", "onMouseenter", "onClick"]))
               ], 64 /* STABLE_FRAGMENT */))
             }), 256 /* UNKEYED_FRAGMENT */))
@@ -124,8 +124,8 @@ export function select2TemplateHtml(_ctx, _cache) {
                         }, null, 8 /* PROPS */, ["option"]))
                       : (_openBlock(), _createBlock(_Fragment, { key: 1 }, [
                           _createTextVNode(_toDisplayString(_ctx.option.label), 1 /* TEXT */)
-                        ], 64 /* STABLE_FRAGMENT */))
-                  ], 64 /* STABLE_FRAGMENT */))
+                        ], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */))
+                  ], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */))
                 : (_openBlock(), _createBlock("span", {
                     key: 1,
                     class: "select2-selection__placeholder"
@@ -224,7 +224,7 @@ export function select2TemplateHtml(_ctx, _cache) {
                                 }, null, 8 /* PROPS */, ["option"]))
                               : (_openBlock(), _createBlock(_Fragment, { key: 1 }, [
                                   _createTextVNode(_toDisplayString(option.label), 1 /* TEXT */)
-                                ], 64 /* STABLE_FRAGMENT */))
+                                ], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */))
                           ], 42 /* CLASS, PROPS, HYDRATE_EVENTS */, ["aria-selected", "aria-disabled", "onMouseenter", "onClick"]))
                         }), 128 /* KEYED_FRAGMENT */))
                       ])
@@ -245,7 +245,7 @@ export function select2TemplateHtml(_ctx, _cache) {
                           }, null, 8 /* PROPS */, ["option"]))
                         : (_openBlock(), _createBlock(_Fragment, { key: 1 }, [
                             _createTextVNode(_toDisplayString(groupOrOption.label), 1 /* TEXT */)
-                          ], 64 /* STABLE_FRAGMENT */))
+                          ], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */))
                     ], 42 /* CLASS, PROPS, HYDRATE_EVENTS */, ["aria-selected", "aria-disabled", "onMouseenter", "onClick"]))
               ], 64 /* STABLE_FRAGMENT */))
             }), 256 /* UNKEYED_FRAGMENT */))
