@@ -1,5 +1,11 @@
 # Change Log
 
+## [5.10.4](https://github.com/plantain-00/select2-component/compare/v5.10.3...v5.10.4) (2021-04-20)
+  
+* chore: update template variable ([bcc607c](https://github.com/plantain-00/select2-component/commit/bcc607c302877ddd07ed1df3738219a87b8048b4))
+* fix: only apply focus style when select is focus ([93cab89](https://github.com/plantain-00/select2-component/commit/93cab89b84b72c2ba227e7ab6ecbd82781d63af3))
+* chore: update dependencies ([c5b77f3](https://github.com/plantain-00/select2-component/commit/c5b77f3421452329cf98172ef759cdd0bc3f912f)) ([c965f08](https://github.com/plantain-00/select2-component/commit/c965f08689c30fa33dc84f6142f70b590f55b379))
+
 ## [5.10.3](https://github.com/plantain-00/select2-component/compare/v5.10.2...v5.10.3) (2020-09-11)
   
 * fix: release script ([a6c5e1f](https://github.com/plantain-00/select2-component/commit/a6c5e1fd76ed9ee8976ae52b6e91a730663e5dd1))
