@@ -331,7 +331,7 @@ export function getDropdownStyle(isOpen: boolean) {
 
 export function getContainerStyle(disabled: boolean | undefined = undefined, isOpen: boolean) {
   return `select2 select2-container select2-container--default ${disabled ? 'select2-container--disabled' : ''} `
-    + `${isOpen ? 'select2-container--open' : ''} select2-container--below select2-container--focus`
+    + `${isOpen ? 'select2-container--open select2-container--focus' : ''} select2-container--below`
 }
 
 export function getSelectionStyle(multiple: boolean | undefined = undefined) {
